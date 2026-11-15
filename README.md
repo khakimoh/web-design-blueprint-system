@@ -6,7 +6,7 @@ technology guides, agent instructions and project templates — in one place, ve
 
 | | |
 | --- | --- |
-| Version | `1.1.0` (see [CHANGELOG.md](CHANGELOG.md)) |
+| Version | `2.0.0` (see [CHANGELOG.md](CHANGELOG.md)) |
 | Primary technology profile | Angular 22 · TypeScript · SCSS (Dart Sass) · Bootstrap 5.3 |
 | Accessibility target | WCAG 2.2 AA |
 | Entry point for AI agents | [AGENTS.md](AGENTS.md) |
@@ -104,7 +104,7 @@ assume this layout:
 ```bash
 mkdir -p ~/dev && cd ~/dev
 git clone https://github.com/khakimoh/web-design-blueprint-system.git
-git -C web-design-blueprint-system checkout v1.1.0
+git -C web-design-blueprint-system checkout v2.0.0
 ```
 
 Pinning a tag means later changes to the blueprint never change your project by surprise.
@@ -204,7 +204,7 @@ Create `AGENTS.md` in the project root:
 
 ```markdown
 # AGENTS.md
-This project follows the Web Design & Engineering Blueprint v1.1.0,
+This project follows the Web Design & Engineering Blueprint v2.0.0,
 located at ../web-design-blueprint-system (read-only — never edit it).
 
 1. Read ../web-design-blueprint-system/AGENTS.md first and follow its reading order.
@@ -487,7 +487,7 @@ The full template is in [templates/agent-kickoff-prompt.md](templates/agent-kick
 
 ```text
 We are starting a new web project. Follow the Web Design & Engineering
-Blueprint at ../web-design-blueprint-system, version 1.1.0.
+Blueprint at ../web-design-blueprint-system, version 2.0.0.
 
 1. Read its AGENTS.md first and follow its reading order.
 2. Read docs/project-brief.md. List missing or ambiguous requirements and

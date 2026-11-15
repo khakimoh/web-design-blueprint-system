@@ -4,7 +4,7 @@ All notable changes to the blueprint. Format: [Keep a Changelog](https://keepach
 versioning: [Semantic Versioning](https://semver.org/) as defined in
 [docs/development/development.md](docs/development/development.md#versioning-policy-semantic-versioning).
 
-## [Unreleased]
+## [2.0.0] — 2026-11-15
 
 ### Changed
 
