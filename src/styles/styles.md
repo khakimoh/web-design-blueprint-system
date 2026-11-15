@@ -18,8 +18,8 @@ project/               project-owned CSS, loaded last
 ```
 
 - Use in component styles: `@use "abstracts" as ds;` (requires `src/styles` on the load path).
-- Projects edit only [config/_project.scss](config/_project.scss) and [project/](project/README.md).
+- Projects edit only [config/_project.scss](config/_project.scss) and [project/](project/project.md).
 - Validate: `npm run build:styles` (from the blueprint root).
 
-Docs: [design system](../../docs/design-system/README.md), [SCSS profile](../../docs/technologies/scss/README.md),
-[Bootstrap profile](../../docs/technologies/bootstrap/README.md).
+Docs: [design system](../../docs/design-system/design-system.md), [SCSS profile](../../docs/technologies/scss/scss.md),
+[Bootstrap profile](../../docs/technologies/bootstrap/bootstrap.md).

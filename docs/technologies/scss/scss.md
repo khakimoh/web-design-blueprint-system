@@ -1,7 +1,7 @@
 # SCSS Profile
 
 How the design system is implemented in SCSS. Reference implementation:
-[`src/styles/`](../../../src/styles/README.md). Framework-agnostic: used unchanged by the
+[`src/styles/`](../../../src/styles/styles.md). Framework-agnostic: used unchanged by the
 Angular profile and by any future framework profile.
 
 ## 1. Toolchain

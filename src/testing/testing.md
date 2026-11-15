@@ -5,8 +5,8 @@ they test (`*.spec.ts`).
 
 | Folder | Contents |
 | --- | --- |
-| [mocks/](mocks/README.md) | Fakes and fixture builders |
-| [utils/](utils/README.md) | Test helpers (DOM queries, harness helpers) |
+| [mocks/](mocks/mocks.md) | Fakes and fixture builders |
+| [utils/](utils/utils.md) | Test helpers (DOM queries, harness helpers) |
 
 Excluded from production builds by the CLI's TypeScript configuration. Rules:
 [docs/technologies/angular/testing.md](../../docs/technologies/angular/testing.md).

@@ -6,9 +6,9 @@ concern in `project.config.yaml` → `frontend`.
 
 | Concern | Profile | Status | Selected by |
 | --- | --- | --- | --- |
-| Application framework | [angular/](angular/README.md) | **Primary (v1)** — Angular 22, TypeScript, standalone, zoneless | `frontend.framework: angular` |
-| Styling language | [scss/](scss/README.md) | **Primary (v1)** — Dart Sass module system | `frontend.styling: scss` |
-| CSS framework | [bootstrap/](bootstrap/README.md) | **Primary (v1)** — Bootstrap 5.3 via Sass | `frontend.css_framework: bootstrap` |
+| Application framework | [angular/](angular/angular.md) | **Primary (v1)** — Angular 22, TypeScript, standalone, zoneless | `frontend.framework: angular` |
+| Styling language | [scss/](scss/scss.md) | **Primary (v1)** — Dart Sass module system | `frontend.styling: scss` |
+| CSS framework | [bootstrap/](bootstrap/bootstrap.md) | **Primary (v1)** — Bootstrap 5.3 via Sass | `frontend.css_framework: bootstrap` |
 | CSS framework | none | Supported — `src/styles/main-standalone.scss` | `frontend.css_framework: none` |
 
 The SCSS design-system implementation does not depend on Angular, so a future React or
@@ -20,14 +20,14 @@ Every framework profile folder contains:
 
 | File | Content |
 | --- | --- |
-| `README.md` | Supported versions, version policy, setup commands, how the design foundation is wired in, profile checklist |
+| `<profile>.md` (index) | Supported versions, version policy, setup commands, how the design foundation is wired in, profile checklist |
 | `architecture.md` | Directory structure, layer responsibilities, dependency rules, routing, state, data access, error handling |
 | `conventions.md` | File and identifier naming, language/template rules, styling inside components |
 | `testing.md` | Test runner, what to test at which level, examples |
 
-Styling/CSS-framework profiles contain a `README.md` with setup, configuration, import
+Styling/CSS-framework profiles contain an index file (`<profile>.md`) with setup, configuration, import
 order and rules. Golden examples for a profile live in the reference implementation
-(`src/` for the primary profile) and are listed in the profile README.
+(`src/` for the primary profile) and are listed in the profile index file.
 
 ## Adding a new profile (e.g. React or Vue)
 

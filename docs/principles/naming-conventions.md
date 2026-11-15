@@ -35,7 +35,7 @@ CLI file names) is defined in the profile, e.g.
 ## Data from external systems
 
 - External payloads keep the external casing **only** in transfer types (`…Dto`, `…Response`).
-- Normalize to application casing at the boundary (see [api/README.md](../api/README.md)).
+- Normalize to application casing at the boundary (see [api/api.md](../api/api.md)).
   UI code never sees `snake_case` fields from an API.
 
 ## Asynchronous values

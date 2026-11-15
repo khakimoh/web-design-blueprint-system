@@ -94,7 +94,7 @@ Projects change **inputs**, never the token architecture:
 
 Project-owned CSS goes in `src/styles/project/`. Changing anything else in `src/styles/`
 is a deviation and must be recorded
-(see [configuration](../configuration/README.md)).
+(see [configuration](../configuration/configuration.md)).
 
 ## 6. Extending the token system (blueprint maintainers)
 

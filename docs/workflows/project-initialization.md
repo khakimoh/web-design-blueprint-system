@@ -20,7 +20,7 @@ Agent actions:
 
 ## Step 2 — Read the blueprint
 
-Read, in order: `AGENTS.md`; principles; design-system README plus topics relevant to the
+Read, in order: `AGENTS.md`; principles; design-system index (`design-system.md`) plus topics relevant to the
 project (always: tokens, color, typography, layout, accessibility; RTL if needed); the
 selected technology profiles; this workflow and feature-development; golden examples.
 
@@ -58,7 +58,7 @@ Stop. Proceed only after the human approves (record approval in the checklist).
 ## Step 5 — Initialize the application
 
 Use the official CLI as described in the framework profile, e.g.
-[Angular profile §2](../technologies/angular/README.md#2-create-a-project). Do not hand-write
+[Angular profile §2](../technologies/angular/angular.md#2-create-a-project). Do not hand-write
 workspace configuration the CLI generates, and do not build a custom generator.
 
 Then: initial commit; add lint/format tooling; confirm `ng build` and `ng test` pass on the

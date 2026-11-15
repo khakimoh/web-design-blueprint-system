@@ -2,7 +2,7 @@
 
 Starting files that are **copied into a new project** (Layer 5 — project-specific
 configuration). Templates hold placeholders and short comments only; the
-reasoning behind each field lives in [docs/](../docs/README.md).
+reasoning behind each field lives in [docs/](../docs/docs.md).
 
 | File | Copy to (in the new project) | Purpose |
 | --- | --- | --- |
@@ -22,5 +22,5 @@ copied together with the rest of `src/styles/`. Projects edit only that file
 
 - Keep templates generic: no product names, domain terms or brand values.
 - When a schema field changes, update `project.config.yaml`, the schema and
-  [docs/configuration/README.md](../docs/configuration/README.md) in the same change,
+  [docs/configuration/configuration.md](../docs/configuration/configuration.md) in the same change,
   then run `npm run validate:config`.

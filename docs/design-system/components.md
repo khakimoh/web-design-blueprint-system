@@ -60,4 +60,4 @@ Rules:
 - [ ] Keyboard and screen-reader behaviour defined (refer to the WAI-ARIA Authoring Practices pattern).
 - [ ] Styles use `@use "abstracts" as ds` and tokens only; ≤ 1 nesting level; no `!important`.
 - [ ] Works in light/dark and LTR/RTL.
-- [ ] Documented in the component folder README with a usage example.
+- [ ] Documented in the component folder's index file (`<component>.md`) with a usage example.

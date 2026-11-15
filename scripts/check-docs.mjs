@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Documentation integrity checks:
-//  1. every directory has a README.md with real content;
+//  1. every directory has an index file named after it (<folder>/<folder>.md)
+//     with real content; the repository root keeps README.md;
 //  2. relative Markdown links resolve to existing files;
 //  3. reusable material contains no product/domain-specific vocabulary
 //     carried over from the reference audit.
@@ -8,7 +9,7 @@
 // Usage: node scripts/check-docs.mjs
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, join, relative, resolve } from 'node:path';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -41,16 +42,20 @@ for (const dir of dirs) {
   }
   if (isPreserved(rel)) continue;
 
-  const readme = join(dir, 'README.md');
+  const indexName = rel === '.' ? 'README.md' : `${basename(dir)}.md`;
+  const readme = join(dir, indexName);
   if (!existsSync(readme)) {
-    problems.push(`${rel}/ has no README.md`);
+    problems.push(`${rel}/ has no index file ${indexName}`);
     continue;
+  }
+  if (rel !== '.' && existsSync(join(dir, 'README.md'))) {
+    problems.push(`${rel}/README.md should be named ${indexName}`);
   }
   const contentLines = readFileSync(readme, 'utf8')
     .split('\n')
     .filter((l) => l.trim() && !l.trim().startsWith('#'));
   if (contentLines.length < MIN_CONTENT_LINES) {
-    problems.push(`${rel}/README.md has fewer than ${MIN_CONTENT_LINES} lines of content`);
+    problems.push(`${rel}/${indexName} has fewer than ${MIN_CONTENT_LINES} lines of content`);
   }
 }
 

@@ -37,9 +37,9 @@ Target: **WCAG 2.2 Level AA**. Details in [design-system/accessibility.md](../de
 
 ## 4. Documentation standards
 
-- Every directory has a `README.md` stating its responsibility and what belongs (and does not belong) in it.
+- Every directory has an index file named after it (`<folder>/<folder>.md`; the repository root keeps `README.md`) stating its responsibility and what belongs (and does not belong) in it.
 - Every reusable unit documents its purpose, inputs/outputs and usage example.
-- Decisions with lasting impact get an ADR ([decisions/](../decisions/README.md)).
+- Decisions with lasting impact get an ADR ([decisions/](../decisions/decisions.md)).
 - Docs live next to what they describe and change in the same commit as the code.
 - Write for a newcomer: start with purpose, then usage, then details.
 

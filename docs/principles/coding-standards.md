@@ -1,6 +1,6 @@
 # Coding Standards
 
-Technology-independent. Profiles in [technologies/](../technologies/README.md) show how
+Technology-independent. Profiles in [technologies/](../technologies/technologies.md) show how
 each rule is implemented in a specific stack.
 
 ## 1. Readability

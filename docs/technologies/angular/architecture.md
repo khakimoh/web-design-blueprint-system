@@ -1,6 +1,6 @@
 # Angular Architecture — Feature-Based Modular Design
 
-Implements [Layer 1 principles](../../principles/README.md) with modern Angular
+Implements [Layer 1 principles](../../principles/principles.md) with modern Angular
 (standalone components, signals, functional providers, zoneless).
 
 ## 1. Directory structure
@@ -118,7 +118,7 @@ Adopting a state library (NgRx SignalStore, NgRx Store) is a deviation that need
 
 ## 6. Data access
 
-- API clients follow [API integration principles](../../api/README.md): DTO types mirror the API, `toModel()` mappers normalize at the boundary, errors are mapped to `AppError`.
+- API clients follow [API integration principles](../../api/api.md): DTO types mirror the API, `toModel()` mappers normalize at the boundary, errors are mapped to `AppError`.
 - Base URL comes from the `APP_CONFIG` injection token (runtime config), never from string literals in services.
 - Idempotent shared data: cache with `shareReplay({ bufferSize: 1, refCount: false })` in the client or keep the result in a store signal.
 - Use `HttpClient` with `withFetch()`; `resource()`/`httpResource()` may be used where they simplify read-only data loading, as long as the four view states are still modelled.

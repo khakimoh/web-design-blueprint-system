@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withFetch(), withInterceptors([httpErrorInterceptor])),
     // Static default for local development. In deployed builds, load the
-    // runtime configuration before bootstrapping (see core/config/README.md).
+    // runtime configuration before bootstrapping (see core/config/config.md).
     provideAppConfig({ apiBaseUrl: '/api' }),
   ],
 };

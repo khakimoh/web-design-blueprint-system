@@ -25,4 +25,4 @@ template get completion and inline validation from the same schema.
   (`const` in the schema), release a new major version and describe the
   migration in [CHANGELOG.md](../CHANGELOG.md).
 - Always update [templates/project.config.yaml](../templates/project.config.yaml) and
-  [docs/configuration/README.md](../docs/configuration/README.md) in the same change.
+  [docs/configuration/configuration.md](../docs/configuration/configuration.md) in the same change.

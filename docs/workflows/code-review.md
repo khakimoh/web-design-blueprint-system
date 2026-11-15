@@ -46,7 +46,7 @@ Each finding states *where*, *what*, *why* (link the standard) and a concrete fi
 ### Tests and docs
 
 - [ ] Tests cover the new behaviour and pass; bug fixes include a regression test.
-- [ ] READMEs, `project.config.yaml` and deviations updated.
+- [ ] Folder index files (`<folder>.md`), `project.config.yaml` and deviations updated.
 
 ## Output format
 

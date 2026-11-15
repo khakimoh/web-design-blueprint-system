@@ -6,10 +6,10 @@ sub-folder names (or configure `assets` in `angular.json` if the project prefers
 
 | Folder | Contents |
 | --- | --- |
-| [images/](images/README.md) | Raster/vector images used by the UI |
-| [icons/](icons/README.md) | SVG icons or sprite (one icon set per project) |
-| [fonts/](fonts/README.md) | Self-hosted web fonts |
-| [documents/](documents/README.md) | Downloadable files |
-| [static-data/](static-data/README.md) | Static JSON used at runtime |
+| [images/](images/images.md) | Raster/vector images used by the UI |
+| [icons/](icons/icons.md) | SVG icons or sprite (one icon set per project) |
+| [fonts/](fonts/fonts.md) | Self-hosted web fonts |
+| [documents/](documents/documents.md) | Downloadable files |
+| [static-data/](static-data/static-data.md) | Static JSON used at runtime |
 
 Reference assets with relative URLs so the app works under any base href.

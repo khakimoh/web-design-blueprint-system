@@ -9,7 +9,7 @@ npm install          # sass, bootstrap, ajv, yaml — dev only
 npm run validate     # build:styles + validate:config + check:docs
 ```
 
-See [scripts/README.md](../../scripts/README.md) for what each check enforces. Formatting
+See [scripts/scripts.md](../../scripts/scripts.md) for what each check enforces. Formatting
 follows [.editorconfig](../../.editorconfig) (UTF-8, LF, 2 spaces, final newline).
 
 ## Versioning policy (Semantic Versioning)
@@ -36,9 +36,9 @@ Breaking changes are listed in the CHANGELOG under **Breaking** with a migration
 
 - **New engineering standard:** confirm it is technology-independent (else it belongs in a profile); write it in `docs/principles/`; add a review checklist item; ADR if it changes existing practice.
 - **New token / scale value:** see [design-tokens.md §6](../design-system/design-tokens.md#6-extending-the-token-system-blueprint-maintainers).
-- **New technology profile:** see [technologies/README.md](../technologies/README.md#adding-a-new-profile-eg-react-or-vue).
-- **New golden example:** minimal, generic (no domain terms), complete enough to show the convention; placed in the directory it exemplifies; listed in the profile README; component styles compile via `npm run build:styles`.
-- **New directory:** add a README that states its responsibility (enforced).
+- **New technology profile:** see [technologies/technologies.md](../technologies/technologies.md#adding-a-new-profile-eg-react-or-vue).
+- **New golden example:** minimal, generic (no domain terms), complete enough to show the convention; placed in the directory it exemplifies; listed in the profile index file; component styles compile via `npm run build:styles`.
+- **New directory:** add an index file named after the folder (`<folder>/<folder>.md`) that states its responsibility (enforced).
 
 ## Promoting a project pattern
 

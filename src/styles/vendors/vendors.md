@@ -5,7 +5,7 @@ configures its library **from tokens** and is loaded only by the entry that uses
 
 | Folder | Library | Loaded by |
 | --- | --- | --- |
-| [bootstrap/](bootstrap/README.md) | Bootstrap 5.3 (Sass) | `main.scss` |
+| [bootstrap/](bootstrap/bootstrap.md) | Bootstrap 5.3 (Sass) | `main.scss` |
 
 Never edit files in `node_modules`, never copy vendor source here. A different CSS framework
-gets its own folder and entry file (see [technologies/README.md](../../../docs/technologies/README.md)).
+gets its own folder and entry file (see [technologies/technologies.md](../../../docs/technologies/technologies.md)).

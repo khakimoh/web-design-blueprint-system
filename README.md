@@ -1,405 +1,261 @@
 # Web Design & Engineering Blueprint
 
-> یک سامانهٔ مرجعِ قابل‌استفادهٔ مجدد برای طراحی و مهندسی وب‌سایت‌ها و Web Applicationها، ویژهٔ توسعه با کمک AI Coding Agentها (Claude Code، Codex و دیگران).
+A reusable foundation for building websites and web applications with AI coding agents
+(Claude Code, Codex and others): engineering principles, a brand-neutral design system,
+technology guides, agent instructions and project templates — in one place, versioned.
 
 | | |
 | --- | --- |
-| نسخه | `1.0.0` (جزئیات در [CHANGELOG.md](CHANGELOG.md)) |
-| Technology profile اصلی | Angular 22 · TypeScript · SCSS (Dart Sass) · Bootstrap 5.3 |
-| استاندارد دسترس‌پذیری | WCAG 2.2 AA |
-| نقطهٔ ورود Agentها | [AGENTS.md](AGENTS.md) |
-| مجوز | [MIT](LICENSE) |
+| Version | `1.1.0` (see [CHANGELOG.md](CHANGELOG.md)) |
+| Primary technology profile | Angular 22 · TypeScript · SCSS (Dart Sass) · Bootstrap 5.3 |
+| Accessibility target | WCAG 2.2 AA |
+| Entry point for AI agents | [AGENTS.md](AGENTS.md) |
+| Live showcase | [playground/](playground/playground.md) |
+| License | [MIT](LICENSE) |
 
 ---
 
-## فهرست
+## Contents
 
-1. [معرفی](#۱-معرفی)
-2. [قابلیت‌های اصلی](#۲-قابلیتهای-اصلی)
-3. [معماری](#۳-معماری)
-4. [ساختار Repository](#۴-ساختار-repository)
-5. [استفاده از این Repository برای یک پروژهٔ جدید](#۵-استفاده-از-این-repository-برای-یک-پروژهٔ-جدید)
-6. [استفاده با AI Agentها](#۶-استفاده-با-ai-agentها)
-7. [قابلیت استفادهٔ مجدد و توسعه‌پذیری](#۷-قابلیت-استفادهٔ-مجدد-و-توسعهپذیری)
-8. [نسخه‌بندی و نگهداری](#۸-نسخهبندی-و-نگهداری)
-9. [اعتبارسنجی](#۹-اعتبارسنجی)
-10. [محدودیت‌ها و تصمیم‌های باز](#۱۰-محدودیتها-و-تصمیمهای-باز)
+1. [What this repository is](#1-what-this-repository-is)
+2. [Quick start: use it in a new front-end project (VS Code)](#2-quick-start-use-it-in-a-new-front-end-project-vs-code)
+3. [See the design system in the Playground](#3-see-the-design-system-in-the-playground)
+4. [Main capabilities](#4-main-capabilities)
+5. [Architecture](#5-architecture)
+6. [Repository structure](#6-repository-structure)
+7. [Working with AI agents](#7-working-with-ai-agents)
+8. [Reuse and extension](#8-reuse-and-extension)
+9. [Versioning and maintenance](#9-versioning-and-maintenance)
+10. [Validation](#10-validation)
+11. [Limitations and open decisions](#11-limitations-and-open-decisions)
 
 ---
 
-## ۱. معرفی
+## 1. What this repository is
 
-### این Repository چیست؟
+This repository is a **blueprint**, not a website or a product. It contains no business
+logic, no domain-specific terms and no fixed brand.
 
-این Repository یک **Blueprint مهندسی و طراحی وب** است: مجموعه‌ای از اصول مهندسی، یک Design System عمومی، راهنمای پیاده‌سازی برای فناوری‌های مشخص، دستورالعمل‌های AI Agentها و قالب‌های پیکربندی پروژه. این Repository **یک وب‌سایت یا محصول خاص نیست** و هیچ فرض تجاری، دامنه‌ای یا هویت برند ثابتی در آن وجود ندارد.
+**The problem it solves.** Every new web project repeats the same foundational decisions:
+how colors are organized, which spacing scale to use, how Bootstrap is customized, where SCSS
+files go, how Angular folders are structured, and how to explain all of this to an AI agent.
+Without a shared reference, every project ends up different, values are hard-coded and
+duplicated, and accessibility, RTL and dark mode are left until the end.
 
-### چرا وجود دارد و چه مشکلی را حل می‌کند؟
+**What it does instead.** It makes those decisions once — documented and automatically
+checked — and lets each project specify only what is unique to it: brand colors, fonts,
+themes, features and integrations.
 
-در شروع هر پروژهٔ وب، تصمیم‌های پایه‌ای یکسانی دوباره گرفته می‌شوند: رنگ‌ها چطور سازمان‌دهی شوند، فاصله‌گذاری بر چه مبنایی باشد، Bootstrap چطور سفارشی شود، فایل‌های SCSS کجا قرار بگیرند، ساختار پوشه‌های Angular چه باشد، و AI Agent چطور این ترجیحات را بفهمد. بدون یک مرجع مشترک:
+**Who it is for.** Front-end developers starting a project, teams that want several projects
+on the same foundation, designers who want to define a visual identity through a few
+parameters, and anyone building with AI coding agents.
 
-- هر پروژه سبک و ساختار متفاوتی پیدا می‌کند؛
-- مقادیر رنگ و فاصله به‌صورت پراکنده و تکراری در کد نوشته می‌شوند؛
-- AI Agentها در هر پروژه از صفر و بر اساس پیش‌فرض‌های خودشان تصمیم می‌گیرند؛
-- دسترس‌پذیری، RTL و Dark Mode به مراحل پایانی موکول می‌شوند.
+**How it helps AI agents.** Instead of re-explaining your preferences in every conversation,
+the agent reads the short [AGENTS.md](AGENTS.md), then your project's `project.config.yaml`,
+and only the documents its current task needs. Step-by-step workflows and tested golden
+examples make the expected implementation style concrete, and approval gates keep major
+decisions with you.
 
-این Blueprint این تصمیم‌ها را **یک بار، به‌صورت مستند و قابل‌اعتبارسنجی** می‌گیرد و به هر پروژه اجازه می‌دهد فقط هویت و نیازهای خودش (رنگ برند، فونت، تم، ویژگی‌ها) را مشخص کند.
+**How it differs from a UI component library.**
 
-### چه کسانی باید از آن استفاده کنند؟
-
-- توسعه‌دهندگان Frontend که پروژهٔ جدیدی را شروع می‌کنند؛
-- تیم‌هایی که می‌خواهند چند پروژه با پایهٔ مهندسی و بصری یکسان داشته باشند؛
-- طراحان و صاحبان برند که می‌خواهند هویت بصری را از طریق چند پارامتر مشخص تعریف کنند؛
-- هر کسی که با Claude Code، Codex یا Agentهای مشابه پروژه توسعه می‌دهد.
-
-### چگونه به AI Agentها کمک می‌کند؟
-
-به‌جای توضیح دوبارهٔ ترجیحات در هر گفتگو، Agent فایل کوتاه [AGENTS.md](AGENTS.md) را می‌خواند، سپس فایل `project.config.yaml` پروژه را، و فقط اسنادی را که برای کار جاری لازم است. Workflowهای گام‌به‌گام (شروع پروژه، توسعهٔ Feature، Code Review، اعتبارسنجی) و **Golden Example**های واقعی و تست‌شده، سبک پیاده‌سازی را برای Agent عینی می‌کنند. نقاط تأیید انسانی (Approval Gates) مشخص‌اند تا تصمیم‌های مهم معماری بدون تأیید گرفته نشوند.
-
-### تفاوت با یک UI Component Library معمولی
-
-| UI Component Library | این Blueprint |
+| UI component library | This blueprint |
 | --- | --- |
-| مجموعه‌ای از کامپوننت‌های آماده برای import | مجموعه‌ای از **استانداردها، توکن‌ها، الگوها و Workflowها** |
-| ظاهر و برند خودش را دارد | برند را از پروژه می‌گیرد (Brand-neutral) |
-| به یک Framework وابسته است | اصول و Design System مستقل از Framework؛ پیاده‌سازی در Technology Profileها |
-| فقط لایهٔ UI | از اصول کدنویسی و امنیت تا معماری، تست و نحوهٔ کار Agentها |
-| کامپوننت‌ها را بازسازی می‌کند | از HTML بومی و Bootstrap استفاده می‌کند و فقط خلأها را پر می‌کند |
+| Ready-made components to import | Standards, design tokens, patterns and workflows |
+| Ships its own look and brand | Takes the brand from your project |
+| Tied to one framework | Principles and design system are framework-independent; technology profiles implement them |
+| UI layer only | From coding and security standards to architecture, testing and how agents work |
+| Re-implements components | Uses native HTML and Bootstrap first, fills only real gaps |
 
 ---
 
-## ۲. قابلیت‌های اصلی
+## 2. Quick start: use it in a new front-end project (VS Code)
 
-| قابلیت | توضیح | مرجع |
-| --- | --- | --- |
-| **Design System عمومی** | Foundation مستقل از برند برای هویت بصری هر وب‌سایت | [docs/design-system](docs/design-system/README.md) |
-| **Design Tokens** | سه سطح Primitive → Semantic → Component؛ یک منبع واحد (Sass maps) که CSS Custom Properties و متغیرهای Bootstrap از آن تولید می‌شوند | [design-tokens.md](docs/design-system/design-tokens.md) |
-| **معماری رنگ** | تولید Palette از یک رنگ پایه در فضای OKLCH با روشنایی ثابت برای هر Step؛ رنگ‌های Semantic؛ بررسی خودکار Contrast طبق WCAG در زمان Compile | [color-system.md](docs/design-system/color-system.md) |
-| **تم‌ها** | Light، Dark و تم‌های سفارشی پروژه؛ تعویض در Runtime با یک Attribute | [themes.md](docs/design-system/themes.md) |
-| **Typography** | مقیاس ثابت rem، Roleهای متنی، Headingهای Fluid، فونت جداگانه برای هر زبان (مثلاً فارسی و انگلیسی) | [typography.md](docs/design-system/typography.md) |
-| **Spacing و Sizing** | مقیاس 4px، Aliasهای معنایی، ارتفاع کنترل‌ها بر اساس Density | [spacing-and-sizing.md](docs/design-system/spacing-and-sizing.md) |
-| **Layout واکنش‌گرا** | Breakpointهای Mobile-first، App Shell، Auto-grid، Container Query | [layout-and-responsive.md](docs/design-system/layout-and-responsive.md) |
-| **استانداردهای SCSS** | سیستم ماژول Sass (`@use`/`@forward`)، ترتیب Import مستند، قوانینی که خودکار اعمال می‌شوند | [technologies/scss](docs/technologies/scss/README.md) |
-| **یکپارچه‌سازی Bootstrap** | پیکربندی Bootstrap 5.3 از روی توکن‌ها با `@use … with`؛ Bridge برای تم‌های Runtime | [technologies/bootstrap](docs/technologies/bootstrap/README.md) |
-| **معماری Frontend** | Angular 22 با Standalone Components، Signals، Zoneless، ساختار Feature-based | [technologies/angular](docs/technologies/angular/README.md) |
-| **اصول مهندسی** | خوانایی، ماژولار بودن، مدیریت خطا، پیکربندی، امنیت، تست، Performance، مستندسازی | [docs/principles](docs/principles/README.md) |
-| **دستورالعمل AI Agent** | `AGENTS.md` مستقل از ابزار + Adapterهای نازک | [AGENTS.md](AGENTS.md) |
-| **Workflow شروع پروژه** | نُه مرحلهٔ مستقل از دامنهٔ کسب‌وکار، با Checklist | [project-initialization.md](docs/workflows/project-initialization.md) |
-| **پیکربندی پروژه** | `project.config.yaml` با JSON Schema و Validator | [docs/configuration](docs/configuration/README.md) |
+Follow these steps in order. They take a new, empty Angular project from zero to "an AI agent
+is building features with your design system". Commands are for the VS Code integrated
+terminal (**Terminal → New Terminal**) on macOS or Linux; on Windows, use Git Bash or replace
+`cp -R` with `Copy-Item -Recurse` and `rm` with `Remove-Item` in PowerShell.
 
----
+### What you need (once)
 
-## ۳. معماری
+- [VS Code](https://code.visualstudio.com/), [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) 20.19 or newer
+- The Angular CLI: `npm install -g @angular/cli@22`
+- Recommended VS Code extensions:
 
-Blueprint در **پنج لایهٔ مفهومی** سازمان‌دهی شده است. هر لایه فقط به لایه‌های بالاتر از خودش تکیه می‌کند؛ بنابراین اصول عمومی هرگز به یک فناوری یا پروژهٔ خاص آلوده نمی‌شوند.
+  | Extension | Why |
+  | --- | --- |
+  | Angular Language Service | Template completion and errors |
+  | ESLint | Lint feedback in the editor |
+  | Prettier | Formatting on save |
+  | EditorConfig | Applies the shared `.editorconfig` |
+  | YAML (Red Hat) | Validates `project.config.yaml` against the schema while you type |
+  | An AI agent: Claude Code, Codex or GitHub Copilot | Builds the project following the blueprint |
+
+Keep the blueprint and your projects **side by side** in one parent folder. All paths below
+assume this layout:
 
 ```text
-┌───────────────────────────────────────────────────────────────────────────┐
-│ 1. Engineering Principles        docs/principles, docs/api                │ مستقل از فناوری
-├───────────────────────────────────────────────────────────────────────────┤
-│ 2. Generic Design System         docs/design-system  +  src/styles        │ مستقل از برند
-├───────────────────────────────────────────────────────────────────────────┤
-│ 3. Technology Blueprints         docs/technologies/{angular,scss,bootstrap}│ پیاده‌سازی لایه‌های ۱ و ۲
-│                                  + src/app (Golden Examples)              │
-├───────────────────────────────────────────────────────────────────────────┤
-│ 4. AI Agent Instructions         AGENTS.md, CLAUDE.md, docs/workflows     │ نحوهٔ به‌کارگیری
-│    & Workflows                                                            │
-├───────────────────────────────────────────────────────────────────────────┤
-│ 5. Project-Specific              templates/, schemas/ → project.config.yaml│ تصمیم‌های یک پروژه
-│    Configuration                 src/styles/config/_project.scss (در پروژه)│
-└───────────────────────────────────────────────────────────────────────────┘
+~/dev/
+├── web-design-blueprint-system/   ← this repository (cloned once, used by every project)
+└── my-site/                       ← your new project
 ```
 
-| لایه | مسئولیت | نباید شامل شود |
-| --- | --- | --- |
-| **۱. Engineering Principles** | قوانین کیفیت کد، نام‌گذاری، ماژولار بودن، Separation of Concerns، مدیریت خطا، پیکربندی، امنیت، تست، Performance، دسترس‌پذیری، مستندسازی و وابستگی‌ها | API هیچ Frameworkی |
-| **۲. Generic Design System** | معماری توکن، رنگ، تم، Typography، Spacing، Layout، Breakpoint، Radius، Shadow، Z-index، Motion، Iconography، مشخصات کامپوننت‌ها، Interaction Stateها، RTL/LTR، دسترس‌پذیری — و پیاده‌سازی SCSS آن‌ها | کد Framework، برند یک پروژهٔ خاص |
-| **۳. Technology Blueprints** | نگاشت لایه‌های ۱ و ۲ به Angular، SCSS و Bootstrap؛ دستورات راه‌اندازی؛ قراردادها؛ Golden Examples | تغییر اصول؛ کد محصول‌محور |
-| **۴. AI Agent Instructions & Workflows** | روال‌های گام‌به‌گام، Approval Gateها، مراحل اعتبارسنجی | توضیحات مرجع مفصل (به لایه‌های ۱ تا ۳ لینک می‌دهد) |
-| **۵. Project-Specific Configuration** | قالب‌ها و Schema برای ثبت تصمیم‌های یک پروژه | توضیحات (در docs قرار دارند) |
-
-جریان استفاده در یک پروژه:
-
-```text
-Project Brief ──▶ project.config.yaml (لایه ۵، اعتبارسنجی با Schema)
-                        │ انتخاب Technology Profile
-                        ▼
-        Angular / SCSS / Bootstrap profiles (لایه ۳) ──▶ اصول (۱) + Design System (۲)
-                        │
-            Agent طبق Workflowها (لایه ۴) ──▶ کد برنامه + کپی src/styles
-                        │
-             Deviationها ──▶ دوباره در project.config.yaml ثبت می‌شوند
-```
-
-جزئیات بیشتر: [docs/architecture](docs/architecture/README.md) و [ADR-0001](docs/decisions/0001-five-layer-architecture.md).
-
----
-
-## ۴. ساختار Repository
-
-```text
-web-design-blueprint-system/
-├── README.md                 همین سند
-├── AGENTS.md                 دستورالعمل مستقل از ابزار برای AI Agentها (نقطهٔ ورود)
-├── CLAUDE.md                 Adapter نازک برای Claude Code (فقط AGENTS.md را import می‌کند)
-├── CHANGELOG.md              تاریخچهٔ نسخه‌ها
-├── LICENSE
-├── package.json              ابزار اعتبارسنجی همین Repository (فقط devDependencies)
-├── .editorconfig             تنظیمات مشترک ویرایشگر
-│
-├── docs/                     مستندات مرجع، بر اساس لایه‌ها
-│   ├── architecture/         معماری پنج‌لایه و نحوهٔ ارتباط لایه‌ها
-│   ├── principles/           لایه ۱: استانداردهای کدنویسی، نام‌گذاری، کیفیت، امنیت
-│   ├── api/                  لایه ۱: اصول یکپارچه‌سازی با API
-│   ├── design-system/        لایه ۲: توکن‌ها، رنگ، تم، Typography، Layout، کامپوننت‌ها، RTL، دسترس‌پذیری
-│   ├── technologies/         لایه ۳: Technology Profileها
-│   │   ├── angular/          معماری، قراردادها، تست Angular
-│   │   ├── scss/             معماری و قوانین SCSS
-│   │   └── bootstrap/        سیاست نسخه و یکپارچه‌سازی Bootstrap
-│   ├── workflows/            لایه ۴: شروع پروژه، Design System، Feature، Review، Refactoring، Validation، مستندسازی
-│   ├── configuration/        لایه ۵: راهنمای project.config.yaml و Deviationها
-│   ├── decisions/            Architecture Decision Records (ADR 0001 تا 0006)
-│   ├── development/          نگهداری و توسعهٔ همین Repository، سیاست نسخه‌بندی
-│   └── deployment/           استانداردهای عمومی Build و Deployment
-│
-├── templates/                قالب‌هایی که در پروژهٔ جدید کپی می‌شوند
-│   ├── project.config.yaml   ثبت ماشین‌خوان تصمیم‌های پروژه
-│   ├── project-brief.md      توصیف پروژه برای Agent
-│   ├── initialization-checklist.md
-│   ├── agent-kickoff-prompt.md
-│   ├── deviations.md
-│   └── adr.md
-├── schemas/                  JSON Schema برای project.config.yaml
-├── scripts/                  Validatorها: build-styles، validate-config، check-docs
-│
-├── src/                      پیاده‌سازی مرجع (Workspace قابل‌اجرا نیست)
-│   ├── styles/               ★ Design System در SCSS — در هر پروژه کپی می‌شود
-│   │   ├── main.scss             Entry با Bootstrap
-│   │   ├── main-standalone.scss  Entry بدون CSS Framework
-│   │   ├── config/               تنظیمات پروژه (_project.scss)
-│   │   ├── abstracts/            API عمومی Sass: توکن، تابع، Mixin (بدون خروجی CSS)
-│   │   ├── tokens/               تعریف مرجع توکن‌ها
-│   │   ├── themes/               مقادیر Semantic هر تم + اعتبارسنجی
-│   │   ├── base/                 Custom Properties، رفتار سراسری، Roleهای متنی
-│   │   ├── layout/               App Shell و Layout Primitives
-│   │   ├── components/           الگوهایی که Bootstrap ندارد (Empty State)
-│   │   ├── utilities/            Helperها برای حالت بدون Bootstrap
-│   │   ├── vendors/bootstrap/    پیکربندی Bootstrap از توکن‌ها + Theme Bridge
-│   │   └── project/              CSS متعلق به پروژه (مثلاً @font-face)
-│   ├── app/                  ساختار مرجع Angular + Golden Examples
-│   │   ├── core/                 Singletonهای سطح برنامه (config، errors، interceptors، services …)
-│   │   ├── shared/               کامپوننت‌ها، مدل‌ها و Utilityهای عمومی
-│   │   ├── layout/               Shell، Header، Navigation، Sidebar، Footer، Not-found
-│   │   └── features/             یک پوشه برای هر Feature (نمونه: placeholder-feature)
-│   ├── assets/               قرارداد فایل‌های ایستا
-│   ├── environments/         قرارداد Flagهای زمان Build
-│   └── testing/              قرارداد ابزارهای مشترک تست
-│
-└── engineering-audit/        ممیزی پروژهٔ Angular قبلی — مرجع تاریخی، بدون تغییر، استاندارد نیست
-```
-
-هر پوشه یک `README.md` دارد که مسئولیت آن را توضیح می‌دهد (به‌صورت خودکار بررسی می‌شود).
-
-> **دربارهٔ `engineering-audit/`:** این اسناد یک برنامهٔ مشخص را توصیف می‌کنند. اصول قابل‌تعمیم از آن استخراج و دسته‌بندی شده‌اند (اصل عمومی، الگوی طراحی، قرارداد Angular، تصمیم خاص پروژه، جزئیات Legacy، مواردی که باید بهبود یابند) — جزئیات در [ADR-0006](docs/decisions/0006-audit-as-reference-not-standard.md). خود اسناد دست‌نخورده باقی مانده‌اند.
-
----
-
-## ۵. استفاده از این Repository برای یک پروژهٔ جدید
-
-### اصل کلی: چه چیزی کپی می‌شود و چه چیزی نه
-
-| مورد | روش | دلیل |
-| --- | --- | --- |
-| `docs/`، `AGENTS.md`، Workflowها، Schema | **ارجاع** به نسخهٔ Pin‌شدهٔ Blueprint | یک منبع واحد؛ بدون تکثیر مستندات |
-| `src/styles/` | **کپی** در پروژه | کد واقعی Build پروژه است |
-| `templates/project.config.yaml`، `project-brief.md`، Checklist | **کپی** در پروژه | تصمیم‌های خود پروژه |
-| `src/app/` (Golden Examples) | **الگوبرداری**، نه کپی | الگو هستند، نه کتابخانه |
-| `engineering-audit/`، `scripts/`، `package.json` | **کپی نمی‌شوند** | مخصوص همین Repository |
-
-### گام ۱ — دریافت یا ارجاع به Repository
-
-دو روش رایج (روش اول ساده‌تر است):
+### Step 1 — Get the blueprint and pin a version
 
 ```bash
-# روش A: Checkout کنار پروژه (یک بار برای همهٔ پروژه‌ها)
-git clone <repository-url> ~/blueprints/web-design-blueprint-system
+mkdir -p ~/dev && cd ~/dev
+git clone https://github.com/khakimoh/web-design-blueprint-system.git
+git -C web-design-blueprint-system checkout v1.1.0
 ```
 
+Pinning a tag means later changes to the blueprint never change your project by surprise.
+(You can also clone from VS Code: **Command Palette → Git: Clone**.)
+
+### Step 2 — Create the Angular project
+
 ```bash
-# روش B: به‌عنوان Submodule داخل پروژه (نسخه همراه پروژه ثبت می‌شود)
-git submodule add <repository-url> .blueprint
+cd ~/dev
+ng new my-site --style=scss --routing --ssr=false --ai-config=none
+cd my-site
 ```
 
-### گام ۲ — بررسی استانداردها
+Keep the CLI defaults (standalone components, zoneless, strict mode, Vitest).
+`--ai-config=none` is used because the agent instructions come from this blueprint.
 
-پیش از شروع، این‌ها را مرور کنید: همین README، [AGENTS.md](AGENTS.md)، [اصول](docs/principles/README.md)، [Design System](docs/design-system/README.md)، [Angular Profile](docs/technologies/angular/README.md) و [Workflow شروع پروژه](docs/workflows/project-initialization.md). در Repository خود Blueprint می‌توانید سلامت همه‌چیز را بررسی کنید:
+### Step 3 — Open the project and the blueprint together in VS Code
 
-```bash
-cd ~/blueprints/web-design-blueprint-system
-npm install
-npm run validate
+Create `my-site/my-site.code-workspace`:
+
+```json
+{
+  "folders": [
+    { "path": "." },
+    { "path": "../web-design-blueprint-system", "name": "blueprint (reference — do not edit)" }
+  ],
+  "settings": {
+    "files.readonlyInclude": { "**/web-design-blueprint-system/**": true }
+  }
+}
 ```
 
-### گام ۳ — Pin کردن نسخهٔ Blueprint
+Then open it: **File → Open Workspace from File… → my-site.code-workspace**. You now see both
+folders in the Explorer; the blueprint is read-only, so nobody edits it by accident. The
+documentation stays in the blueprint — you do **not** copy `docs/` into your project.
 
-نسخه‌ها با Git Tag به شکل `vMAJOR.MINOR.PATCH` منتشر می‌شوند.
+### Step 4 — Add the project templates
 
 ```bash
-git -C ~/blueprints/web-design-blueprint-system checkout v1.0.0
+cp ../web-design-blueprint-system/templates/project.config.yaml .
+mkdir -p docs
+cp ../web-design-blueprint-system/templates/project-brief.md docs/
 ```
 
-```bash
-# اگر از Submodule استفاده می‌کنید
-git -C .blueprint checkout v1.0.0 && git add .blueprint
+In `project.config.yaml`, change the first line so VS Code validates it against the schema:
+
+```yaml
+# yaml-language-server: $schema=../web-design-blueprint-system/schemas/project-config.schema.json
 ```
 
-همین نسخه را در `project.config.yaml` → `blueprint.version` ثبت کنید.
+### Step 5 — Describe your website
 
-### گام ۴ — توصیف وب‌سایت جدید برای Agent
+Fill in `docs/project-brief.md`: purpose, website type, target users, languages and text
+direction, features with priorities, integrations, technology and design preferences, and
+constraints. Write "Unknown" where you are unsure — the agent will ask instead of guessing.
+You can leave `project.config.yaml` for the agent to fill in from the brief (step 9).
 
-[templates/project-brief.md](templates/project-brief.md) را کپی و پر کنید: هدف، نوع وب‌سایت، کاربران هدف، زبان‌ها و جهت متن، Featureها با اولویت، Integrationها، ترجیحات فناوری و طراحی، محدودیت‌ها. جاهایی را که نمی‌دانید «Unknown» بنویسید تا Agent سؤال کند، نه حدس بزند.
-
-### گام ۵ — ساخت پیکربندی پروژه
-
-```bash
-mkdir my-project && cd my-project
-cp ~/blueprints/web-design-blueprint-system/templates/project.config.yaml .
-mkdir -p docs && cp ~/blueprints/web-design-blueprint-system/templates/project-brief.md docs/
-```
-
-فایل را پر کنید (یا اجازه دهید Agent از روی Brief پر کند) و اعتبارسنجی کنید:
+### Step 6 — Add the design foundation (styles and Bootstrap)
 
 ```bash
-npm --prefix ~/blueprints/web-design-blueprint-system run validate:config -- "$PWD/project.config.yaml"
-```
-
-Validator علاوه بر Schema، قواعد بین‌فیلدی را هم بررسی می‌کند (مثلاً تم پیش‌فرض باید فعال باشد و زبان پیش‌فرض باید در فهرست زبان‌ها باشد).
-
-### گام ۶ — ساخت برنامهٔ Frontend
-
-فقط با CLI رسمی (دستور با Angular CLI 22.2 بررسی شده است):
-
-```bash
-npx @angular/cli@22 new my-project --style=scss --routing --ssr=false --prefix=app --ai-config=none
-```
-
-پیش‌فرض‌های CLI (Standalone، Zoneless، OnPush، Vitest، Strict) را حفظ کنید. `--ai-config=none` به این دلیل است که دستورالعمل Agent از همین Blueprint می‌آید. سپس ابزار کیفیت:
-
-```bash
-cd my-project
-npx ng add angular-eslint
-npm install --save-dev prettier
-```
-
-### گام ۷ — اعمال Design Tokens
-
-```bash
-cp -R ~/blueprints/web-design-blueprint-system/src/styles ./src/styles
+cp -R ../web-design-blueprint-system/src/styles ./src/styles
 rm src/styles.scss
+npm install bootstrap@~5.3.9
 ```
 
-در `angular.json` → `projects.<name>.architect.build.options`:
+In `angular.json`, under `projects → my-site → architect → build → options`, set:
 
 ```json
 "styles": ["src/styles/main.scss"],
 "stylePreprocessorOptions": { "includePaths": ["src/styles"] }
 ```
 
-از این پس در هر Stylesheet کامپوننت:
+`src/styles/` is the only part of the blueprint you copy, because it is real code that your
+build compiles.
+
+### Step 7 — Set your brand
+
+Open `src/styles/config/_project.scss` — the **only** style file you edit (project-specific CSS
+goes in `src/styles/project/`):
 
 ```scss
-@use "abstracts" as ds;
-
-.panel {
-  padding: ds.space(4);
-  color: ds.color-token("text-secondary");
-  @include ds.media-up("md") { padding: ds.space(6); }
-}
-```
-
-پروژه فقط `src/styles/config/_project.scss` (تنظیمات) و `src/styles/project/` (CSS اختصاصی پروژه) را ویرایش می‌کند.
-
-### گام ۸ — تنظیم رنگ‌های Primary و Secondary
-
-در `src/styles/config/_project.scss`:
-
-```scss
-$brand-primary: #0f766e;     // دقیقاً همین رنگ روی دکمه‌های اصلی در تم Light استفاده می‌شود
+$brand-primary: #0f766e;      // your main brand color, used exactly on primary buttons
 $brand-secondary: #475569;
-$neutral-seed: #64748b;      // خانوادهٔ خاکستری (گرم یا سرد)
-```
-
-از همین دو مقدار، Paletteهای ۵۰ تا ۹۵۰، حالت‌های Hover/Active، رنگ متن روی رنگ برند (سفید یا تیره بر اساس Contrast)، مقادیر تم Dark و متغیرهای Bootstrap ساخته می‌شوند. اگر رنگ انتخابی در جایی Contrast کافی نداشته باشد، Build هشدار می‌دهد (یا با `$contrast-check: "error"` متوقف می‌شود). برای اصلاح، از `$semantic-overrides` استفاده کنید. همین مقادیر را در `project.config.yaml` → `design.colors` هم ثبت کنید.
-
-### گام ۹ — تنظیم Typography و Spacing
-
-```scss
 $font-family-base: (Inter, system-ui, sans-serif);
-$font-families-by-lang: ("fa": ("Vazirmatn", Tahoma, system-ui, sans-serif));
-$radius-scale-factor: 1;     // 0 تیز · 0.5 ملایم · 1 پیش‌فرض · 1.5 گرد
-$density: "comfortable";     // compact · comfortable · spacious
+$radius-scale-factor: 1;      // 0 sharp · 0.5 subtle · 1 default · 1.5 rounded
+$density: "comfortable";      // compact · comfortable · spacious
+$enabled-themes: ("light", "dark");
 ```
 
-- فونت‌های وب را Self-host کنید و `@font-face` را در `src/styles/project/_fonts.scss` بنویسید.
-- برای محتوای فارسی: `<html lang="fa" dir="rtl">`؛ letter-spacing و uppercase به‌طور خودکار برای خط فارسی/عربی خنثی می‌شوند.
-- مقیاس Spacing ثابت و بر پایهٔ 4px است (`space(4)` = 16px). Density فقط ارتفاع کنترل‌ها و Padding کامپوننت‌ها را تغییر می‌دهد.
+Full palettes, hover states, readable text colors, the dark theme and Bootstrap's variables
+are all generated from these values. If a color does not have enough contrast, the build
+warns you. Record the same choices under `design:` in `project.config.yaml`.
 
-### گام ۱۰ — یکپارچه‌سازی Bootstrap
+### Step 8 — Connect your AI agent
+
+Create `AGENTS.md` in the project root:
+
+```markdown
+# AGENTS.md
+This project follows the Web Design & Engineering Blueprint v1.1.0,
+located at ../web-design-blueprint-system (read-only — never edit it).
+
+1. Read ../web-design-blueprint-system/AGENTS.md first and follow its reading order.
+2. Then read ./project.config.yaml and ./docs/project-brief.md.
+3. Project-specific notes: <only what is unique to this project>
+```
+
+For Claude Code, also create `CLAUDE.md` containing the single line `@AGENTS.md`. Codex reads
+`AGENTS.md` directly. For other agents, point their instruction file to `AGENTS.md`.
+
+### Step 9 — Start the agent
+
+Open your agent in VS Code and paste the kickoff prompt from
+[templates/agent-kickoff-prompt.md](templates/agent-kickoff-prompt.md) (replace the
+placeholders). The agent will:
+
+1. ask about anything missing in your brief;
+2. fill in and validate `project.config.yaml`;
+3. propose the architecture (folders, dependencies, design settings, feature plan) and **wait
+   for your approval**;
+4. build the app shell, then one feature at a time, validating each step.
+
+### Step 10 — Run and check the application
 
 ```bash
-npm install bootstrap@~5.3.9
+ng serve --open
 ```
 
-`main.scss` خودش Bootstrap را از روی توکن‌ها پیکربندی می‌کند؛ کار دیگری لازم نیست. نکات:
-
-- کلاس‌های Spacing بر حسب واحد 4px هستند: `.p-4` = 16px (برخلاف Bootstrap پیش‌فرض).
-- تم با `data-bs-theme` روی `<html>` عوض می‌شود و هم Bootstrap و هم توکن‌های `--ds-*` را تغییر می‌دهد.
-- اگر `direction` برابر `rtl` یا `both` است، `postcss-rtlcss` را نصب و `postcss.config.json` را با گزینهٔ `safeBothPrefix: true` اضافه کنید ([جزئیات](docs/design-system/rtl-ltr.md#3-bootstrap-and-rtl)).
-- برای پروژهٔ بدون Bootstrap، `main-standalone.scss` را به‌جای `main.scss` استفاده کنید.
-
-### گام ۱۱ — سازمان‌دهی ساختار پوشه‌ها
-
-```text
-src/app/
-├── core/       Singletonهای سطح برنامه: config، errors، interceptors، guards، services
-├── shared/     اجزای عمومی و مستقل از Feature
-├── layout/     قاب برنامه: shell، header، navigation، sidebar، footer، not-found
-└── features/   یک پوشه برای هر Feature که به‌صورت Lazy بارگذاری می‌شود
-```
-
-هیچ Featureی از Feature دیگر import نمی‌کند. توضیح کامل: [Angular Architecture](docs/technologies/angular/architecture.md). الگوی عملی: [src/app](src/app/README.md).
-
-### گام ۱۲ — پیاده‌سازی اولین Feature
-
-طبق [Feature Development Workflow](docs/workflows/feature-development.md):
-
-1. Model و DTO + تابع نگاشت (با تست)؛
-2. API Client (`…-api.ts`) با نرمال‌سازی در مرز سیستم؛
-3. Store (`…-store.ts`) با Signals و `LoadState`؛
-4. کامپوننت‌های Presentational با همهٔ Stateها؛
-5. کامپوننت Container (صفحه)؛
-6. Route تنبل (`<feature>.routes.ts`) و Providerهای مخصوص Feature.
+Before accepting each feature:
 
 ```bash
-npx ng generate component features/items/components/item-list-page
-npx ng generate service features/items/services/item-api
+ng build
+ng test --watch=false
 ```
 
-نمونهٔ کامل این زنجیره در `src/app/features/placeholder-feature/` موجود است.
-
-### گام ۱۳ — اعتبارسنجی برنامه
+Validate the configuration file against the blueprint's schema (the first command installs the
+blueprint's small validation tools once):
 
 ```bash
-npx ng build
-npx ng test --watch=false
-npx ng lint
-npx prettier --check .
+npm --prefix ../web-design-blueprint-system install
+npm --prefix ../web-design-blueprint-system run validate:config -- "$PWD/project.config.yaml"
 ```
 
-سپس بررسی دستی: عرض‌های 320/768/1280 پیکسل، پیمایش کامل با صفحه‌کلید، تم Light و Dark، RTL (در صورت نیاز)، و حالت‌های Loading/Empty/Error. چک‌لیست کامل: [validation.md](docs/workflows/validation.md).
+Also check by hand: narrow (320 px) and wide screens, keyboard-only navigation, light and dark
+themes, and loading/empty/error states. The full list is in
+[docs/workflows/validation.md](docs/workflows/validation.md).
 
-### گام ۱۴ — مستندسازی Deviationها
+### Step 11 — Record deviations
 
-هر تفاوت آگاهانه با استانداردهای Blueprint در `project.config.yaml` ثبت می‌شود:
+If the project intentionally does something differently from the blueprint, record it in
+`project.config.yaml`:
 
 ```yaml
 customizations:
@@ -407,162 +263,318 @@ customizations:
     - id: DEV-001
       standard: docs/technologies/angular/architecture.md#5-state-management
       decision: Use a state library for one complex feature
-      rationale: Cross-feature workflows need devtools and time-travel debugging
+      rationale: Cross-feature workflows need devtools
       approved_by: Tech lead
       date: 2026-11-15
 ```
 
-فایل‌های Blueprint را در پروژه برای پنهان کردن Deviation تغییر ندهید. اگر الگویی ارزش عمومی دارد، آن را برای ورود به Blueprint پیشنهاد کنید ([بخش ۷](#۷-قابلیت-استفادهٔ-مجدد-و-توسعهپذیری)).
+Never edit the copied blueprint files (other than `config/_project.scss` and `project/`) to
+make a deviation disappear.
+
+### Optional — Right-to-left languages (e.g. Persian)
+
+If `design.direction` is `rtl` or `both`:
+
+```bash
+npm install --save-dev postcss-rtlcss
+```
+
+Create `postcss.config.json` in the project root:
+
+```json
+{ "plugins": { "postcss-rtlcss": { "safeBothPrefix": true } } }
+```
+
+Always set `lang` and `dir` on `<html>` (for example `<html lang="fa" dir="rtl">`). Details:
+[docs/design-system/rtl-ltr.md](docs/design-system/rtl-ltr.md).
+
+### Later — Upgrading to a newer blueprint version
+
+Read the [CHANGELOG](CHANGELOG.md), check out the new tag in the blueprint folder, copy
+`src/styles/` again **except** `config/_project.scss` and `project/`, update
+`blueprint.version` in `project.config.yaml`, then rebuild and review your deviations.
 
 ---
 
-## ۶. استفاده با AI Agentها
+## 3. See the design system in the Playground
 
-### اصل کار
+[`playground/`](playground/playground.md) is a standalone Angular app that renders the design
+system live — colors with contrast checks, typography, spacing, components, forms, layout,
+light/dark themes and RTL/LTR. It compiles this repository's `src/styles/` directly, so it
+always shows the real foundation.
 
-[AGENTS.md](AGENTS.md) مستقل از ابزار است و کوتاه نگه داشته شده؛ جزئیات در اسناد مرجع و Workflowها قرار دارد. فایل‌های مخصوص هر ابزار فقط **Adapter نازک** هستند:
-
-| Agent | نحوهٔ اتصال |
-| --- | --- |
-| **Codex** و Agentهایی که `AGENTS.md` را می‌خوانند | مستقیماً `AGENTS.md` |
-| **Claude Code** | `CLAUDE.md` که با `@AGENTS.md` همان فایل را import می‌کند |
-| سایر Agentها | فایل دستورالعمل همان ابزار، با یک خط ارجاع به `AGENTS.md`؛ یا اشاره در اولین پیام |
-
-### در پروژهٔ جدید
-
-یک `AGENTS.md` کوچک در ریشهٔ پروژه بگذارید که به Blueprint ارجاع دهد (برای Claude Code، `CLAUDE.md` با محتوای `@AGENTS.md` هم اضافه کنید):
-
-```markdown
-# AGENTS.md
-This project follows the Web Design & Engineering Blueprint v1.0.0 at <path-or-url>.
-Read <blueprint>/AGENTS.md first, then ./project.config.yaml.
-Project-specific notes: <only what is unique to this project>.
+```bash
+cd playground
+npm install
+ng serve --open
 ```
 
-### نمونهٔ اطلاعات اولیه برای Agent
+It opens at http://localhost:4200/. Edit `src/styles/config/_project.scss` and the playground
+updates — a quick way to preview a brand before starting a project.
 
-قالب کامل در [templates/agent-kickoff-prompt.md](templates/agent-kickoff-prompt.md). نمونه (عمومی و بدون دامنهٔ کسب‌وکار خاص):
+---
+
+## 4. Main capabilities
+
+| Capability | Description | Reference |
+| --- | --- | --- |
+| Generic design system | A brand-neutral visual foundation for any website | [docs/design-system](docs/design-system/design-system.md) |
+| Design tokens | Three levels (primitive → semantic → component), one source (Sass maps), published as CSS custom properties and Bootstrap variables | [design-tokens.md](docs/design-system/design-tokens.md) |
+| Color architecture | Palettes generated from a seed color in OKLCH with fixed lightness per step; semantic colors; WCAG contrast checked at compile time | [color-system.md](docs/design-system/color-system.md) |
+| Themes | Light, dark and custom themes, switched at runtime with one attribute | [themes.md](docs/design-system/themes.md) |
+| Typography | rem scale, text roles, fluid headings, per-language fonts (e.g. Persian and English) | [typography.md](docs/design-system/typography.md) |
+| Spacing and sizing | 4 px scale, semantic aliases, density-based control heights | [spacing-and-sizing.md](docs/design-system/spacing-and-sizing.md) |
+| Responsive layout | Mobile-first breakpoints, app shell, auto grid, container queries | [layout-and-responsive.md](docs/design-system/layout-and-responsive.md) |
+| SCSS standards | Sass module system, documented import order, automatically enforced rules | [technologies/scss](docs/technologies/scss/scss.md) |
+| Bootstrap integration | Bootstrap 5.3 configured from tokens with `@use … with`, plus a runtime theme bridge | [technologies/bootstrap](docs/technologies/bootstrap/bootstrap.md) |
+| Front-end architecture | Angular 22: standalone components, signals, zoneless, feature-based folders | [technologies/angular](docs/technologies/angular/angular.md) |
+| Engineering principles | Readability, modularity, error handling, configuration, security, testing, performance, documentation | [docs/principles](docs/principles/principles.md) |
+| AI agent instructions | Tool-independent `AGENTS.md` plus thin adapters | [AGENTS.md](AGENTS.md) |
+| Project initialization workflow | Nine domain-independent steps with a checklist | [project-initialization.md](docs/workflows/project-initialization.md) |
+| Project configuration | `project.config.yaml` with JSON Schema and validator | [docs/configuration](docs/configuration/configuration.md) |
+
+---
+
+## 5. Architecture
+
+The blueprint is organized in **five layers**. Each layer only relies on the layers above it,
+so generic principles never depend on a technology or a project.
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│ 1. Engineering Principles        docs/principles, docs/api                │ technology-independent
+├───────────────────────────────────────────────────────────────────────────┤
+│ 2. Generic Design System         docs/design-system  +  src/styles        │ brand-independent
+├───────────────────────────────────────────────────────────────────────────┤
+│ 3. Technology Blueprints         docs/technologies/{angular,scss,bootstrap}│ how 1–2 are implemented
+│                                  + src/app (golden examples), playground/ │
+├───────────────────────────────────────────────────────────────────────────┤
+│ 4. AI Agent Instructions         AGENTS.md, CLAUDE.md, docs/workflows     │ how to apply them
+│    & Workflows                                                            │
+├───────────────────────────────────────────────────────────────────────────┤
+│ 5. Project-Specific              templates/, schemas/ → project.config.yaml│ one project's decisions
+│    Configuration                 src/styles/config/_project.scss (copied) │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+| Layer | Owns | Must not contain |
+| --- | --- | --- |
+| 1. Engineering Principles | Code quality, naming, modularity, separation of concerns, error handling, configuration, security, testing, performance, accessibility, documentation, dependencies | Framework APIs |
+| 2. Generic Design System | Tokens, color, themes, typography, spacing, layout, breakpoints, radius, shadows, z-index, motion, iconography, component specs, interaction states, RTL/LTR, accessibility — and their SCSS implementation | Framework code, a project's brand |
+| 3. Technology Blueprints | Mapping of layers 1–2 to Angular, SCSS and Bootstrap; setup commands; conventions; golden examples | Changes to principles; product code |
+| 4. Agent Instructions & Workflows | Step-by-step procedures, approval gates, validation steps | Long reference material (they link to 1–3) |
+| 5. Project-Specific Configuration | Templates and schema for recording one project's decisions | Explanations (they live in docs) |
+
+How a project uses the layers:
+
+```text
+project brief ──▶ project.config.yaml (layer 5, validated by schema)
+                       │ selects technology profiles
+                       ▼
+       Angular / SCSS / Bootstrap profiles (layer 3) ──▶ principles (1) + design system (2)
+                       │
+           agent follows workflows (layer 4) ──▶ application code + copied src/styles
+                       │
+            deviations recorded back in project.config.yaml
+```
+
+Details: [docs/architecture](docs/architecture/architecture.md) and
+[ADR-0001](docs/decisions/0001-five-layer-architecture.md).
+
+---
+
+## 6. Repository structure
+
+Every folder is documented by an index file **named after the folder** (for example
+`docs/design-system/design-system.md`); only this root file is called `README.md`. The
+`npm run check:docs` script enforces this.
+
+```text
+web-design-blueprint-system/
+├── README.md                 this document
+├── AGENTS.md                 tool-independent instructions for AI agents (entry point)
+├── CLAUDE.md                 thin adapter for Claude Code (imports AGENTS.md)
+├── CHANGELOG.md              version history
+├── LICENSE
+├── package.json              validation tooling for this repository (dev dependencies only)
+├── .editorconfig             shared editor settings
+│
+├── docs/                     reference documentation, by layer
+│   ├── architecture/         the five layers and how they connect
+│   ├── principles/           layer 1: coding, naming, quality, security standards
+│   ├── api/                  layer 1: API integration principles
+│   ├── design-system/        layer 2: tokens, color, themes, typography, layout, components, RTL, accessibility
+│   ├── technologies/         layer 3: technology profiles
+│   │   ├── angular/          architecture, conventions and testing for Angular
+│   │   ├── scss/             SCSS architecture and rules
+│   │   └── bootstrap/        Bootstrap version policy and integration
+│   ├── workflows/            layer 4: initialization, design system, features, review, refactoring, validation, docs
+│   ├── configuration/        layer 5: project.config.yaml and deviations
+│   ├── decisions/            architecture decision records (ADR 0001–0006)
+│   ├── development/          maintaining and extending this repository, versioning policy
+│   └── deployment/           generic build and deployment standards
+│
+├── templates/                files copied into a new project
+│   ├── project.config.yaml   machine-readable record of project decisions
+│   ├── project-brief.md      project description for the agent
+│   ├── initialization-checklist.md
+│   ├── agent-kickoff-prompt.md
+│   ├── deviations.md
+│   └── adr.md
+├── schemas/                  JSON Schema for project.config.yaml
+├── scripts/                  validators: build-styles, validate-config, check-docs
+│
+├── src/                      reference implementation (not a runnable workspace)
+│   ├── styles/               ★ the design system in SCSS — copied into every project
+│   │   ├── main.scss             entry with Bootstrap
+│   │   ├── main-standalone.scss  entry without a CSS framework
+│   │   ├── config/               project settings (_project.scss)
+│   │   ├── abstracts/            public Sass API: tokens, functions, mixins (no CSS output)
+│   │   ├── tokens/               canonical token definitions
+│   │   ├── themes/               semantic values per theme + validation
+│   │   ├── base/                 custom properties, global behaviour, text roles
+│   │   ├── layout/               app shell and layout primitives
+│   │   ├── components/           patterns Bootstrap lacks (empty state)
+│   │   ├── utilities/            helpers for the no-Bootstrap entry
+│   │   ├── vendors/bootstrap/    Bootstrap configured from tokens + theme bridge
+│   │   └── project/              project-owned CSS (e.g. @font-face)
+│   ├── app/                  Angular reference structure + golden examples
+│   │   ├── core/                 app-wide singletons (config, errors, interceptors, services)
+│   │   ├── shared/               generic components, models and utilities
+│   │   ├── layout/               shell, header, navigation, sidebar, footer, not-found
+│   │   └── features/             one folder per feature (example: placeholder-feature)
+│   ├── assets/               conventions for static files
+│   ├── environments/         conventions for build-time flags
+│   └── testing/              conventions for shared test utilities
+│
+├── playground/               standalone Angular app showcasing the design system live
+│
+└── engineering-audit/        audit of an earlier Angular project — historical reference, unchanged, not a standard
+```
+
+> **About `engineering-audit/`:** these documents describe one specific application. Reusable
+> practices were extracted and classified (general principle, design pattern, Angular
+> convention, project-specific decision, legacy detail, to improve) — see
+> [ADR-0006](docs/decisions/0006-audit-as-reference-not-standard.md). The documents
+> themselves are kept unchanged.
+
+### What a project copies and what it only references
+
+| Item | How | Why |
+| --- | --- | --- |
+| `docs/`, `AGENTS.md`, workflows, schema | **Reference** from the pinned blueprint | One source; no duplicated docs |
+| `src/styles/` | **Copy** into the project | Real code the project's build compiles |
+| `templates/project.config.yaml`, `project-brief.md`, checklist | **Copy** into the project | The project's own decisions |
+| `src/app/` (golden examples) | **Imitate**, do not copy | Patterns, not a library |
+| `engineering-audit/`, `scripts/`, `package.json`, `playground/` | **Do not copy** | Specific to this repository |
+
+---
+
+## 7. Working with AI agents
+
+[AGENTS.md](AGENTS.md) is tool-independent and short; details live in the reference documents
+and workflows. Agent-specific files are only **thin adapters**:
+
+| Agent | How it connects |
+| --- | --- |
+| Codex and agents that read `AGENTS.md` | Directly |
+| Claude Code | `CLAUDE.md` with `@AGENTS.md` |
+| Others | Their own instruction file with one line pointing to `AGENTS.md`, or mention it in the first message |
+
+### Example first message (generic)
+
+The full template is in [templates/agent-kickoff-prompt.md](templates/agent-kickoff-prompt.md).
 
 ```text
 We are starting a new web project. Follow the Web Design & Engineering
-Blueprint at ~/blueprints/web-design-blueprint-system, version 1.0.0.
+Blueprint at ../web-design-blueprint-system, version 1.1.0.
 
 1. Read its AGENTS.md first and follow its reading order.
-2. Read the brief below. List missing or ambiguous requirements and ask
-   before proposing anything. Do not invent requirements.
-3. Create project.config.yaml from the template and validate it.
+2. Read docs/project-brief.md. List missing or ambiguous requirements and
+   ask before proposing anything. Do not invent requirements.
+3. Fill in project.config.yaml from the template and validate it.
 4. Propose the architecture; wait for my approval before generating code.
-5. Then initialize with the official CLI, apply the design foundation and
-   implement one feature at a time, validating each step.
+5. Then apply the design foundation and implement one feature at a time,
+   validating each step.
 6. Never modify the blueprint. Record deviations in project.config.yaml.
-
-Brief:
-- Type: web application with an authenticated area and a public landing page
-- Users: staff on desktop, occasional mobile use
-- Locales: en and fa (both directions)
-- Features: overview page (must), record list with filters (must), settings (should)
-- Design: calm, neutral, data-dense; primary #0f766e, secondary #475569;
-  subtle corners; compact density; light + dark, follow system
-- Technology: blueprint defaults (Angular, Bootstrap, client-side rendering)
-- Integrations: one REST API (OpenAPI document available)
-- Constraints: WCAG 2.2 AA; must work under a sub-path
 ```
 
-### رفتاری که از Agent انتظار می‌رود
+### What to expect from the agent
 
-| مرحله | رفتار Agent |
+| Stage | Agent behaviour |
 | --- | --- |
-| **خواندن `AGENTS.md`** | ترتیب مطالعه را رعایت می‌کند و فقط اسناد مرتبط با کار را باز می‌کند |
-| **بررسی پیکربندی** | `project.config.yaml` را می‌خواند؛ اگر نبود، Workflow شروع پروژه را اجرا می‌کند |
-| **خواندن Technology Profile** | بر اساس `frontend.*` پروفایل‌های Angular/SCSS/Bootstrap را انتخاب می‌کند؛ اگر پروفایلی نبود، صریحاً اعلام می‌کند |
-| **پیروی از Design System** | فقط توکن‌ها؛ ابتدا HTML بومی و Bootstrap؛ همهٔ Interaction Stateها؛ RTL و Dark |
-| **پیشنهاد معماری** | ساختار پوشه، وابستگی‌ها با دلیل، پیکربندی طراحی، ترتیب Featureها |
-| **درخواست تأیید** | پیش از: معماری، وابستگی Runtime جدید، Deviation، حذف فایل |
-| **پیاده‌سازی تدریجی** | یک Feature یا یک موضوع در هر تغییر؛ تولید فایل با CLI |
-| **اعتبارسنجی** | اجرای Build/Lint/Test و بررسی‌های دستی؛ گزارش دقیق آنچه اجرا شد — هرگز ادعای موفقیت بدون اجرا |
+| Reading `AGENTS.md` | Follows the reading order; opens only the documents relevant to the task |
+| Project configuration | Reads `project.config.yaml`; runs the initialization workflow if it is missing |
+| Technology profile | Picks Angular/SCSS/Bootstrap profiles from `frontend.*`; says so explicitly if no profile exists |
+| Design system | Tokens only; native HTML and Bootstrap first; all interaction states; RTL and dark mode |
+| Architecture proposal | Folder structure, dependencies with reasons, design settings, feature order |
+| Approval | Asks before: architecture, new runtime dependencies, deviations, deleting files |
+| Incremental work | One feature or concern per change; files generated with the CLI |
+| Validation | Runs build/lint/tests and manual checks; reports exactly what ran — never claims success without running it |
 
 ---
 
-## ۷. قابلیت استفادهٔ مجدد و توسعه‌پذیری
+## 8. Reuse and extension
 
-| هدف | روش | مرجع |
+| Goal | How | Reference |
 | --- | --- | --- |
-| **افزودن تم برند جدید** | در `$custom-themes` تمی بسازید که از `light` یا `dark` ارث می‌برد و فقط توکن‌های لازم را تغییر می‌دهد؛ Build کامل بودن و Contrast را بررسی می‌کند | [themes.md](docs/design-system/themes.md) |
-| **افزودن Technology Profile جدید** (مثلاً React یا Vue) | پوشهٔ `docs/technologies/<name>/` طبق «Profile Contract»؛ Golden Examples در `examples/<name>/`؛ استفاده از همان `src/styles`؛ ADR | [technologies/README.md](docs/technologies/README.md) |
-| **گسترش سیستم توکن** | سطح درست را انتخاب کنید (Primitive / Semantic / Component)؛ توکن Semantic باید در همهٔ تم‌ها مقدار داشته باشد (وگرنه Build شکست می‌خورد) | [design-tokens.md](docs/design-system/design-tokens.md#6-extending-the-token-system-blueprint-maintainers) |
-| **افزودن Golden Example** | حداقلی، عمومی، در پوشه‌ای که الگویش را نشان می‌دهد؛ ثبت در README پروفایل؛ Stylesheet آن با `npm run build:styles` Compile می‌شود | [development](docs/development/README.md) |
-| **افزودن استاندارد مهندسی جدید** | اگر مستقل از فناوری است در `docs/principles/`، وگرنه در Profile؛ افزودن آیتم به Checklist بازبینی؛ ADR در صورت تغییر رویه | [development](docs/development/README.md#adding-to-the-blueprint) |
-| **ارتقای یک الگوی پروژه به سیستم مشترک** | ثبت به‌عنوان Deviation یا کاندید در پروژه → حذف واژگان پروژه → بیان با توکن‌ها → مستندات، مثال، CHANGELOG | [Promoting a project pattern](docs/development/README.md#promoting-a-project-pattern) |
+| Add a brand theme | Add an entry to `$custom-themes` that extends `light` or `dark` and overrides only the tokens you need; the build checks completeness and contrast | [themes.md](docs/design-system/themes.md) |
+| Add a technology profile (e.g. React, Vue) | Create `docs/technologies/<name>/` following the profile contract; golden examples in `examples/<name>/`; reuse `src/styles`; write an ADR | [technologies.md](docs/technologies/technologies.md) |
+| Extend the token system | Pick the right level (primitive / semantic / component); a semantic token needs a value in every theme or the build fails | [design-tokens.md](docs/design-system/design-tokens.md#6-extending-the-token-system-blueprint-maintainers) |
+| Add a golden example | Minimal, generic, placed where its pattern belongs; listed in the profile index; its stylesheet compiles with `npm run build:styles` | [development.md](docs/development/development.md) |
+| Add an engineering standard | Technology-independent → `docs/principles/`, otherwise the profile; add a review checklist item; ADR if it changes practice | [development.md](docs/development/development.md#adding-to-the-blueprint) |
+| Promote a project pattern | Record it as a deviation or candidate in the project → remove project vocabulary → express with tokens → docs, example, CHANGELOG | [Promoting a project pattern](docs/development/development.md#promoting-a-project-pattern) |
 
 ---
 
-## ۸. نسخه‌بندی و نگهداری
+## 9. Versioning and maintenance
 
-### سیاست نسخه‌بندی (Semantic Versioning)
-
-| نوع تغییر | نسخه | نمونه |
+| Change | Version | Examples |
 | --- | --- | --- |
-| Patch | `x.y.Z` | اصلاح متن، لینک خراب، رفع اشکال SCSS بدون تغییر عمدی مقادیر |
-| Minor | `x.Y.0` | توکن جدید، فیلد اختیاری جدید در Config، Golden Example، Workflow یا Technology Profile جدید |
-| Major | `X.0.0` | تغییر نام یا حذف توکن/کلاس، تغییر مقادیر مقیاس، فیلد اجباری جدید در Schema، تغییر فناوری پیش‌فرض (مثلاً Bootstrap 6)، تغییر قرارداد پوشه‌ها |
+| Patch | `x.y.Z` | Wording fixes, broken links, SCSS bug fixes that do not intentionally change values |
+| Minor | `x.Y.0` | New token, optional config field, golden example, workflow, technology profile, playground features |
+| Major | `X.0.0` | Renamed or removed tokens/classes, changed scale values, new required schema fields, a different default technology (e.g. Bootstrap 6), changed folder conventions |
 
-### به‌روزرسانی استانداردها
-
-- هر تغییر با ADR (در صورت تأثیر ماندگار) و ورودی CHANGELOG همراه است.
-- `npm run validate` باید پیش از انتشار بدون خطا اجرا شود.
-- نسخه با `git tag vX.Y.Z` منتشر می‌شود و `version` در `package.json` با آن یکسان است.
-
-### Pin کردن نسخه در پروژه‌ها
-
-پروژه نسخه را در `project.config.yaml` → `blueprint.version` ثبت و Checkout/Submodule را روی همان Tag نگه می‌دارد. انتشار نسخهٔ جدید هیچ پروژهٔ موجودی را تغییر نمی‌دهد مگر خود پروژه ارتقا دهد.
-
-### مستندسازی Breaking Changeها
-
-در CHANGELOG زیر عنوان **Breaking** با بخش Migration: چه چیزی تغییر نام داده، کدام مقادیر عوض شده، و چگونه دوباره اعتبارسنجی شود.
-
-### ورود بازخورد پروژه‌ها
-
-Deviationهای پروژه‌ها مهم‌ترین منبع بهبود هستند. هنگام ارتقای نسخه، Deviationهای پروژه مرور می‌شوند؛ موارد عمومی پیشنهاد و پس از تعمیم وارد Blueprint می‌شوند.
-
-### سازگاری با نسخه‌های قبل
-
-- قبل از حذف، Deprecate: نگه‌داشتن نام قدیمی برای یک Minor، با علامت `@deprecated`، و حذف در Major بعدی.
-- مراحل ارتقای پروژه: خواندن CHANGELOG ← کپی دوبارهٔ `src/styles/` به‌جز `config/_project.scss` و `project/` ← اعتبارسنجی Config ← Build ← مرور Deviationها.
+- **Updating standards:** each change comes with a CHANGELOG entry and, when it has lasting impact, an ADR; `npm run validate` must pass; releases are git tags `vX.Y.Z` matching `package.json`.
+- **Pinning in projects:** record `blueprint.version` in `project.config.yaml` and keep the blueprint checkout on that tag. A new release never changes an existing project until it upgrades.
+- **Breaking changes:** listed in the CHANGELOG under **Breaking**, with a migration section.
+- **Project feedback:** deviations are the main source of improvements; generic ones are promoted into the blueprint.
+- **Backward compatibility:** deprecate before removing — keep the old name for one minor release, mark it `@deprecated`, remove it in the next major.
 
 ---
 
-## ۹. اعتبارسنجی
+## 10. Validation
 
-### ابزار این Repository
+### Checking this repository
 
 ```bash
 npm install
 npm run validate
 ```
 
-| بررسی | دستور | آنچه تضمین می‌کند |
+| Check | Command | Ensures |
 | --- | --- | --- |
-| Styles | `npm run build:styles` | Compile هر دو Entry و همهٔ Stylesheetهای کامپوننت در `src/app/`؛ صفر هشدار Sass از کد این Repository؛ ممنوعیت `@import`، `!important` و رنگ خام خارج از فایل‌های توکن؛ عدم تولید CSS توسط `abstracts/`؛ بررسی Contrast در همهٔ تم‌ها |
-| Config | `npm run validate:config` | اعتبار قالب در برابر JSON Schema و قواعد بین‌فیلدی |
-| Docs | `npm run check:docs` | وجود README معنادار در هر پوشه، سالم بودن لینک‌های نسبی، نبود واژگان دامنه‌ای در فایل‌های قابل‌استفادهٔ مجدد |
+| Styles | `npm run build:styles` | Both entries and all `src/app/` component stylesheets compile with zero Sass warnings from this repository; no `@import`, `!important` or raw colors outside token files; `abstracts/` emits no CSS; contrast checks pass in every theme |
+| Config | `npm run validate:config` | The template matches the JSON Schema and cross-field rules |
+| Docs | `npm run check:docs` | Every folder has a meaningful index file named after it; relative links resolve; no domain vocabulary in reusable files |
 
-### نتیجهٔ بررسی Golden Exampleها
+### Verified results
 
-این Repository Workspace قابل‌اجرای Angular ندارد، بنابراین «Build برنامه» در خود آن معنا ندارد. برای اعتبارسنجی واقعی، Golden Exampleها در یک Workspace تازه با Angular CLI 22.2.7 (خارج از این Repository) طبق همین راهنما قرار گرفتند و نتیجه چنین بود:
-
-- `ng build` (Production، AOT با Strict Templates): موفق، بدون خطا یا هشدار Compile؛ تنها هشدار، عبور از Budget پیش‌فرض ۵۰۰ کیلوبایت بود (Initial ۵۶۷ کیلوبایت خام / ۱۰۷ کیلوبایت انتقالی، که ۲۷۲ کیلوبایت آن CSS کامل Bootstrap است). به همین دلیل Budget قالب به ۷۰۰ کیلوبایت تنظیم و موضوع در Angular Profile مستند شد.
-- `ng test` (Vitest): ۷ تست از ۷ تست موفق.
-- بررسی در مرورگر: Shell واکنش‌گرا در عرض ۳۷۵ پیکسل و Desktop، Sidebar کشویی با انتقال و بازگرداندن Focus، Escape، اعتبارسنجی فرم و Focus روی اولین فیلد نامعتبر، تم Dark (هم Bootstrap و هم توکن‌ها)، و `dir="rtl"` (Sidebar از سمت راست).
-- RTL برای Bootstrap: پردازش CSS خروجی با `postcss-rtlcss` فقط برای کلاس‌های Bootstrap Override تولید کرد؛ هیچ کلاس `ds-` نیازی به آن نداشت.
+This repository is not a runnable Angular workspace, so it has no application build of its
+own. The golden examples were verified in a freshly generated Angular 22.2 workspace:
+`ng build` (production, AOT with strict templates) succeeded with no compile errors, all 7
+unit tests passed, and a browser check covered the responsive shell, focus management, form
+validation, dark mode and `dir="rtl"`. The [playground](playground/playground.md) builds with
+no errors or warnings and its unit tests pass.
 
 ---
 
-## ۱۰. محدودیت‌ها و تصمیم‌های باز
+## 11. Limitations and open decisions
 
-- **رنگ برند در Bootstrap در زمان Compile ثابت است.** تم‌های Runtime رنگ‌های خنثی و سطوح را تغییر می‌دهند؛ برای رنگ برند متفاوت به ازای هر Tenant، Build جداگانه لازم است ([ADR-0003](docs/decisions/0003-bootstrap-via-sass-module-configuration.md)).
-- **Bootstrap 5.3 هنوز از `@import` استفاده می‌کند.** هشدارهای Deprecation آن با `quietDeps` پنهان می‌شوند (Angular این کار را خودکار انجام می‌دهد). مهاجرت به Bootstrap 6 (فعلاً Alpha) یک نسخهٔ Major خواهد بود.
-- **فقط Technology Profile مربوط به Angular** پیاده‌سازی شده است؛ React و Vue نقطه‌های توسعهٔ مستندشده هستند.
-- **توکن‌ها فقط در Sass تعریف شده‌اند.** خروجی برای ابزارهای طراحی (مثلاً قالب DTCG) در صورت نیاز در آینده اضافه می‌شود ([ADR-0002](docs/decisions/0002-sass-tokens-canonical-source.md)).
-- **حجم CSS کامل Bootstrap** حدود ۲۷۰ کیلوبایت خام است؛ راه‌های کاهش در Angular Profile آمده است.
-- **Authentication، Backend و Business Logic** عمداً پیاده‌سازی نشده‌اند و کار هر پروژه هستند.
-- **انتشار نسخه:** Tag `v1.0.0` پس از Commit این تغییرات باید توسط نگهدارنده ساخته شود.
+- **Bootstrap brand colors are compile-time.** Runtime themes change neutrals and surfaces; a different brand color per tenant needs a separate build ([ADR-0003](docs/decisions/0003-bootstrap-via-sass-module-configuration.md)).
+- **Bootstrap 5.3 still uses `@import` internally.** Its deprecation warnings are silenced with `quietDeps` (Angular does this automatically). Moving to Bootstrap 6 (currently alpha) will be a major release.
+- **Only the Angular profile exists.** React and Vue are documented extension points.
+- **Tokens are defined in Sass only.** Exporting them for design tools (e.g. DTCG format) can be added later ([ADR-0002](docs/decisions/0002-sass-tokens-canonical-source.md)).
+- **Full Bootstrap CSS is about 270 kB raw** (about 27 kB transferred); ways to trim it are in the Angular profile.
+- **Authentication, backend and business logic** are intentionally not implemented; they are project work.
+- **Folder index files are named `<folder>.md`.** GitHub only auto-displays files named `README.md` below a folder listing, so open the folder's `<folder>.md` file directly when browsing on GitHub.

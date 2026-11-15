@@ -1,7 +1,7 @@
 # Angular Profile
 
 Angular + TypeScript implementation of the blueprint. Reference implementation and
-golden examples: [`src/app/`](../../../src/app/README.md).
+golden examples: [`src/app/`](../../../src/app/app.md).
 
 | Document | Content |
 | --- | --- |
@@ -17,7 +17,7 @@ golden examples: [`src/app/`](../../../src/app/README.md).
 | TypeScript | the version required by the Angular release | Let `ng update` manage it. |
 | Node.js | an Active LTS release supported by the Angular version | Pin in `.nvmrc` / `engines`. |
 | RxJS | 7.x (as required by Angular) | |
-| Bootstrap | 5.3.x — see [bootstrap profile](../bootstrap/README.md) | |
+| Bootstrap | 5.3.x — see [bootstrap profile](../bootstrap/bootstrap.md) | |
 | `@ng-bootstrap/ng-bootstrap` (optional) | 21.x for Angular 22 | Only when interactive Bootstrap widgets are needed. |
 
 Defaults verified against the Angular 22.2 CLI schematics: standalone APIs, **zoneless**
@@ -93,15 +93,15 @@ npm install --save-dev prettier
 | Error model and mapping | [`core/errors/app-error.ts`](../../../src/app/core/errors/app-error.ts) |
 | Functional HTTP interceptor | [`core/interceptors/http-error-interceptor.ts`](../../../src/app/core/interceptors/http-error-interceptor.ts) |
 | Theme / color-mode service | [`core/services/color-mode-store.ts`](../../../src/app/core/services/color-mode-store.ts) |
-| Responsive app shell + navigation | [`layout/shell/`](../../../src/app/layout/shell/README.md), [`layout/navigation/`](../../../src/app/layout/navigation/README.md) |
-| Reusable component (attribute selector, Bootstrap-based) | [`shared/components/button/`](../../../src/app/shared/components/button/README.md) |
-| Reusable component with global SCSS | [`shared/components/empty-state/`](../../../src/app/shared/components/empty-state/README.md) |
+| Responsive app shell + navigation | [`layout/shell/`](../../../src/app/layout/shell/shell.md), [`layout/navigation/`](../../../src/app/layout/navigation/navigation.md) |
+| Reusable component (attribute selector, Bootstrap-based) | [`shared/components/button/`](../../../src/app/shared/components/button/button.md) |
+| Reusable component with global SCSS | [`shared/components/empty-state/`](../../../src/app/shared/components/empty-state/empty-state.md) |
 | Typed shared models | [`shared/models/load-state.model.ts`](../../../src/app/shared/models/load-state.model.ts) |
-| Feature model + DTO mapping | [`features/placeholder-feature/models/`](../../../src/app/features/placeholder-feature/models/README.md) |
-| Feature API client and store | [`features/placeholder-feature/services/`](../../../src/app/features/placeholder-feature/services/README.md) |
-| Container (page) component | [`placeholder-container/`](../../../src/app/features/placeholder-feature/components/placeholder-container/README.md) |
-| Presentational component + test | [`placeholder-detail/`](../../../src/app/features/placeholder-feature/components/placeholder-detail/README.md) |
-| Form with validation states | [`placeholder-form/`](../../../src/app/features/placeholder-feature/components/placeholder-form/README.md) |
+| Feature model + DTO mapping | [`features/placeholder-feature/models/`](../../../src/app/features/placeholder-feature/models/models.md) |
+| Feature API client and store | [`features/placeholder-feature/services/`](../../../src/app/features/placeholder-feature/services/services.md) |
+| Container (page) component | [`placeholder-container/`](../../../src/app/features/placeholder-feature/components/placeholder-container/placeholder-container.md) |
+| Presentational component + test | [`placeholder-detail/`](../../../src/app/features/placeholder-feature/components/placeholder-detail/placeholder-detail.md) |
+| Form with validation states | [`placeholder-form/`](../../../src/app/features/placeholder-feature/components/placeholder-form/placeholder-form.md) |
 
 `src/` is a reference, not a runnable workspace (no `angular.json`/`package.json` for an app).
 Its component stylesheets are compiled by `npm run build:styles`; TypeScript is

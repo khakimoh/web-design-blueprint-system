@@ -9,4 +9,4 @@ Bootstrap 5.3 configured from design tokens.
 | [_bridge.scss](_bridge.scss) | Re-emits Bootstrap runtime variables (`--bs-body-bg`, `--bs-border-color`, `--bs-*-text-emphasis` …) for every theme from the design-system themes |
 
 Sass rejects configuration of variables Bootstrap does not define, so typos fail the build.
-Docs: [Bootstrap profile](../../../../docs/technologies/bootstrap/README.md), ADR-0003.
+Docs: [Bootstrap profile](../../../../docs/technologies/bootstrap/bootstrap.md), ADR-0003.

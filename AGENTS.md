@@ -11,12 +11,12 @@ You use it in two situations:
 
 1. The project's `project.config.yaml` (Layer 5) — if it does not exist, follow
    [docs/workflows/project-initialization.md](docs/workflows/project-initialization.md) first.
-2. [docs/principles/README.md](docs/principles/README.md) — the ten rules (Layer 1).
-3. [docs/design-system/README.md](docs/design-system/README.md) — tokens, themes, components (Layer 2).
+2. [docs/principles/principles.md](docs/principles/principles.md) — the ten rules (Layer 1).
+3. [docs/design-system/design-system.md](docs/design-system/design-system.md) — tokens, themes, components (Layer 2).
 4. The technology profiles named in `project.config.yaml` → `frontend`
-   ([docs/technologies/README.md](docs/technologies/README.md)), e.g. `angular/`, `scss/`, `bootstrap/` (Layer 3).
-5. The workflow for your task ([docs/workflows/README.md](docs/workflows/README.md)) (Layer 4).
-6. Golden examples in [src/](src/README.md) for the implementation style.
+   ([docs/technologies/technologies.md](docs/technologies/technologies.md)), e.g. `angular/`, `scss/`, `bootstrap/` (Layer 3).
+5. The workflow for your task ([docs/workflows/workflows.md](docs/workflows/workflows.md)) (Layer 4).
+6. Golden examples in [src/](src/src.md) for the implementation style.
 
 Read topic documents on demand; do not load the whole `docs/` tree for a small change.
 
@@ -70,10 +70,10 @@ If a deviation looks generally useful, say so — it may be promoted into the bl
 | Feature implementation steps | [docs/workflows/feature-development.md](docs/workflows/feature-development.md) |
 | Applying the design system | [docs/workflows/design-system-application.md](docs/workflows/design-system-application.md) |
 | Review checklist | [docs/workflows/code-review.md](docs/workflows/code-review.md) |
-| Config template / schema | [templates/project.config.yaml](templates/project.config.yaml), [schemas/](schemas/README.md) |
-| SCSS foundation | [src/styles/](src/styles/README.md) |
-| Angular golden examples | [src/app/](src/app/README.md) |
-| Decisions and their reasons | [docs/decisions/](docs/decisions/README.md) |
+| Config template / schema | [templates/project.config.yaml](templates/project.config.yaml), [schemas/](schemas/schemas.md) |
+| SCSS foundation | [src/styles/](src/styles/styles.md) |
+| Angular golden examples | [src/app/](src/app/app.md) |
+| Decisions and their reasons | [docs/decisions/](docs/decisions/decisions.md) |
 
 The original project audit in `engineering-audit/` is historical reference material: it
 describes one specific application and is **not** a standard. Do not copy domain concepts from it.

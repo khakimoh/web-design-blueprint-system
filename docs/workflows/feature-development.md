@@ -41,5 +41,5 @@ Generate files with the CLI (`ng generate component|service|…`) and keep gener
 
 - Run [validation.md](validation.md) checks relevant to the change.
 - Self-review with [code-review.md](code-review.md).
-- Update docs: feature README (purpose, routes, data sources), `project.config.yaml` if requirements or deviations changed.
+- Update docs: feature index file `<feature>.md` (purpose, routes, data sources), `project.config.yaml` if requirements or deviations changed.
 - Report: what changed, how it was validated (commands + results), open questions, follow-ups.

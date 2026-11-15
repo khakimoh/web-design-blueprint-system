@@ -13,4 +13,4 @@ features/<feature>/
 
 Rules: no imports between features; adding a feature = new folder + one route in
 `app.routes.ts`; feature state is provided on the feature route so it is destroyed with it.
-Golden example: [placeholder-feature/](placeholder-feature/README.md).
+Golden example: [placeholder-feature/](placeholder-feature/placeholder-feature.md).

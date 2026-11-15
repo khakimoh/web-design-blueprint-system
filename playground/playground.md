@@ -2,10 +2,10 @@
 
 A standalone Angular application that showcases the Blueprint's design system **live**:
 colors, typography, spacing, UI components, forms, layout and grid, light/dark themes and
-RTL/LTR. It is the visual companion to the documentation in [`../docs/`](../docs/README.md).
+RTL/LTR. It is the visual companion to the documentation in [`../docs/`](../docs/docs.md).
 
 The playground defines **no design tokens of its own**. It compiles the Blueprint's
-[`src/styles/`](../src/styles/README.md) in place (nothing is copied), including the Bootstrap
+[`src/styles/`](../src/styles/styles.md) in place (nothing is copied), including the Bootstrap
 configuration, and reads token names and values from the compiled stylesheet at runtime.
 
 ## Run it

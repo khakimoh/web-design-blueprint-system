@@ -49,4 +49,4 @@ customizations:
 ```
 
 Deviations are reviewed when upgrading the blueprint version: some may become obsolete;
-generally useful ones are proposed upstream ([development/README.md](../development/README.md#promoting-a-project-pattern)).
+generally useful ones are proposed upstream ([development/development.md](../development/development.md#promoting-a-project-pattern)).

@@ -2,7 +2,18 @@
 
 All notable changes to the blueprint. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
 versioning: [Semantic Versioning](https://semver.org/) as defined in
-[docs/development/README.md](docs/development/README.md#versioning-policy-semantic-versioning).
+[docs/development/development.md](docs/development/development.md#versioning-policy-semantic-versioning).
+
+## [Unreleased]
+
+### Changed
+
+- **Breaking (documentation paths):** every folder index file is renamed from `README.md` to
+  `<folder>/<folder>.md` (for example `docs/design-system/design-system.md`); only the root
+  keeps `README.md`. All internal links were updated and `npm run check:docs` enforces the
+  convention. External links to old `…/README.md` paths must be updated.
+- Root `README.md` rewritten in English, with a step-by-step VS Code quick start for using the
+  blueprint in a new front-end project.
 
 ## [1.1.0] — 2026-11-15
 
@@ -25,7 +36,7 @@ First complete release of the Web Design & Engineering Blueprint.
 
 ### Added
 
-- Five-layer architecture ([docs/architecture](docs/architecture/README.md)) and ADRs 0001–0006.
+- Five-layer architecture ([docs/architecture](docs/architecture/architecture.md)) and ADRs 0001–0006.
 - Layer 1: engineering principles — coding standards, naming, quality, security, API integration.
 - Layer 2: generic design system documentation and SCSS implementation (`src/styles/`):
   OKLCH-generated palettes, semantic color contract with compile-time validation and WCAG

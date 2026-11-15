@@ -2,7 +2,7 @@
 
 Bootstrap is the default CSS framework. It provides Reboot, the grid, utilities and
 component CSS; the design system provides every value it uses. Implementation:
-[`src/styles/vendors/bootstrap/`](../../../src/styles/vendors/bootstrap/README.md).
+[`src/styles/vendors/bootstrap/`](../../../src/styles/vendors/bootstrap/bootstrap.md).
 
 ## 1. Version policy
 

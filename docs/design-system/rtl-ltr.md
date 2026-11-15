@@ -62,7 +62,7 @@ beat Bootstrap component classes: Reboot's `ol, ul { padding-left: 2rem }` becom
 `[dir="ltr"] ol` and overrides `.breadcrumb { padding: 0 }`, leaving an unwanted indent.
 `safeBothPrefix: true` also prefixes the competing component declarations
 (`[dir] .breadcrumb`), restoring the intended cascade. Found and verified in the
-[playground](../../playground/README.md).
+[playground](../../playground/playground.md).
 
 Verified for this blueprint: compiling `main.scss` and running `postcss-rtlcss` produces
 `[dir="rtl"] .ms-2 { margin-right: … }` overrides for Bootstrap and none for `ds-` classes.

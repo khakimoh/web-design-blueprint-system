@@ -3,13 +3,13 @@
 A brand-neutral foundation for establishing the visual identity of any website.
 Each project supplies its brand (colors, fonts, shape, density, themes) through
 **one settings file**, [`src/styles/config/_project.scss`](../../src/styles/config/_project.scss),
-plus optional project-owned CSS in [`src/styles/project/`](../../src/styles/project/README.md);
+plus optional project-owned CSS in [`src/styles/project/`](../../src/styles/project/project.md);
 the architecture, scales and rules stay the same.
 
 The design system is defined in documentation (this folder) and implemented once,
-in SCSS, in [`src/styles/`](../../src/styles/README.md). The SCSS implementation is
+in SCSS, in [`src/styles/`](../../src/styles/styles.md). The SCSS implementation is
 framework-agnostic; Bootstrap is an optional consumer (see
-[technologies/bootstrap](../technologies/bootstrap/README.md)).
+[technologies/bootstrap](../technologies/bootstrap/bootstrap.md)).
 
 ## Documents
 

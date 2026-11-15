@@ -6,7 +6,7 @@
 # value marked TODO. Record decisions here; keep explanations in docs/.
 # Validate:  npm run validate:config -- path/to/project.config.yaml
 # Schema:    schemas/project-config.schema.json
-# Guide:     docs/configuration/README.md
+# Guide:     docs/configuration/configuration.md
 # =============================================================================
 
 schema_version: 1

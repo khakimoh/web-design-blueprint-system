@@ -2,7 +2,7 @@
 
 Technology-independent rules that apply to every project, whatever framework or
 styling solution it uses. Framework-specific implementation lives in
-[technologies/](../technologies/README.md); this layer never names a framework API.
+[technologies/](../technologies/technologies.md); this layer never names a framework API.
 
 | Document | Covers |
 | --- | --- |
@@ -10,7 +10,7 @@ styling solution it uses. Framework-specific implementation lives in
 | [naming-conventions.md](naming-conventions.md) | Naming rules for files, directories, code identifiers, CSS, data and tokens |
 | [quality-standards.md](quality-standards.md) | Testing, performance, accessibility, documentation and dependency management principles; definition of done |
 | [security.md](security.md) | Frontend security baseline: secrets, untrusted data, dependencies, headers, privacy |
-| [../api/README.md](../api/README.md) | Integrating with APIs: boundary normalization, typed contracts, error mapping, caching |
+| [../api/api.md](../api/api.md) | Integrating with APIs: boundary normalization, typed contracts, error mapping, caching |
 
 ## The ten rules (summary)
 

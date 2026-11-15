@@ -14,7 +14,7 @@ required; frontend security reduces exposure and protects users.
 
 - Rely on the framework's automatic output escaping; never bypass sanitization with raw HTML APIs unless the content is sanitized by a vetted library and the bypass is reviewed.
 - Never build HTML, URLs or styles by string concatenation with user data.
-- Validate and normalize all external data at the boundary (shape, types, ranges) — see [api/README.md](../api/README.md).
+- Validate and normalize all external data at the boundary (shape, types, ranges) — see [api/api.md](../api/api.md).
 - Validate URLs before using them in `href`/`src` (allow `https:`, relative paths; reject `javascript:`).
 - Client-side validation is for usability; the server validates again.
 

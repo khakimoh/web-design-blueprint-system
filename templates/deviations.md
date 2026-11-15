@@ -11,7 +11,7 @@ structural exception, a skipped validation step.
 
 Do **not** change the blueprint's reusable files in the project to make a
 deviation disappear. Record it here; if it proves generally useful, propose
-it upstream (see [docs/development/README.md](../docs/development/README.md)).
+it upstream (see [docs/development/development.md](../docs/development/development.md)).
 
 ---
 

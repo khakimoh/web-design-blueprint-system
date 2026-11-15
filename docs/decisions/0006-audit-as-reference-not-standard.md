@@ -17,7 +17,7 @@ classified:
 
 | Classification | Examples from the audit | Outcome in the blueprint |
 | --- | --- | --- |
-| General principle | normalization at the data boundary; single-flight replay caching; container/presentational split; strict typing; environment-based URLs; JSDoc for intent | Layer 1 ([coding-standards](../principles/coding-standards.md), [api](../api/README.md)) |
+| General principle | normalization at the data boundary; single-flight replay caching; container/presentational split; strict typing; environment-based URLs; JSDoc for intent | Layer 1 ([coding-standards](../principles/coding-standards.md), [api](../api/api.md)) |
 | Reusable design pattern | 4 px spacing unit; algorithmic color derivation from one seed; programmatic tokens | Layer 2, generalized (OKLCH palettes, semantic tokens, themes) |
 | Angular-specific convention | lazy feature routes, `async`/`shareReplay`, strict template checking, CLI budgets | Angular profile, modernized (standalone, signals, zoneless) |
 | Project-specific decision | product data model, print layout for documents, serif headings, fixed brand hue, dark-only body | Not adopted (a project may add print styles as an extension) |

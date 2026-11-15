@@ -1,6 +1,6 @@
 # src/app/
 
-Angular reference structure (feature-based, standalone, zoneless). Each folder README states
+Angular reference structure (feature-based, standalone, zoneless). Each folder's index file (`<folder>.md`) states
 its responsibility; golden examples sit where they belong. Architecture rules:
 [docs/technologies/angular/architecture.md](../../docs/technologies/angular/architecture.md).
 
@@ -8,10 +8,10 @@ its responsibility; golden examples sit where they belong. Architecture rules:
 | --- | --- |
 | [app.config.ts](app.config.ts) | Application-wide providers (router, HTTP + interceptors, runtime config) |
 | [app.routes.ts](app.routes.ts) | Top-level routes; each feature lazy-loaded; real not-found route |
-| [core/](core/README.md) | Application-wide singletons and infrastructure |
-| [shared/](shared/README.md) | Generic, feature-agnostic building blocks |
-| [layout/](layout/README.md) | Application frame: shell, header, navigation, sidebar, footer, not-found |
-| [features/](features/README.md) | One self-contained folder per feature |
+| [core/](core/core.md) | Application-wide singletons and infrastructure |
+| [shared/](shared/shared.md) | Generic, feature-agnostic building blocks |
+| [layout/](layout/layout.md) | Application frame: shell, header, navigation, sidebar, footer, not-found |
+| [features/](features/features.md) | One self-contained folder per feature |
 
 Dependency direction: `features` → `shared`/`core`; `layout` → `shared`/`core`; `core` → `shared`
 models/utils; `shared` → nothing app-specific. Features never import each other.

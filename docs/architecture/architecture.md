@@ -53,8 +53,8 @@ project brief ──▶ project.config.yaml (Layer 5, validated by schema)
 | Path | Layer | Role |
 | --- | --- | --- |
 | `src/styles/` | 2 (+3 for `vendors/bootstrap`) | Production-ready SCSS foundation, copied into projects |
-| `src/app/` | 3 | Angular reference structure: READMEs describing each directory + minimal golden examples |
-| `src/assets/`, `src/environments/`, `src/testing/` | 3 | Directory conventions with READMEs |
+| `src/app/` | 3 | Angular reference structure: index files (`<folder>.md`) describing each directory + minimal golden examples |
+| `src/assets/`, `src/environments/`, `src/testing/` | 3 | Directory conventions with index files |
 
 `src/` is intentionally **not** a runnable Angular workspace: no `angular.json`, no app
 `package.json`, no `main.ts`. Generating a workspace is the CLI's job (Step 5 of the
@@ -64,9 +64,9 @@ initialization workflow).
 
 | To add | Where | See |
 | --- | --- | --- |
-| A framework profile (React, Vue…) | `docs/technologies/<name>/` + `examples/<name>/` | [technologies/README.md](../technologies/README.md) |
-| A CSS strategy other than Bootstrap | `src/styles/vendors/<name>/` + entry file + profile doc | [scss/README.md](../technologies/scss/README.md) |
+| A framework profile (React, Vue…) | `docs/technologies/<name>/` + `examples/<name>/` | [technologies/technologies.md](../technologies/technologies.md) |
+| A CSS strategy other than Bootstrap | `src/styles/vendors/<name>/` + entry file + profile doc | [scss/scss.md](../technologies/scss/scss.md) |
 | A token or semantic color | `src/styles/tokens/` + all themes | [design-tokens.md](../design-system/design-tokens.md#6-extending-the-token-system-blueprint-maintainers) |
 | A brand theme (per project) | `config/_project.scss` → `$custom-themes` | [themes.md](../design-system/themes.md) |
-| A golden example | next to the related directory in `src/app/` | [development/README.md](../development/README.md) |
-| A workflow | `docs/workflows/` | [workflows/README.md](../workflows/README.md) |
+| A golden example | next to the related directory in `src/app/` | [development/development.md](../development/development.md) |
+| A workflow | `docs/workflows/` | [workflows/workflows.md](../workflows/workflows.md) |

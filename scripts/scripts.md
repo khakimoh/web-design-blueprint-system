@@ -7,7 +7,7 @@ projects; projects use their own framework tooling (Angular CLI, linters, tests)
 | --- | --- | --- |
 | [build-styles.mjs](build-styles.mjs) | `npm run build:styles` | Compiles `src/styles/main.scss` (Bootstrap profile) and `main-standalone.scss`; compiles every component stylesheet under `src/app/` against the public Sass API; fails on any Sass warning from this repo, on `@import`, `!important`, or raw colors outside token files; asserts `abstracts/` emits no CSS. Output in `dist/styles/` (git-ignored). |
 | [validate-config.mjs](validate-config.mjs) | `npm run validate:config -- [files…]` | Validates project configuration YAML against [the schema](../schemas/project-config.schema.json) plus cross-field rules. Defaults to the template. |
-| [check-docs.mjs](check-docs.mjs) | `npm run check:docs` | Every directory has a meaningful README; relative Markdown links resolve; no domain-specific vocabulary in reusable files. |
+| [check-docs.mjs](check-docs.mjs) | `npm run check:docs` | Every directory has a meaningful index file named after it (`<folder>/<folder>.md`; the root keeps `README.md`); relative Markdown links resolve; no domain-specific vocabulary in reusable files. |
 
 Run everything with:
 

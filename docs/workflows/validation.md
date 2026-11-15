@@ -27,7 +27,7 @@ output), or **not run** (with reason). Never report a check as passed without ru
 | **Direction** (if `rtl`/`both`) | `dir="rtl"`: mirrored layout, correct icons, mixed-direction text |
 | **States** | Force loading (throttle network), empty (no data) and error (offline / failing endpoint) states |
 | **Design consistency** | Checklist in [design-system-application.md](design-system-application.md#design-consistency-review-checklist) |
-| **Directory organization** | New files in the right layer; READMEs present for new folders; no cross-feature imports |
+| **Directory organization** | New files in the right layer; index files (`<folder>.md`) present for new folders; no cross-feature imports |
 
 ## 3. Blueprint repository (maintainers)
 
