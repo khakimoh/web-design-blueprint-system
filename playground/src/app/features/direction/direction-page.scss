@@ -1,0 +1,10 @@
+@use "abstracts" as ds;
+
+.direction-page__icon {
+  inline-size: ds.icon-size("sm");
+  block-size: ds.icon-size("sm");
+
+  &:dir(rtl) {
+    transform: scaleX(-1); // directional icon: mirror in RTL
+  }
+}

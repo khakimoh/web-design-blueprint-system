@@ -78,7 +78,7 @@ npm install --save-dev prettier
    (500 kB) is therefore exceeded by the CSS framework alone; the template uses 700 kB / 1 MB.
    To trim CSS: remove unused utilities via `$utilities` (`"key": null`) and reduce the
    spacing keys passed to Bootstrap — both in `vendors/bootstrap/_index.scss` (record as a deviation).
-6. RTL (`direction: rtl | both`): add `postcss-rtlcss` and `postcss.config.json` — see
+6. RTL (`direction: rtl | both`): add `postcss-rtlcss` and `postcss.config.json` with `safeBothPrefix: true` — see
    [rtl-ltr.md](../../design-system/rtl-ltr.md#3-bootstrap-and-rtl).
 7. Set `lang` and `dir` on `<html>` in `src/index.html`, and add the theme bootstrap script
    (see [themes.md](../../design-system/themes.md#3-runtime-switching)).

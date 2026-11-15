@@ -1,0 +1,59 @@
+@use "abstracts" as ds;
+
+.spacing-page__row {
+  display: grid;
+  grid-template-columns: 6rem 5rem 1fr;
+  gap: ds.space(3);
+  align-items: center;
+}
+
+.spacing-page__bar {
+  block-size: ds.space(3);
+  border-radius: ds.radius("xs");
+  background-color: ds.color-token("primary");
+}
+
+.spacing-page__radius {
+  inline-size: ds.space(16);
+  block-size: ds.space(16);
+  border: ds.border-width("medium") solid ds.color-token("primary");
+  background-color: ds.color-token("primary-subtle");
+}
+
+.spacing-page__shadow {
+  display: grid;
+  place-items: center;
+  min-block-size: ds.space(20);
+  border-radius: ds.radius("container");
+  background-color: ds.color-token("surface");
+}
+
+.spacing-page__control {
+  inline-size: ds.space(16);
+  border: ds.border-width() solid ds.color-token("border-interactive");
+  border-radius: ds.radius("control");
+}
+
+.spacing-page__motion {
+  display: grid;
+  gap: ds.space(1);
+  padding: ds.space(2);
+  border-radius: ds.radius("control");
+
+  &:focus-visible {
+    @include ds.focus-ring;
+  }
+}
+
+.spacing-page__dot {
+  inline-size: ds.space(3);
+  block-size: ds.space(3);
+  border-radius: ds.radius("circle");
+  background-color: ds.color-token("primary");
+  transition: margin-inline-start var(--pg-duration) ds.easing("standard");
+
+  .spacing-page__motion:hover &,
+  .spacing-page__motion:focus-visible & {
+    margin-inline-start: calc(100% - #{ds.space(3)});
+  }
+}

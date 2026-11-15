@@ -1,0 +1,28 @@
+<div class="d-flex flex-wrap align-items-center gap-2">
+  <div class="btn-group btn-group-sm" role="group" aria-label="Color theme">
+    @for (theme of themes; track theme.value) {
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        [class.active]="preferences.themePreference() === theme.value"
+        [attr.aria-pressed]="preferences.themePreference() === theme.value"
+        (click)="preferences.setTheme(theme.value)"
+      >
+        {{ theme.label }}
+      </button>
+    }
+  </div>
+  <div class="btn-group btn-group-sm" role="group" aria-label="Text direction">
+    @for (direction of directions; track direction.value) {
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        [class.active]="preferences.direction() === direction.value"
+        [attr.aria-pressed]="preferences.direction() === direction.value"
+        (click)="preferences.setDirection(direction.value)"
+      >
+        {{ direction.label }}
+      </button>
+    }
+  </div>
+</div>

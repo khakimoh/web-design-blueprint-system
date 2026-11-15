@@ -1,0 +1,87 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Colors</h1>
+    <p class="pg-page__intro mb-0">
+      Semantic colors for the active theme, the primitive palettes they are built from, and the contrast pairs the
+      Blueprint guarantees. Switch the theme in the header to see every value update.
+    </p>
+  </header>
+
+  @for (group of groups(); track group.title) {
+    <section class="pg-section" [attr.aria-labelledby]="'group-' + $index">
+      <h2 class="h4 mb-0" [id]="'group-' + $index">{{ group.title }}</h2>
+      <div class="ds-auto-grid" style="--ds-auto-grid-min: 10rem; --ds-auto-grid-gap: var(--ds-space-4)">
+        @for (token of group.tokens; track token.property) {
+          <pg-swatch [name]="token.name" [property]="token.property" [value]="token.value" />
+        }
+      </div>
+    </section>
+  }
+
+  <section class="pg-section" aria-labelledby="contrast-heading">
+    <h2 id="contrast-heading" class="h4 mb-0">Contrast checks</h2>
+    <p class="pg-section__lead">
+      Pairs declared in <code>tokens/_semantic.scss</code>, measured live in the browser with the WCAG formula.
+      The same pairs fail the style build when they fall below the minimum.
+    </p>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <caption class="visually-hidden">Contrast ratios of semantic color pairs</caption>
+        <thead>
+          <tr>
+            <th scope="col">Sample</th>
+            <th scope="col">Foreground</th>
+            <th scope="col">Background</th>
+            <th scope="col" class="text-end">Ratio</th>
+            <th scope="col" class="text-end">Minimum</th>
+            <th scope="col">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (pair of contrast(); track pair.fg + pair.bg) {
+            <tr>
+              <td>
+                <span
+                  class="d-inline-block px-3 py-1 rounded fw-semibold"
+                  [style.color]="'var(--ds-color-' + pair.fg + ')'"
+                  [style.background-color]="'var(--ds-color-' + pair.bg + ')'"
+                  [style.outline]="pair.fg.startsWith('border') || pair.fg === 'focus-ring' ? '3px solid var(--ds-color-' + pair.fg + ')' : null"
+                  >Aa</span
+                >
+              </td>
+              <td><code>{{ pair.fg }}</code></td>
+              <td><code>{{ pair.bg }}</code></td>
+              <td class="text-end ds-numeric">{{ pair.ratio === null ? '—' : pair.ratio.toFixed(2) + ':1' }}</td>
+              <td class="text-end ds-numeric">{{ pair.min }}:1</td>
+              <td>
+                <span
+                  class="badge border"
+                  [class]="pair.pass ? 'bg-success-subtle text-success-emphasis border-success-subtle' : 'bg-danger-subtle text-danger-emphasis border-danger-subtle'"
+                  >{{ pair.pass ? 'Pass' : 'Fail' }}</span
+                >
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="palettes-heading">
+    <h2 id="palettes-heading" class="h4 mb-0">Primitive palettes</h2>
+    <p class="pg-section__lead">
+      Generated from seed colors in <code>config/_project.scss</code> with fixed OKLCH lightness per step.
+      Primitives are never used directly in components.
+    </p>
+    @for (palette of palettes(); track palette.name) {
+      <div class="vstack gap-2">
+        <h3 class="h6 mb-0 text-capitalize">{{ palette.name }}</h3>
+        <div class="ds-auto-grid" style="--ds-auto-grid-min: 5.5rem; --ds-auto-grid-gap: var(--ds-space-2)">
+          @for (step of palette.steps; track step.property) {
+            <pg-swatch [name]="step.name" [property]="step.property" [value]="step.value" [compact]="true" />
+          }
+        </div>
+      </div>
+    }
+  </section>
+</article>

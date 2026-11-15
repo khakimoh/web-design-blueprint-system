@@ -1,0 +1,44 @@
+// =============================================================================
+// Token exports for the showcase
+// -----------------------------------------------------------------------------
+// The Blueprint emits semantic colors and static scales as --ds-* custom
+// properties, but keeps primitives, breakpoints and container widths in Sass.
+// The showcase needs to display them, so they are exported here under the
+// --pg- prefix, generated from the same Sass maps. No value is defined here.
+// =============================================================================
+
+@use "sass:list";
+@use "abstracts" as ds;
+
+// "fg bg min" triples from the semantic contract, for live contrast checks.
+$_pairs: ();
+@each $pair in ds.$contrast-pairs {
+  $_pairs: list.append($_pairs, "#{list.nth($pair, 1)} #{list.nth($pair, 2)} #{list.nth($pair, 3)}", $separator: comma);
+}
+
+
+:root {
+  --pg-contrast-pairs: "#{$_pairs}";
+
+  @each $name, $steps in ds.$palettes {
+    @each $step, $value in $steps {
+      --pg-palette-#{$name}-#{$step}: #{$value};
+    }
+  }
+
+  @each $name, $value in ds.$breakpoints {
+    --pg-breakpoint-#{$name}: #{$value};
+  }
+
+  @each $name, $value in ds.$container-max-widths {
+    --pg-container-#{$name}: #{$value};
+  }
+
+  @each $name, $value in ds.$content-widths {
+    --pg-content-width-#{$name}: #{$value};
+  }
+
+  @each $name, $value in ds.$icon-sizes {
+    --pg-icon-size-#{$name}: #{$value};
+  }
+}

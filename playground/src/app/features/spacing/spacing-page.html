@@ -1,0 +1,86 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Spacing, shape and motion</h1>
+    <p class="pg-page__intro mb-0">
+      A 4&nbsp;px spacing scale (<code>space(4)</code> = 16&nbsp;px), with matching Bootstrap utilities
+      (<code>.p-4</code> = 16&nbsp;px), plus the radius, elevation, z-index and motion scales.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="space-heading">
+    <h2 id="space-heading" class="h4 mb-0">Spacing scale</h2>
+    <div class="pg-demo vstack gap-2">
+      @for (space of spaces(); track space.property) {
+        <div class="spacing-page__row">
+          <code class="pg-token">space({{ space.name }})</code>
+          <span class="pg-token ds-numeric">{{ space.value }}</span>
+          <span class="spacing-page__bar" [style.inline-size]="'var(' + space.property + ')'"></span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="radius-heading">
+    <h2 id="radius-heading" class="h4 mb-0">Border radius</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 8rem; --ds-auto-grid-gap: var(--ds-space-4)">
+      @for (radius of radii(); track radius.property) {
+        <div class="vstack gap-2 align-items-center text-center">
+          <div class="spacing-page__radius" [style.border-radius]="'var(' + radius.property + ')'"></div>
+          <code class="pg-token">{{ radius.name }} · {{ radius.value }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="shadow-heading">
+    <h2 id="shadow-heading" class="h4 mb-0">Elevation</h2>
+    <div class="ds-auto-grid pg-demo pg-demo--subtle" style="--ds-auto-grid-min: 9rem">
+      @for (shadow of shadows(); track shadow.property) {
+        <div class="spacing-page__shadow" [style.box-shadow]="'var(' + shadow.property + ')'">
+          <code class="pg-token">shadow-{{ shadow.name }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="sizes-heading">
+    <h2 id="sizes-heading" class="h4 mb-0">Control heights, layers and motion</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 16rem">
+      <div class="pg-demo vstack gap-3">
+        <h3 class="h6 mb-0">Control heights</h3>
+        @for (control of controls(); track control.property) {
+          <div class="d-flex align-items-center gap-3">
+            <span class="spacing-page__control" [style.block-size]="'var(' + control.property + ')'"></span>
+            <code class="pg-token">{{ control.name }} · {{ control.value }}</code>
+          </div>
+        }
+      </div>
+      <div class="pg-demo">
+        <h3 class="h6">Z-index layers</h3>
+        <table class="table table-sm mb-0">
+          <caption class="visually-hidden">Z-index layers from lowest to highest</caption>
+          <tbody>
+            @for (layer of layers(); track layer.property) {
+              <tr><th scope="row" class="fw-normal"><code>{{ layer.name }}</code></th><td class="text-end ds-numeric">{{ layer.value }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="pg-demo vstack gap-3">
+        <h3 class="h6 mb-0">Motion</h3>
+        <p class="small text-body-secondary mb-0">Hover or focus a row to play it. Durations become 0 ms with reduced motion.</p>
+        @for (duration of durations(); track duration.property) {
+          <div class="spacing-page__motion" tabindex="0" [style.--pg-duration]="'var(' + duration.property + ')'">
+            <span class="spacing-page__dot" aria-hidden="true"></span>
+            <code class="pg-token">{{ duration.name }} · {{ duration.value }}</code>
+          </div>
+        }
+        <p class="pg-token mb-0">
+          @for (easing of easings(); track easing.property) {
+            <span class="d-block">{{ easing.name }}: {{ easing.value }}</span>
+          }
+        </p>
+      </div>
+    </div>
+  </section>
+</article>

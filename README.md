@@ -353,7 +353,7 @@ npm install bootstrap@~5.3.9
 
 - کلاس‌های Spacing بر حسب واحد 4px هستند: `.p-4` = 16px (برخلاف Bootstrap پیش‌فرض).
 - تم با `data-bs-theme` روی `<html>` عوض می‌شود و هم Bootstrap و هم توکن‌های `--ds-*` را تغییر می‌دهد.
-- اگر `direction` برابر `rtl` یا `both` است، `postcss-rtlcss` را نصب و `postcss.config.json` را اضافه کنید ([جزئیات](docs/design-system/rtl-ltr.md#3-bootstrap-and-rtl)).
+- اگر `direction` برابر `rtl` یا `both` است، `postcss-rtlcss` را نصب و `postcss.config.json` را با گزینهٔ `safeBothPrefix: true` اضافه کنید ([جزئیات](docs/design-system/rtl-ltr.md#3-bootstrap-and-rtl)).
 - برای پروژهٔ بدون Bootstrap، `main-standalone.scss` را به‌جای `main.scss` استفاده کنید.
 
 ### گام ۱۱ — سازمان‌دهی ساختار پوشه‌ها

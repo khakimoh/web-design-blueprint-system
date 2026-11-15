@@ -1,0 +1,60 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Design System Playground</h1>
+    <p class="pg-page__intro mb-0">
+      A live showcase of the Web Design &amp; Engineering Blueprint. Every color, size and style on these pages
+      comes from the Blueprint's <code>src/styles</code> foundation and its Bootstrap configuration — the
+      playground only displays them.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="stats-heading">
+    <h2 id="stats-heading" class="h4 mb-0">Tokens found in the compiled stylesheet</h2>
+    <dl class="ds-auto-grid mb-0" style="--ds-auto-grid-min: 11rem">
+      @for (stat of stats(); track stat.label) {
+        <div class="pg-demo vstack gap-1">
+          <dt class="text-body-secondary fw-normal small">{{ stat.label }}</dt>
+          <dd class="ds-type-h2 ds-numeric mb-0">{{ stat.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="pg-section" aria-labelledby="layers-heading">
+    <h2 id="layers-heading" class="h4 mb-0">How the foundation is built</h2>
+    <p class="pg-section__lead">
+      Tokens are defined once in Sass, seeded from a single project file, and published as CSS custom properties
+      and Bootstrap variables.
+    </p>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <caption class="visually-hidden">Token levels</caption>
+        <thead>
+          <tr><th scope="col">Level</th><th scope="col">Example</th><th scope="col">Used by</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Primitive</th><td><code>palette("primary", 600)</code></td><td>Themes only</td></tr>
+          <tr><th scope="row">Semantic</th><td><code>--ds-color-text-secondary</code></td><td>All components and layouts</td></tr>
+          <tr><th scope="row">Component</th><td><code>component-token("card", "padding")</code></td><td>One component family and Bootstrap</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <pg-code-sample [code]="usage" label="Using tokens in a component stylesheet" />
+  </section>
+
+  <section class="pg-section" aria-labelledby="sections-heading">
+    <h2 id="sections-heading" class="h4 mb-0">Explore</h2>
+    <ul class="ds-auto-grid list-unstyled mb-0" role="list" style="--ds-auto-grid-min: 15rem">
+      @for (section of sections; track section.path) {
+        <li class="card position-relative h-100">
+          <div class="card-body vstack gap-1">
+            <h3 class="h6 mb-0">
+              <a class="stretched-link" [routerLink]="section.path">{{ section.label }}</a>
+            </h3>
+            <p class="small text-body-secondary mb-0">{{ section.description }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</article>

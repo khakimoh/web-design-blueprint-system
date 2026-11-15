@@ -1,0 +1,64 @@
+// =============================================================================
+// Documentation-page patterns used by several showcase pages.
+// Tokens only; class prefix `pg-` (project prefix, per the Blueprint rules).
+// =============================================================================
+
+@use "abstracts" as ds;
+
+.pg-page {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space(12);
+  max-inline-size: ds.content-width("wide");
+}
+
+.pg-page__intro {
+  max-inline-size: ds.content-width("measure");
+  color: ds.color-token("text-secondary");
+  @include ds.type-role("body-lg");
+}
+
+.pg-section {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space(4);
+  scroll-margin-block-start: calc(#{ds.layout-size("header-height")} + #{ds.space(4)});
+}
+
+.pg-section__lead {
+  margin: 0;
+  max-inline-size: ds.content-width("measure");
+  color: ds.color-token("text-secondary");
+}
+
+// Bordered area that frames live examples.
+.pg-demo {
+  padding: ds.space(6);
+  border: ds.border-width() solid ds.color-token("border");
+  border-radius: ds.radius("container");
+  background-color: ds.color-token("surface");
+}
+
+.pg-demo--subtle {
+  background-color: ds.color-token("surface-subtle");
+}
+
+// Token name/value pairs.
+.pg-token {
+  font-family: var(--ds-font-family-mono);
+  font-size: var(--ds-font-size-xs);
+  color: ds.color-token("text-tertiary");
+  overflow-wrap: anywhere;
+}
+
+.pg-code {
+  margin: 0;
+  padding: ds.space(4);
+  overflow-x: auto;
+  border-radius: ds.radius("container");
+  background-color: ds.color-token("surface-sunken");
+  color: ds.color-token("text-primary");
+  font-size: var(--ds-font-size-sm);
+  direction: ltr;
+  text-align: start;
+}

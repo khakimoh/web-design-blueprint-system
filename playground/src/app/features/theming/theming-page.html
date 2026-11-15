@@ -1,0 +1,59 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Light and dark themes</h1>
+    <p class="pg-page__intro mb-0">
+      One attribute, <code>data-bs-theme</code>, switches both the Blueprint's <code>--ds-color-*</code> tokens and
+      Bootstrap's runtime variables. Themes can also be scoped to a subtree, as in the previews below.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="switch-heading">
+    <h2 id="switch-heading" class="h4 mb-0">Page theme</h2>
+    <p class="pg-section__lead">
+      Preference: <strong>{{ preferences.themePreference() }}</strong> · applied theme:
+      <strong>{{ preferences.theme() }}</strong>. "System" follows the operating system setting and is stored in
+      this browser.
+    </p>
+    <pg-theme-controls />
+  </section>
+
+  <section class="pg-section" aria-labelledby="preview-heading">
+    <h2 id="preview-heading" class="h4 mb-0">Side-by-side preview</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 18rem">
+      @for (scheme of schemes; track scheme) {
+        <div
+          class="pg-demo vstack gap-3"
+          [attr.data-bs-theme]="scheme"
+          [style.background-color]="'var(--ds-color-background)'"
+          [style.color]="'var(--ds-color-text-primary)'"
+        >
+          <h3 class="h6 mb-0 text-capitalize">{{ scheme }}</h3>
+          <div class="card">
+            <div class="card-body vstack gap-2">
+              <p class="fw-semibold mb-0">Card on surface</p>
+              <p class="small text-body-secondary mb-0">Secondary text keeps 4.5:1 contrast in both themes.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-primary btn-sm">Primary</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm">Secondary</button>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-info mb-0 small">Alerts use the theme's subtle colors.</div>
+          <label class="form-label mb-0" [for]="'preview-input-' + scheme">Input</label>
+          <input class="form-control" [id]="'preview-input-' + scheme" placeholder="Placeholder text" />
+          <a href="#preview-heading">A link in running text</a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="custom-heading">
+    <h2 id="custom-heading" class="h4 mb-0">Configuring themes in a project</h2>
+    <p class="pg-section__lead">
+      Projects enable themes and add custom ones in their settings file; the build validates every theme and its
+      contrast. Brand hues are compile-time for Bootstrap components, so runtime themes vary neutrals and surfaces.
+    </p>
+    <pg-code-sample [code]="config" label="Theme configuration" />
+    <pg-code-sample [code]="markup" label="Applying a theme" />
+  </section>
+</article>

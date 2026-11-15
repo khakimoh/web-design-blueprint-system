@@ -4,6 +4,21 @@ All notable changes to the blueprint. Format: [Keep a Changelog](https://keepach
 versioning: [Semantic Versioning](https://semver.org/) as defined in
 [docs/development/README.md](docs/development/README.md#versioning-policy-semantic-versioning).
 
+## [Unreleased]
+
+### Added
+
+- `playground/`: standalone Angular 22 design-system showcase that compiles `src/styles` in
+  place (colors, typography, spacing, components, forms, layout, themes, RTL/LTR).
+
+### Fixed
+
+- RTL guidance: `postcss-rtlcss` must run with `safeBothPrefix: true`. In the default
+  combined mode, direction-prefixed element rules (e.g. Reboot's list padding) overrode
+  Bootstrap component classes such as `.breadcrumb`. Updated
+  [rtl-ltr.md](docs/design-system/rtl-ltr.md#3-bootstrap-and-rtl), ADR-0005, the Angular
+  profile and the README.
+
 ## [1.0.0] — 2026-11-15
 
 First complete release of the Web Design & Engineering Blueprint.

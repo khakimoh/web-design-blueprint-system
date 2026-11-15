@@ -1,0 +1,21 @@
+@use "abstracts" as ds;
+
+:host {
+  display: block;
+}
+
+.docs-shell__brand {
+  color: ds.color-token("text-primary");
+  text-decoration: none;
+  white-space: nowrap;
+  @include ds.type-role("h6");
+}
+
+.docs-shell__brand-sub {
+  color: ds.color-token("text-tertiary");
+  font-weight: ds.font-weight("regular");
+
+  @include ds.media-down("sm") {
+    display: none;
+  }
+}

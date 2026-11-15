@@ -1,0 +1,64 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">RTL and LTR</h1>
+    <p class="pg-page__intro mb-0">
+      Blueprint styles use logical properties, so they need no direction overrides. Bootstrap's physical
+      utilities are flipped by <code>postcss-rtlcss</code> in the build, so both directions work in one bundle and
+      can be switched at runtime — for the whole page or a single element.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="page-dir-heading">
+    <h2 id="page-dir-heading" class="h4 mb-0">Page direction</h2>
+    <p class="pg-section__lead">
+      Current: <strong>{{ preferences.direction() === 'rtl' ? 'RTL (lang="fa")' : 'LTR (lang="en")' }}</strong>.
+      Switching moves the sidebar, flips alignment and mirrors directional icons.
+    </p>
+    <pg-theme-controls />
+  </section>
+
+  <section class="pg-section" aria-labelledby="compare-heading">
+    <h2 id="compare-heading" class="h4 mb-0">Same markup, both directions</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 18rem">
+      @for (sample of samples; track sample.dir) {
+        <div class="pg-demo vstack gap-3" [attr.dir]="sample.dir" [attr.lang]="sample.lang">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge text-bg-primary">{{ sample.dir.toUpperCase() }}</span>
+            <h3 class="h6 mb-0">{{ sample.title }}</h3>
+          </div>
+          <p class="mb-0 border-start border-4 border-primary ps-3">{{ sample.body }}</p>
+          <div class="input-group">
+            <span class="input-group-text">@</span>
+            <input class="form-control" [attr.aria-label]="sample.title" />
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-2">
+              {{ sample.action }}
+              <svg class="direction-page__icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <span class="ms-auto text-body-secondary small">{{ sample.next }} · <span dir="ltr">v1.0.0</span></span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading" class="h4 mb-0">What makes it work</h2>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <caption class="visually-hidden">Direction techniques</caption>
+        <thead><tr><th scope="col">Technique</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><td>Logical properties in Blueprint SCSS</td><td><code>padding-inline-start</code>, <code>inset-inline-start</code></td></tr>
+          <tr><td>Bootstrap start/end utilities + RTLCSS</td><td><code>.ms-auto</code>, <code>.ps-3</code>, <code>.border-start</code></td></tr>
+          <tr><td>Mirrored directional icons</td><td>Chevron flipped with <code>:dir(rtl)</code>; logos and media icons are not</td></tr>
+          <tr><td>Isolated LTR runs</td><td>Versions, emails and code wrapped in <code>dir="ltr"</code></td></tr>
+          <tr><td>Language-aware typography</td><td>No letter-spacing or uppercase for Persian text</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</article>

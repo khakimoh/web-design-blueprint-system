@@ -1,0 +1,8 @@
+// Playground global stylesheet.
+// 1. The Blueprint's design-system entry, used in place (never copied), so the
+//    playground always shows the real foundation: tokens, themes, Bootstrap.
+@use "../../src/styles/main";
+
+// 2. Playground-only output derived from the same tokens (no new values).
+@use "styles/token-exports";
+@use "styles/docs";

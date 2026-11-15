@@ -1,0 +1,87 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Typography</h1>
+    <p class="pg-page__intro mb-0">
+      Components use text roles, not raw sizes. Large roles are fluid: resize the window to see headings scale
+      between their minimum and maximum size.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="roles-heading">
+    <h2 id="roles-heading" class="h4 mb-0">Text roles</h2>
+    <div class="pg-demo vstack gap-4">
+      @for (role of roles(); track role) {
+        <div class="typography-page__role">
+          <code class="pg-token">.ds-type-{{ role }}</code>
+          <p [class]="'ds-type-' + role + ' mb-0'">The quick brown fox jumps over the lazy dog</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="bilingual-heading">
+    <h2 id="bilingual-heading" class="h4 mb-0">Persian and English content</h2>
+    <p class="pg-section__lead">
+      Language-specific font stacks are configured per project with <code>$font-families-by-lang</code>. Roles
+      reset letter-spacing and uppercase for Arabic-script languages automatically.
+    </p>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 18rem">
+      <div class="pg-demo vstack gap-2" lang="en" dir="ltr">
+        <p class="ds-type-overline mb-0">Overline label</p>
+        <p class="ds-type-h3 mb-0">Readable by default</p>
+        <p class="mb-0">Body text uses the base role with a comfortable line height and line length.</p>
+      </div>
+      <div class="pg-demo vstack gap-2" lang="fa" dir="rtl">
+        <p class="ds-type-overline mb-0">برچسب بالای عنوان</p>
+        <p class="ds-type-h3 mb-0">خوانایی به‌صورت پیش‌فرض</p>
+        <p class="mb-0">متن اصلی از نقش پایه با ارتفاع خط و طول سطر مناسب استفاده می‌کند. اعداد: ۱۲۳۴۵۶۷۸۹۰</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="scale-heading">
+    <h2 id="scale-heading" class="h4 mb-0">Type scale</h2>
+    <div class="pg-demo vstack gap-3">
+      @for (size of sizes(); track size.property) {
+        <div class="typography-page__scale-row">
+          <code class="pg-token">{{ size.name }} · {{ size.value }}</code>
+          <span class="typography-page__sample" [style.font-size]="'var(' + size.property + ')'">Aa Bb Cc 123</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="details-heading">
+    <h2 id="details-heading" class="h4 mb-0">Families, weights and line heights</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 16rem">
+      <div class="pg-demo vstack gap-3">
+        <h3 class="h6 mb-0">Families</h3>
+        @for (family of families(); track family.property) {
+          <div>
+            <p class="mb-1" [style.font-family]="'var(' + family.property + ')'">{{ family.name }}: Sphinx of black quartz</p>
+            <p class="pg-token mb-0">{{ family.value }}</p>
+          </div>
+        }
+      </div>
+      <div class="pg-demo vstack gap-2">
+        <h3 class="h6 mb-0">Weights</h3>
+        @for (weight of weights(); track weight.property) {
+          <p class="mb-0" [style.font-weight]="'var(' + weight.property + ')'">
+            {{ weight.name }} <span class="pg-token">{{ weight.value }}</span>
+          </p>
+        }
+      </div>
+      <div class="pg-demo vstack gap-3">
+        <h3 class="h6 mb-0">Line heights</h3>
+        @for (lh of lineHeights(); track lh.property) {
+          <div>
+            <p class="pg-token mb-1">{{ lh.name }} · {{ lh.value }}</p>
+            <p class="small mb-0 typography-page__lh" [style.line-height]="'var(' + lh.property + ')'">
+              Two lines of text show how much vertical space this line height leaves between rows.
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</article>

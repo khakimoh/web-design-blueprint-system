@@ -1,0 +1,20 @@
+@use "abstracts" as ds;
+
+.ui-components-page__dialog {
+  inline-size: min(32rem, calc(100vw - #{ds.space(8)}));
+  padding: ds.space(6);
+  border: ds.border-width() solid ds.color-token("border");
+  border-radius: ds.component-token("overlay", "radius");
+  background-color: ds.component-token("overlay", "background");
+  color: ds.color-token("text-primary");
+  box-shadow: ds.component-token("overlay", "shadow");
+
+  &::backdrop {
+    background-color: rgb(var(--ds-color-overlay-rgb) / #{ds.component-token("overlay", "backdrop-opacity")});
+  }
+}
+
+.ui-components-page__details > summary {
+  cursor: pointer;
+  color: ds.color-token("text-link");
+}

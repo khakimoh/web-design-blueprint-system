@@ -14,11 +14,17 @@ reads `postcss.config.json` / `.postcssrc.json`.
 ## Decision
 
 - All design-system CSS uses logical properties and logical insets (no direction-specific transforms), so it needs no RTL overrides.
-- Bootstrap CSS is made bidirectional with `postcss-rtlcss` (combined mode) only in projects whose `design.direction` is `rtl` or `both`.
+- Bootstrap CSS is made bidirectional with `postcss-rtlcss` (combined mode, **`safeBothPrefix: true`**) only in projects whose `design.direction` is `rtl` or `both`; `<html>` always carries a `dir` attribute.
 - Fonts per language via `:lang()`; letter-spacing and case transforms are reset for Arabic-script languages.
 
 Verified: compiling `main.scss` and processing with postcss-rtlcss 6 produced `[dir="rtl"]`
-overrides for Bootstrap utilities only (≈ +18 % CSS); no `ds-` rule required flipping.
+overrides for Bootstrap utilities only; no `ds-` rule required flipping.
+
+Amendment (playground verification): without `safeBothPrefix`, combined mode raises the
+specificity of direction-dependent element rules above Bootstrap component classes
+(e.g. `[dir="ltr"] ol { padding-left }` overrode `.breadcrumb { padding: 0 }`).
+`safeBothPrefix` prefixes the competing component declarations as well, restoring the
+cascade. Measured on `main.scss`: raw CSS grows +17.7 % without and +23.4 % with the option.
 
 ## Consequences
 

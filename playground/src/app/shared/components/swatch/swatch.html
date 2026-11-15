@@ -1,0 +1,7 @@
+<figure class="pg-swatch" [class.pg-swatch--compact]="compact()">
+  <div class="pg-swatch__color" [style.background-color]="'var(' + property() + ')'"></div>
+  <figcaption class="pg-swatch__caption">
+    <span class="pg-swatch__name">{{ name() }}</span>
+    <span class="pg-token ds-numeric" dir="ltr">{{ hex() }}</span>
+  </figcaption>
+</figure>

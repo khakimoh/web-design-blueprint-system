@@ -1,0 +1,202 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">UI components</h1>
+    <p class="pg-page__intro mb-0">
+      Native elements and Bootstrap components, styled entirely by Blueprint tokens. Custom components exist only
+      where Bootstrap has no equivalent (empty state).
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="buttons-heading">
+    <h2 id="buttons-heading" class="h4 mb-0">Buttons</h2>
+    <div class="pg-demo vstack gap-4">
+      <div class="d-flex flex-wrap gap-2">
+        @for (variant of variants; track variant) {
+          <button type="button" [class]="'btn btn-' + variant">{{ variant }}</button>
+        }
+        <button type="button" class="btn btn-link">link</button>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        @for (variant of variants; track variant) {
+          <button type="button" [class]="'btn btn-outline-' + variant">{{ variant }}</button>
+        }
+      </div>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <button type="button" class="btn btn-primary btn-sm">Small</button>
+        <button type="button" class="btn btn-primary">Medium</button>
+        <button type="button" class="btn btn-primary btn-lg">Large</button>
+        <button type="button" class="btn btn-primary" disabled>Disabled</button>
+        <button
+          type="button"
+          class="btn btn-primary d-inline-flex align-items-center gap-2"
+          [disabled]="loading()"
+          [attr.aria-busy]="loading() || null"
+          (click)="simulateLoading()"
+        >
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span class="visually-hidden" role="status">Saving</span>
+          }
+          Save (loading state)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="feedback-heading">
+    <h2 id="feedback-heading" class="h4 mb-0">Badges and alerts</h2>
+    <div class="pg-demo vstack gap-3">
+      <div class="d-flex flex-wrap gap-2">
+        @for (variant of variants; track variant) {
+          <span [class]="'badge text-bg-' + variant">{{ variant }}</span>
+        }
+        @for (variant of variants; track variant) {
+          <span [class]="'badge border bg-' + variant + '-subtle text-' + variant + '-emphasis border-' + variant + '-subtle'">{{ variant }} subtle</span>
+        }
+      </div>
+      @for (variant of ['success', 'warning', 'danger', 'info']; track variant) {
+        <div [class]="'alert alert-' + variant + ' mb-0'">
+          <strong class="text-capitalize">{{ variant }}.</strong> Alerts pair color with a text label, never color alone.
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="cards-heading">
+    <h2 id="cards-heading" class="h4 mb-0">Cards</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 15rem">
+      @for (n of [1, 2, 3]; track n) {
+        <div class="card h-100">
+          <div class="card-body vstack gap-2">
+            <h3 class="card-title h6 mb-0">Card title {{ n }}</h3>
+            <p class="card-text small text-body-secondary mb-0">Cards use the container radius and surface tokens.</p>
+            <a href="#cards-heading" class="btn btn-outline-primary btn-sm align-self-start mt-auto">Action</a>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="nav-heading">
+    <h2 id="nav-heading" class="h4 mb-0">Navigation: tabs, breadcrumbs, pagination</h2>
+    <div class="pg-demo vstack gap-4">
+      <div>
+        <div #tablist class="nav nav-tabs" role="tablist" aria-label="Example tabs">
+          @for (tab of tabs; track tab.id; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              class="nav-link"
+              [id]="'tab-' + tab.id"
+              [class.active]="activeTab() === i"
+              [attr.aria-selected]="activeTab() === i"
+              [attr.aria-controls]="'panel-' + tab.id"
+              [attr.tabindex]="activeTab() === i ? 0 : -1"
+              (click)="activeTab.set(i)"
+              (keydown)="onTabKeydown($event, i, tablist)"
+            >
+              {{ tab.label }}
+            </button>
+          }
+        </div>
+        @for (tab of tabs; track tab.id; let i = $index) {
+          <div
+            role="tabpanel"
+            class="pt-3"
+            tabindex="0"
+            [id]="'panel-' + tab.id"
+            [attr.aria-labelledby]="'tab-' + tab.id"
+            [hidden]="activeTab() !== i"
+          >
+            {{ tab.text }}
+          </div>
+        }
+      </div>
+
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="#nav-heading">Home</a></li>
+          <li class="breadcrumb-item"><a href="#nav-heading">Section</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Current page</li>
+        </ol>
+      </nav>
+
+      <nav aria-label="Pagination">
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="page() === 1">
+            <button type="button" class="page-link" [disabled]="page() === 1" (click)="page.set(page() - 1)">Previous</button>
+          </li>
+          @for (n of [1, 2, 3, 4]; track n) {
+            <li class="page-item" [class.active]="page() === n">
+              <button type="button" class="page-link" [attr.aria-current]="page() === n ? 'page' : null" (click)="page.set(n)">{{ n }}</button>
+            </li>
+          }
+          <li class="page-item" [class.disabled]="page() === 4">
+            <button type="button" class="page-link" [disabled]="page() === 4" (click)="page.set(page() + 1)">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="table-heading">
+    <h2 id="table-heading" class="h4 mb-0">Table</h2>
+    <div class="table-responsive pg-demo p-0">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Example data table</caption>
+        <thead>
+          <tr><th scope="col">Name</th><th scope="col">Status</th><th scope="col" class="text-end">Quantity</th><th scope="col" class="text-end">Updated</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row" class="fw-normal">Item one</th><td><span class="badge border bg-success-subtle text-success-emphasis border-success-subtle">Active</span></td><td class="text-end ds-numeric">1,280</td><td class="text-end ds-numeric">2026-11-02</td></tr>
+          <tr><th scope="row" class="fw-normal">Item two</th><td><span class="badge border bg-warning-subtle text-warning-emphasis border-warning-subtle">Pending</span></td><td class="text-end ds-numeric">64</td><td class="text-end ds-numeric">2026-10-28</td></tr>
+          <tr><th scope="row" class="fw-normal">Item three</th><td><span class="badge border bg-secondary-subtle text-secondary-emphasis border-secondary-subtle">Archived</span></td><td class="text-end ds-numeric">7</td><td class="text-end ds-numeric">2026-09-15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="states-heading">
+    <h2 id="states-heading" class="h4 mb-0">Loading, empty and error states</h2>
+    <div class="ds-auto-grid" style="--ds-auto-grid-min: 16rem">
+      <div class="pg-demo vstack gap-3">
+        <div class="d-flex align-items-center gap-2" role="status">
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span>Loading…</span>
+        </div>
+        <p class="placeholder-glow mb-0" aria-hidden="true">
+          <span class="placeholder col-7"></span> <span class="placeholder col-4"></span>
+          <span class="placeholder col-6"></span> <span class="placeholder col-8"></span>
+        </p>
+      </div>
+      <section class="ds-empty-state pg-demo" aria-labelledby="empty-title">
+        <h3 class="ds-empty-state__title" id="empty-title">Nothing here yet</h3>
+        <p class="ds-empty-state__description">Explain why the area is empty and what to do next.</p>
+        <div class="ds-empty-state__actions"><button type="button" class="btn btn-primary btn-sm">Create</button></div>
+      </section>
+      <section class="ds-empty-state pg-demo" data-tone="danger" aria-labelledby="error-title">
+        <h3 class="ds-empty-state__title" id="error-title">Could not load data</h3>
+        <p class="ds-empty-state__description">Say what failed and how to recover.</p>
+        <div class="ds-empty-state__actions"><button type="button" class="btn btn-outline-primary btn-sm">Try again</button></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="dialog-heading">
+    <h2 id="dialog-heading" class="h4 mb-0">Dialog and disclosure</h2>
+    <div class="pg-demo vstack gap-3 align-items-start">
+      <button type="button" class="btn btn-primary" (click)="openDialog()">Open dialog</button>
+      <details class="ui-components-page__details">
+        <summary>Show more details</summary>
+        <p class="mb-0 mt-2 text-body-secondary">Native <code>&lt;details&gt;</code> needs no script and is keyboard accessible.</p>
+      </details>
+    </div>
+    <dialog #dialog class="ui-components-page__dialog" aria-labelledby="dialog-title">
+      <h3 id="dialog-title" class="h5">Delete 3 items?</h3>
+      <p class="text-body-secondary">Native <code>&lt;dialog&gt;</code> with <code>showModal()</code>: focus moves in, Escape closes, focus returns to the trigger.</p>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="closeDialog()">Delete</button>
+      </div>
+    </dialog>
+  </section>
+</article>

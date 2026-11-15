@@ -1,0 +1,20 @@
+@use "abstracts" as ds;
+
+.layout-grid-page__cell {
+  display: grid;
+  place-items: center;
+  min-block-size: ds.space(12);
+  padding: ds.space(2);
+  border: ds.border-width() dashed ds.color-token("primary-border");
+  border-radius: ds.radius("control");
+  background-color: ds.color-token("primary-subtle");
+  color: ds.color-token("primary-text");
+  text-align: center;
+  @include ds.type-role("caption");
+}
+
+.layout-grid-page__width {
+  padding: ds.space(2) ds.space(3);
+  border-radius: ds.radius("control");
+  background-color: ds.color-token("surface-sunken");
+}

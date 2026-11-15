@@ -48,17 +48,27 @@ its official RTL approach is to post-process the compiled CSS with RTLCSS.
 2. Add a PostCSS configuration the build reads (Angular CLI reads `postcss.config.json` or `.postcssrc.json` from the project or workspace root):
 
    ```json
-   { "plugins": { "postcss-rtlcss": {} } }
+   { "plugins": { "postcss-rtlcss": { "safeBothPrefix": true } } }
    ```
 
-   Default ("combined") mode keeps LTR rules and adds `[dir="rtl"]` overrides only for
+   "Combined" mode (the default) keeps LTR rules and adds `[dir="rtl"]` overrides only for
    physical properties. The design-system CSS needs no overrides because it is logical.
-3. Use Bootstrap's start/end utilities (`ms-*`, `me-*`, `text-start`, `float-end`) — they flip correctly.
+3. Always set `dir` on `<html>` (`ltr` or `rtl`) — the prefixed rules only match below an element with a `dir` attribute.
+4. Use Bootstrap's start/end utilities (`ms-*`, `me-*`, `text-start`, `float-end`) — they flip correctly.
+
+**Why `safeBothPrefix` is required.** Combined mode moves direction-dependent declarations
+into `[dir="ltr"]` / `[dir="rtl"]` rules, which raises their specificity. Element rules then
+beat Bootstrap component classes: Reboot's `ol, ul { padding-left: 2rem }` becomes
+`[dir="ltr"] ol` and overrides `.breadcrumb { padding: 0 }`, leaving an unwanted indent.
+`safeBothPrefix: true` also prefixes the competing component declarations
+(`[dir] .breadcrumb`), restoring the intended cascade. Found and verified in the
+[playground](../../playground/README.md).
 
 Verified for this blueprint: compiling `main.scss` and running `postcss-rtlcss` produces
-`[dir="rtl"] .ms-2 { margin-right: … }` overrides for Bootstrap and none for `ds-` classes
-(≈ +18 % CSS). RTL-only projects may alternatively use RTLCSS "override" mode to emit
-only RTL rules — record that as a project decision.
+`[dir="rtl"] .ms-2 { margin-right: … }` overrides for Bootstrap and none for `ds-` classes.
+Cost: ≈ +18 % raw CSS without `safeBothPrefix`, ≈ +23 % with it (≈ 31 kB transferred in total
+for the full Bootstrap profile). RTL-only projects may alternatively use RTLCSS "override"
+mode to emit only RTL rules — record that as a project decision.
 
 Not recommended: loading the prebuilt `bootstrap.rtl.css`, because it bypasses token configuration.
 

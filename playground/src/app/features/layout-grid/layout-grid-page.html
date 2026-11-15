@@ -1,0 +1,88 @@
+<article class="pg-page">
+  <header class="vstack gap-3">
+    <h1 class="mb-0">Layout and grid</h1>
+    <p class="pg-page__intro mb-0">
+      Mobile-first breakpoints shared by the Blueprint and Bootstrap, the 12-column grid, and the layout
+      primitives Bootstrap lacks. Resize the window to watch the active breakpoint change.
+    </p>
+  </header>
+
+  <section class="pg-section" aria-labelledby="bp-heading">
+    <h2 id="bp-heading" class="h4 mb-0">Breakpoints</h2>
+    <p class="pg-section__lead" aria-live="polite">
+      Viewport <strong class="ds-numeric">{{ viewport() }}px</strong> — active breakpoint
+      <span class="badge text-bg-primary">{{ active() }}</span>
+    </p>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <caption class="visually-hidden">Breakpoints and container widths</caption>
+        <thead><tr><th scope="col">Name</th><th scope="col" class="text-end">Min width</th><th scope="col" class="text-end">Container max width</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          @for (bp of breakpoints(); track bp.property) {
+            <tr [class.table-active]="bp.name === active()">
+              <th scope="row"><code>{{ bp.name }}</code></th>
+              <td class="text-end ds-numeric">{{ bp.value }}</td>
+              <td class="text-end ds-numeric">{{ tokens.value('--pg-container-' + bp.name) || 'fluid' }}</td>
+              <td>{{ bp.name === active() ? 'Active' : '' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="grid-heading">
+    <h2 id="grid-heading" class="h4 mb-0">Bootstrap grid</h2>
+    <p class="pg-section__lead">Columns stack on small screens and split from <code>md</code>; gutters use the spacing scale.</p>
+    <div class="pg-demo vstack gap-3">
+      <div class="row g-3">
+        @for (n of [1, 2, 3, 4]; track n) {
+          <div class="col-12 col-sm-6 col-lg-3"><div class="layout-grid-page__cell">col-12 · col-sm-6 · col-lg-3</div></div>
+        }
+      </div>
+      <div class="row g-3">
+        <div class="col-md-8"><div class="layout-grid-page__cell">col-md-8 (main)</div></div>
+        <div class="col-md-4"><div class="layout-grid-page__cell">col-md-4 (aside)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="auto-heading">
+    <h2 id="auto-heading" class="h4 mb-0">Auto grid, stacks and measure</h2>
+    <p class="pg-section__lead">
+      <code>.ds-auto-grid</code> fits as many columns as possible without breakpoints. <code>.vstack</code> and
+      gap utilities handle one-dimensional layouts; <code>.ds-measure</code> keeps text readable.
+    </p>
+    <div class="pg-demo vstack gap-4">
+      <div class="ds-auto-grid" style="--ds-auto-grid-min: 9rem; --ds-auto-grid-gap: var(--ds-space-3)">
+        @for (n of [1, 2, 3, 4, 5, 6]; track n) {
+          <div class="layout-grid-page__cell">Tile {{ n }}</div>
+        }
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        @for (n of [1, 2, 3]; track n) {
+          <span class="layout-grid-page__cell px-4">gap-2 item {{ n }}</span>
+        }
+      </div>
+      <p class="ds-measure mb-0">
+        This paragraph is limited by <code>.ds-measure</code> to a comfortable reading width, so long lines do not
+        tire the eye on wide screens, regardless of the container around it.
+      </p>
+    </div>
+  </section>
+
+  <section class="pg-section" aria-labelledby="widths-heading">
+    <h2 id="widths-heading" class="h4 mb-0">Content widths and page shell</h2>
+    <div class="pg-demo vstack gap-2">
+      @for (width of contentWidths(); track width.property) {
+        <div class="layout-grid-page__width" [style.max-inline-size]="'var(' + width.property + ')'">
+          <code>{{ width.name }} · {{ width.value }}</code>
+        </div>
+      }
+    </div>
+    <p class="pg-section__lead">
+      This page itself uses the Blueprint's <code>.ds-shell</code>: sticky header, sidebar persistent from
+      <code>lg</code> and off-canvas below it, skip link, and focus moved to the main region after navigation.
+    </p>
+  </section>
+</article>

@@ -1,0 +1,52 @@
+<div class="ds-shell" [attr.data-sidebar]="sidebarOpen() ? 'open' : null">
+  <a class="ds-skip-link" href="#main">Skip to main content</a>
+
+  <header class="ds-shell__header">
+    <button
+      #menuButton
+      type="button"
+      class="btn btn-outline-secondary btn-sm d-lg-none"
+      aria-controls="docs-sidebar"
+      [attr.aria-expanded]="sidebarOpen()"
+      (click)="toggleSidebar()"
+    >
+      Sections
+    </button>
+    <a class="docs-shell__brand" routerLink="/overview">
+      Design System <span class="docs-shell__brand-sub">Playground</span>
+    </a>
+    <div class="ms-auto d-none d-md-block">
+      <pg-theme-controls />
+    </div>
+  </header>
+
+  <aside #sidebar class="ds-shell__sidebar" id="docs-sidebar" aria-label="Sections">
+    <!-- Below md the header has no room for the switches, so they live here. -->
+    <div class="d-md-none pb-4 mb-4 border-bottom">
+      <pg-theme-controls />
+    </div>
+    <nav aria-label="Showcase sections">
+      <ul class="nav nav-pills flex-column gap-1">
+        @for (item of navItems; track item.path) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="item.path" routerLinkActive="active" ariaCurrentWhenActive="page">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </aside>
+
+  @if (sidebarOpen()) {
+    <button type="button" class="ds-shell__backdrop" aria-label="Close sections" (click)="closeSidebar()"></button>
+  }
+
+  <main #main class="ds-shell__main" id="main" tabindex="-1">
+    <router-outlet />
+  </main>
+
+  <footer class="ds-shell__footer">
+    <small>Rendered from the Blueprint's <code>src/styles</code> — no tokens are defined in the playground.</small>
+  </footer>
+</div>
