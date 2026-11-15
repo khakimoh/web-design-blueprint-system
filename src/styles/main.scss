@@ -1,0 +1,30 @@
+// =============================================================================
+// Global stylesheet entry — Bootstrap profile (default)
+// -----------------------------------------------------------------------------
+// Import order (each layer may only depend on layers above it):
+//   1. config/      project settings            (no CSS)
+//   2. abstracts/   tokens + functions + mixins (no CSS)
+//   3. vendors/     Bootstrap configured from tokens + theme bridge
+//   4. base/        root custom properties, themes, global behaviour, type roles
+//   5. layout/      app shell and layout primitives
+//   6. components/  global styles for patterns Bootstrap lacks
+//   7. utilities/   (Bootstrap profile: utilities come from Bootstrap's API)
+//   8. project/     project-owned styles (fonts, project patterns) — loaded last
+//
+// Angular: reference this file in angular.json "styles" and add
+// "src/styles" to stylePreprocessorOptions.includePaths.
+// Docs: docs/technologies/scss/README.md
+// =============================================================================
+
+@use "vendors/bootstrap";
+
+@use "base/root";
+@use "base/global";
+@use "base/typography";
+
+@use "layout/primitives";
+@use "layout/app-shell";
+
+@use "components/empty-state";
+
+@use "project";

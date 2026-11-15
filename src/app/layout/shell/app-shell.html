@@ -1,0 +1,25 @@
+<div class="ds-shell" [attr.data-sidebar]="sidebarOpen() ? 'open' : null">
+  <a class="ds-skip-link" href="#main">Skip to main content</a>
+
+  <header class="ds-shell__header">
+    <app-header [sidebarOpen]="sidebarOpen()" [sidebarId]="sidebarId" (menuToggle)="toggleSidebar()">
+      <span appHeaderBrand>Application</span>
+    </app-header>
+  </header>
+
+  <aside #sidebar class="ds-shell__sidebar" [id]="sidebarId" aria-label="Sidebar">
+    <app-main-nav [items]="navItems" />
+  </aside>
+
+  @if (sidebarOpen()) {
+    <button type="button" class="ds-shell__backdrop" aria-label="Close navigation" (click)="closeSidebar()"></button>
+  }
+
+  <main #main class="ds-shell__main" id="main" tabindex="-1">
+    <router-outlet />
+  </main>
+
+  <footer class="ds-shell__footer">
+    <small>Footer content</small>
+  </footer>
+</div>

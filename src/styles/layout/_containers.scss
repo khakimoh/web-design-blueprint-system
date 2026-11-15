@@ -1,0 +1,33 @@
+// =============================================================================
+// Containers — standalone entry only
+// -----------------------------------------------------------------------------
+// With Bootstrap use `.container`, `.container-{bp}` and `.container-fluid`,
+// which are generated from the same $container-max-widths tokens.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+.ds-container {
+  inline-size: 100%;
+  margin-inline: auto;
+  padding-inline: ds.space("gutter-sm");
+
+  @each $bp, $max in ds.$container-max-widths {
+    @include ds.media-up($bp) {
+      max-inline-size: $max;
+    }
+  }
+
+  @include ds.media-up("lg") {
+    padding-inline: ds.space("gutter");
+  }
+}
+
+.ds-container-fluid {
+  inline-size: 100%;
+  padding-inline: ds.space("gutter-sm");
+
+  @include ds.media-up("lg") {
+    padding-inline: ds.space("gutter");
+  }
+}

@@ -1,0 +1,68 @@
+// =============================================================================
+// Dark theme — semantic color values
+// -----------------------------------------------------------------------------
+// Dark surfaces get lighter as they rise (raised > surface > background);
+// brand colors use lighter palette steps to keep contrast on dark surfaces.
+// =============================================================================
+
+@use "sass:map";
+@use "../abstracts/color";
+@use "../tokens/palette" as p;
+
+$_white: p.$color-white;
+$_ink: p.palette("neutral", 950);
+
+@function _brand($name) {
+  $base: p.palette($name, 400);
+  @return (
+    "#{$name}": $base,
+    "#{$name}-hover": p.palette($name, 300),
+    "#{$name}-active": p.palette($name, 200),
+    "on-#{$name}": color.best-on($base, $_white, $_ink),
+    "#{$name}-subtle": p.palette($name, 950),
+    "#{$name}-text": p.palette($name, 200),
+    "#{$name}-border": p.palette($name, 800),
+  );
+}
+
+@function _status($name) {
+  @return (
+    "#{$name}": p.palette($name, 400),
+    "#{$name}-subtle": p.palette($name, 950),
+    "#{$name}-text": p.palette($name, 200),
+    "#{$name}-border": p.palette($name, 800),
+  );
+}
+
+$tokens: (
+  "background": p.palette("neutral", 950),
+  "surface": p.palette("neutral", 900),
+  "surface-subtle": p.palette("neutral", 800),
+  "surface-raised": p.palette("neutral", 800),
+  "surface-sunken": p.palette("neutral", 950),
+  "overlay": p.$color-black,
+
+  "text-primary": p.palette("neutral", 50),
+  "text-secondary": p.palette("neutral", 300),
+  "text-tertiary": p.palette("neutral", 400),
+  "text-disabled": p.palette("neutral", 600),
+  "text-inverse": p.palette("neutral", 950),
+  "text-link": p.palette("primary", 300),
+  "text-link-hover": p.palette("primary", 200),
+
+  "border": p.palette("neutral", 800),
+  "border-subtle": p.palette("neutral", 900),
+  "border-strong": p.palette("neutral", 700),
+  "border-interactive": p.palette("neutral", 500),
+
+  "focus-ring": p.palette("primary", 300),
+  "selection-bg": p.palette("primary", 800),
+  "highlight-bg": p.palette("warning", 800),
+  "shadow": p.$color-black,
+);
+
+$tokens: map.merge($tokens, _brand("primary"));
+$tokens: map.merge($tokens, _brand("secondary"));
+@each $status in ("success", "warning", "danger", "info") {
+  $tokens: map.merge($tokens, _status($status));
+}

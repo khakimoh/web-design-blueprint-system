@@ -1,0 +1,22 @@
+// =============================================================================
+// Typography roles
+// -----------------------------------------------------------------------------
+// `.ds-type-<role>` classes apply a complete text role (size, weight,
+// line-height, tracking). Use them when the visual role differs from the
+// semantic element, e.g. <h2 class="ds-type-h4">.
+// Heading elements themselves are styled by Bootstrap (configured from the
+// same tokens) or, in the standalone entry, by base/_headings.scss.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+@each $role, $_ in ds.$type-roles {
+  .ds-type-#{$role} {
+    @include ds.type-role($role);
+  }
+}
+
+// Tabular, lining figures for tables, metrics, prices and timers.
+.ds-numeric {
+  font-variant-numeric: tabular-nums lining-nums;
+}

@@ -1,0 +1,14 @@
+@use "abstracts" as ds;
+
+:host {
+  display: flex;
+  flex: 1;
+  gap: ds.space(3);
+  align-items: center;
+}
+
+.app-header__brand {
+  color: ds.color-token("text-primary");
+  text-decoration: none;
+  @include ds.type-role("h6");
+}

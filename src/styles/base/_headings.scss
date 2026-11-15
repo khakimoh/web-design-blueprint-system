@@ -1,0 +1,19 @@
+// =============================================================================
+// Heading element defaults — standalone entry only.
+// With Bootstrap, headings are styled by Bootstrap from the same type roles
+// (see vendors/bootstrap/_index.scss: $h1-font-size …).
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+@each $level in (1, 2, 3, 4, 5, 6) {
+  :where(h#{$level}) {
+    font-family: var(--ds-font-family-heading);
+    color: var(--ds-color-text-primary);
+    @include ds.type-role("h#{$level}");
+  }
+}
+
+:where(small) {
+  font-size: var(--ds-font-size-sm);
+}

@@ -1,0 +1,71 @@
+// =============================================================================
+// Light theme — semantic color values
+// -----------------------------------------------------------------------------
+// Maps every key in tokens/_semantic.scss to a primitive. Brand-specific
+// changes belong in config/_project.scss ($semantic-overrides), not here.
+// =============================================================================
+
+@use "sass:map";
+@use "../config/project";
+@use "../abstracts/color";
+@use "../tokens/palette" as p;
+
+$_white: p.$color-white;
+$_ink: p.palette("neutral", 950);
+
+// Brand seeds are used exactly as configured (not the generated 500 step),
+// so the brand color appears unchanged on primary actions.
+@function _brand($name, $seed) {
+  $seed: color.to-srgb($seed);
+  @return (
+    "#{$name}": $seed,
+    "#{$name}-hover": color.shift-lightness($seed, -6%),
+    "#{$name}-active": color.shift-lightness($seed, -11%),
+    "on-#{$name}": color.best-on($seed, $_white, $_ink),
+    "#{$name}-subtle": p.palette($name, 50),
+    "#{$name}-text": p.palette($name, 700),
+    "#{$name}-border": p.palette($name, 200),
+  );
+}
+
+@function _status($name) {
+  @return (
+    "#{$name}": p.palette($name, 600),
+    "#{$name}-subtle": p.palette($name, 50),
+    "#{$name}-text": p.palette($name, 800),
+    "#{$name}-border": p.palette($name, 200),
+  );
+}
+
+$tokens: (
+  "background": $_white,
+  "surface": $_white,
+  "surface-subtle": p.palette("neutral", 50),
+  "surface-raised": $_white,
+  "surface-sunken": p.palette("neutral", 100),
+  "overlay": p.palette("neutral", 950),
+
+  "text-primary": p.palette("neutral", 900),
+  "text-secondary": p.palette("neutral", 700),
+  "text-tertiary": p.palette("neutral", 600),
+  "text-disabled": p.palette("neutral", 400),
+  "text-inverse": $_white,
+  "text-link": p.palette("primary", 700),
+  "text-link-hover": p.palette("primary", 800),
+
+  "border": p.palette("neutral", 200),
+  "border-subtle": p.palette("neutral", 100),
+  "border-strong": p.palette("neutral", 300),
+  "border-interactive": p.palette("neutral", 500),
+
+  "focus-ring": p.palette("primary", 600),
+  "selection-bg": p.palette("primary", 200),
+  "highlight-bg": p.palette("warning", 100),
+  "shadow": p.palette("neutral", 950),
+);
+
+$tokens: map.merge($tokens, _brand("primary", project.$brand-primary));
+$tokens: map.merge($tokens, _brand("secondary", project.$brand-secondary));
+@each $status in ("success", "warning", "danger", "info") {
+  $tokens: map.merge($tokens, _status($status));
+}

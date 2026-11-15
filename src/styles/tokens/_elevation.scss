@@ -1,0 +1,45 @@
+// =============================================================================
+// Elevation tokens — shadows and z-index layers
+// -----------------------------------------------------------------------------
+// Shadows reference --ds-shadow-color (an "r g b" triplet set per theme), so
+// a single definition adapts to light and dark themes.
+// Z-index values are a closed set of named layers; never invent numbers.
+// Docs: docs/design-system/shape-elevation-motion.md
+// =============================================================================
+
+$_c: "var(--ds-color-shadow-rgb)";
+
+$shadows: (
+  "none": none,
+  "xs": 0 1px 2px 0 rgb(#{$_c} / 0.06),
+  "sm": (0 1px 3px 0 rgb(#{$_c} / 0.1), 0 1px 2px -1px rgb(#{$_c} / 0.1)),
+  "md": (0 4px 6px -1px rgb(#{$_c} / 0.1), 0 2px 4px -2px rgb(#{$_c} / 0.1)),
+  "lg": (0 10px 15px -3px rgb(#{$_c} / 0.1), 0 4px 6px -4px rgb(#{$_c} / 0.1)),
+  "xl": (0 20px 25px -5px rgb(#{$_c} / 0.12), 0 8px 10px -6px rgb(#{$_c} / 0.1)),
+  "inset": inset 0 1px 2px rgb(#{$_c} / 0.08),
+);
+
+// Which elevation each kind of surface uses.
+$elevation-roles: (
+  "card": "sm",
+  "dropdown": "lg",
+  "popover": "lg",
+  "modal": "xl",
+  "sticky": "sm",
+);
+
+// Layers, lowest to highest. Values match Bootstrap's z-index scale.
+$z-layers: (
+  "base": 0,
+  "raised": 1,
+  "dropdown": 1000,
+  "sticky": 1020,
+  "fixed": 1030,
+  "drawer-backdrop": 1040,
+  "drawer": 1045,
+  "modal-backdrop": 1050,
+  "modal": 1055,
+  "popover": 1070,
+  "tooltip": 1080,
+  "toast": 1090,
+);

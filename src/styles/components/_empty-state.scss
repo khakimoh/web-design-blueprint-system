@@ -1,0 +1,75 @@
+// =============================================================================
+// Empty / error state — golden example of a reusable global component style
+// -----------------------------------------------------------------------------
+// Bootstrap has no empty-state pattern, so it lives here. Markup:
+//
+//   <section class="ds-empty-state" [data-tone="danger"] aria-labelledby="…">
+//     <div class="ds-empty-state__icon" aria-hidden="true">…svg…</div>
+//     <h2 class="ds-empty-state__title" id="…">No items yet</h2>
+//     <p class="ds-empty-state__description">…</p>
+//     <div class="ds-empty-state__actions">…buttons…</div>
+//   </section>
+//
+// Rules shown here: BEM-style block/element names with the ds- prefix,
+// semantic color tokens only, logical properties, one modifier attribute,
+// nesting no deeper than one level, no !important.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+.ds-empty-state {
+  --ds-empty-state-accent: var(--ds-color-text-tertiary);
+
+  display: flex;
+  flex-direction: column;
+  gap: ds.space(3);
+  align-items: center;
+  max-inline-size: ds.content-width("narrow");
+  margin-inline: auto;
+  padding: ds.space(10) ds.space(6);
+  text-align: center;
+
+  &[data-tone="danger"] {
+    --ds-empty-state-accent: var(--ds-color-danger);
+  }
+}
+
+.ds-empty-state__icon {
+  display: grid;
+  place-items: center;
+  inline-size: ds.space(12);
+  block-size: ds.space(12);
+  border-radius: ds.radius("circle");
+  background-color: var(--ds-color-surface-sunken);
+  color: var(--ds-empty-state-accent);
+
+  // No icon projected: collapse the placeholder circle.
+  &:empty {
+    display: none;
+  }
+
+  > svg {
+    inline-size: ds.icon-size("lg");
+    block-size: ds.icon-size("lg");
+  }
+}
+
+.ds-empty-state__title {
+  margin: 0;
+  color: var(--ds-color-text-primary);
+  @include ds.type-role("h5");
+}
+
+.ds-empty-state__description {
+  margin: 0;
+  color: var(--ds-color-text-secondary);
+  @include ds.type-role("body-sm");
+}
+
+.ds-empty-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ds.space(2);
+  justify-content: center;
+  margin-block-start: ds.space(2);
+}

@@ -1,0 +1,23 @@
+{
+  "name": "web-design-blueprint-system",
+  "version": "1.0.0",
+  "description": "Reusable web design and engineering blueprint for AI-assisted web application development.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build:styles": "node scripts/build-styles.mjs",
+    "validate:config": "node scripts/validate-config.mjs",
+    "check:docs": "node scripts/check-docs.mjs",
+    "validate": "npm run build:styles && npm run validate:config && npm run check:docs"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "bootstrap": "~5.3.9",
+    "sass": "^1.108.2",
+    "yaml": "^2.9.1"
+  }
+}

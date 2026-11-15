@@ -1,0 +1,47 @@
+// =============================================================================
+// Global behaviour shared by every entry point
+// -----------------------------------------------------------------------------
+// Low-specificity (:where) rules only, so components can override them.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+// Consistent keyboard focus for elements that do not define their own.
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  @include ds.focus-ring;
+}
+
+::selection {
+  background-color: var(--ds-color-selection-bg);
+}
+
+:where(mark) {
+  background-color: var(--ds-color-highlight-bg);
+  color: inherit;
+}
+
+// Respect reduced motion for anything not driven by duration tokens.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+  }
+}
+
+// Skip link: first focusable element of the page shell.
+.ds-skip-link {
+  position: absolute;
+  inset-block-start: ds.space(2);
+  inset-inline-start: ds.space(2);
+  z-index: ds.z("toast");
+  padding: ds.space(2) ds.space(4);
+  border-radius: ds.radius("control");
+  background-color: var(--ds-color-surface-raised);
+  color: var(--ds-color-text-primary);
+  box-shadow: ds.shadow("md");
+  @include ds.visually-hidden-focusable;
+}

@@ -1,0 +1,43 @@
+// =============================================================================
+// Helpers that translate design tokens into Bootstrap variable formats.
+// =============================================================================
+
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+@use "../../abstracts" as ds;
+
+/// Vertical padding that makes a Bootstrap control match a height token.
+/// height = line-height * font-size + 2 * padding-y + 2 * border (1px)
+/// Bootstrap does arithmetic on this value, so it must be a static rem length.
+@function padding-y($height, $font-size, $line-height: 1.5) {
+  @return math.div($height - $font-size * $line-height, 2) - 0.0625rem;
+}
+
+/// Bootstrap spacer map from the numeric spacing keys, so `.p-4` == ds.space(4).
+@function spacers($keys) {
+  $out: ();
+  @each $key in $keys {
+    $out: map.set($out, $key, ds.space($key));
+  }
+  @return $out;
+}
+
+/// Bootstrap expects unquoted keys in breakpoint/container maps.
+@function unquote-keys($map) {
+  $out: ();
+  @each $key, $value in $map {
+    $out: map.set($out, string.unquote($key), $value);
+  }
+  @return $out;
+}
+
+/// Heading size for Bootstrap from a type role (fluid when the role is).
+@function heading-size($role) {
+  $r: map.get(ds.$type-roles, $role);
+  $max: ds.font-size(map.get($r, "size"));
+  @if map.has-key($r, "size-min") {
+    @return ds.fluid(ds.font-size(map.get($r, "size-min")), $max);
+  }
+  @return $max;
+}

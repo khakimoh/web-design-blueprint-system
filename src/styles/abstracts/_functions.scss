@@ -1,0 +1,126 @@
+// =============================================================================
+// Token accessor functions
+// -----------------------------------------------------------------------------
+// Prefer these over reading maps directly: they fail loudly on typos.
+//   space(4)               -> 1rem
+//   radius("control")      -> role or scale key
+//   font-size("lg")        -> 1.125rem
+//   z("modal")             -> 1055
+//   shadow("md")           -> var(--ds-shadow-md)
+//   color-token("text-secondary") -> var(--ds-color-text-secondary)  (runtime, themeable)
+//   component-token("card", "padding")
+// =============================================================================
+
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "../tokens";
+
+@function _get($map, $key, $label) {
+  @if not map.has-key($map, $key) {
+    @error "Unknown #{$label} `#{$key}`. Available: #{map.keys($map)}.";
+  }
+  @return map.get($map, $key);
+}
+
+/// Spacing scale value (4px units). Accepts a scale key or a semantic alias.
+@function space($key) {
+  @if meta.type-of($key) == "string" and map.has-key(tokens.$spacing-aliases, $key) {
+    $key: map.get(tokens.$spacing-aliases, $key);
+  }
+  @return _get(tokens.$spacing, $key, "space");
+}
+
+/// Radius by scale key ("md") or role ("control").
+@function radius($key) {
+  @if map.has-key(tokens.$radius-roles, $key) {
+    $key: map.get(tokens.$radius-roles, $key);
+  }
+  @return _get(tokens.$radii, $key, "radius");
+}
+
+@function border-width($key: "thin") {
+  @return _get(tokens.$border-widths, $key, "border width");
+}
+
+@function font-size($key) {
+  @return _get(tokens.$font-sizes, $key, "font size");
+}
+
+@function font-weight($key) {
+  @return _get(tokens.$font-weights, $key, "font weight");
+}
+
+@function line-height($key) {
+  @return _get(tokens.$line-heights, $key, "line height");
+}
+
+@function letter-spacing($key) {
+  @return _get(tokens.$letter-spacings, $key, "letter spacing");
+}
+
+@function breakpoint($key) {
+  @return _get(tokens.$breakpoints, $key, "breakpoint");
+}
+
+@function content-width($key) {
+  @return _get(tokens.$content-widths, $key, "content width");
+}
+
+@function layout-size($key) {
+  @return _get(tokens.$layout-sizes, $key, "layout size");
+}
+
+@function control-height($key: "md") {
+  @return _get(tokens.$control-heights, $key, "control height");
+}
+
+@function icon-size($key) {
+  @return _get(tokens.$icon-sizes, $key, "icon size");
+}
+
+@function z($layer) {
+  @return _get(tokens.$z-layers, $layer, "z-index layer");
+}
+
+/// Shadow by scale key or role. Returns the runtime custom property.
+@function shadow($key) {
+  @if map.has-key(tokens.$elevation-roles, $key) {
+    $key: map.get(tokens.$elevation-roles, $key);
+  }
+  $_: _get(tokens.$shadows, $key, "shadow");
+  @return var(--ds-shadow-#{$key});
+}
+
+@function duration($key) {
+  $_: _get(tokens.$durations, $key, "duration");
+  @return var(--ds-duration-#{$key});
+}
+
+@function easing($key) {
+  $_: _get(tokens.$easings, $key, "easing");
+  @return var(--ds-easing-#{$key});
+}
+
+/// Semantic color as a runtime custom property. Use this in component styles
+/// so values follow the active theme.
+@function color-token($key) {
+  @if not list.index(tokens.$semantic-color-keys, $key) {
+    @error "Unknown semantic color `#{$key}`. See tokens/_semantic.scss.";
+  }
+  @return var(--ds-color-#{$key});
+}
+
+/// Component-level token.
+@function component-token($component, $key) {
+  $c: _get(tokens.$component-tokens, $component, "component");
+  @return _get($c, $key, "#{$component} token");
+}
+
+/// Fluid value between $min and $max across the fluid viewport range.
+@function fluid($min, $max, $min-vw: tokens.$fluid-type-min-viewport, $max-vw: tokens.$fluid-type-max-viewport) {
+  $slope: math.div($max - $min, $max-vw - $min-vw);
+  $intercept: $min - $slope * $min-vw;
+  @return clamp(#{$min}, #{$intercept} + #{$slope * 100vw}, #{$max});
+}

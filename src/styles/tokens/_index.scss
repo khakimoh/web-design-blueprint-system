@@ -1,0 +1,11 @@
+// Canonical design tokens. Sass values only — this module emits no CSS.
+// Import through `abstracts` (component styles) rather than directly.
+@forward "palette";
+@forward "semantic";
+@forward "typography";
+@forward "spacing";
+@forward "sizing";
+@forward "shape";
+@forward "elevation";
+@forward "motion";
+@forward "components";

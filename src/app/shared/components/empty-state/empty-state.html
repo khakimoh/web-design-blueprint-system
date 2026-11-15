@@ -1,0 +1,20 @@
+<section
+  class="ds-empty-state"
+  [attr.data-tone]="tone() === 'neutral' ? null : tone()"
+  [attr.role]="role()"
+>
+  <div class="ds-empty-state__icon" aria-hidden="true">
+    <ng-content select="[emptyStateIcon]" />
+  </div>
+  @switch (headingLevel()) {
+    @case (1) { <h1 class="ds-empty-state__title">{{ title() }}</h1> }
+    @case (3) { <h3 class="ds-empty-state__title">{{ title() }}</h3> }
+    @default { <h2 class="ds-empty-state__title">{{ title() }}</h2> }
+  }
+  @if (description()) {
+    <p class="ds-empty-state__description">{{ description() }}</p>
+  }
+  <div class="ds-empty-state__actions">
+    <ng-content select="[emptyStateActions]" />
+  </div>
+</section>

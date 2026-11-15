@@ -1,0 +1,95 @@
+// =============================================================================
+// Level 2 — Semantic color token contract
+// -----------------------------------------------------------------------------
+// This file defines the NAMES every theme must provide. Values live in
+// themes/_light.scss, themes/_dark.scss and project themes.
+// Emitted as CSS custom properties: --ds-color-<name>.
+//
+// Add a key here only when a purpose is genuinely new and reusable across
+// projects; then add a value to every theme.
+// =============================================================================
+
+$semantic-color-keys: (
+  // Page and surfaces
+  "background",           // page canvas
+  "surface",              // cards, panels, inputs
+  "surface-subtle",       // zebra rows, section bands
+  "surface-raised",       // menus, popovers, dialogs
+  "surface-sunken",       // wells, code blocks, disabled fields
+  "overlay",              // modal/drawer backdrop (opaque base; alpha applied by consumer)
+
+  // Text
+  "text-primary",         // body text, headings
+  "text-secondary",       // supporting text (>= 4.5:1 on surfaces)
+  "text-tertiary",        // placeholders, meta text (>= 4.5:1 on background)
+  "text-disabled",        // disabled text (exempt from contrast rules)
+  "text-inverse",         // text on inverse/strong surfaces
+  "text-link",
+  "text-link-hover",
+
+  // Borders
+  "border",               // default dividers and card borders
+  "border-subtle",        // low-emphasis separators
+  "border-strong",        // emphasized separators
+  "border-interactive",   // form control boundaries (>= 3:1, WCAG 1.4.11)
+
+  // Brand / action
+  "primary",
+  "primary-hover",
+  "primary-active",
+  "on-primary",           // text/icon on primary
+  "primary-subtle",       // tinted background
+  "primary-text",         // primary-tinted text on background
+  "primary-border",
+  "secondary",
+  "secondary-hover",
+  "secondary-active",
+  "on-secondary",
+  "secondary-subtle",
+  "secondary-text",
+  "secondary-border",
+
+  // Feedback
+  "success",
+  "success-subtle",
+  "success-text",
+  "success-border",
+  "warning",
+  "warning-subtle",
+  "warning-text",
+  "warning-border",
+  "danger",
+  "danger-subtle",
+  "danger-text",
+  "danger-border",
+  "info",
+  "info-subtle",
+  "info-text",
+  "info-border",
+
+  // Interaction
+  "focus-ring",           // focus indicator (>= 3:1 against background)
+  "selection-bg",         // ::selection background
+  "highlight-bg",         // <mark>, search hits
+  "shadow",               // base color for elevation shadows
+);
+
+// Text/background pairs checked for WCAG contrast at compile time.
+// (foreground, background, minimum ratio)
+$contrast-pairs: (
+  ("text-primary", "background", 4.5),
+  ("text-primary", "surface", 4.5),
+  ("text-secondary", "background", 4.5),
+  ("text-secondary", "surface", 4.5),
+  ("text-tertiary", "background", 4.5),
+  ("text-link", "background", 4.5),
+  ("on-primary", "primary", 4.5),
+  ("on-secondary", "secondary", 4.5),
+  ("primary-text", "primary-subtle", 4.5),
+  ("success-text", "success-subtle", 4.5),
+  ("warning-text", "warning-subtle", 4.5),
+  ("danger-text", "danger-subtle", 4.5),
+  ("info-text", "info-subtle", 4.5),
+  ("border-interactive", "surface", 3),
+  ("focus-ring", "background", 3),
+);

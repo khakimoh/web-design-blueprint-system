@@ -1,0 +1,23 @@
+<button
+  #menuButton
+  type="button"
+  class="btn btn-outline-secondary d-lg-none"
+  [attr.aria-expanded]="sidebarOpen()"
+  [attr.aria-controls]="sidebarId()"
+  (click)="menuToggle.emit()"
+>
+  Menu
+</button>
+
+<a class="app-header__brand" routerLink="/">
+  <ng-content select="[appHeaderBrand]" />
+</a>
+
+<button
+  type="button"
+  class="btn btn-outline-secondary ms-auto"
+  [attr.aria-pressed]="colorMode.mode() === 'dark'"
+  (click)="colorMode.toggle()"
+>
+  Dark mode
+</button>

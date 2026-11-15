@@ -1,0 +1,39 @@
+// =============================================================================
+// Layout primitives not provided by Bootstrap
+// -----------------------------------------------------------------------------
+// Bootstrap already provides containers, the 12-column grid, flex utilities,
+// gap and stacks (.vstack/.hstack). Only add primitives here that it lacks.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+// Responsive card/tile grid without breakpoints: as many columns as fit,
+// each at least --ds-auto-grid-min wide.
+//   <div class="ds-auto-grid" style="--ds-auto-grid-min: 18rem">…</div>
+.ds-auto-grid {
+  --ds-auto-grid-min: 16rem;
+  --ds-auto-grid-gap: #{ds.space(6)};
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--ds-auto-grid-min), 100%), 1fr));
+  gap: var(--ds-auto-grid-gap);
+}
+
+// Comfortable reading width for long-form text.
+.ds-measure {
+  max-inline-size: ds.content-width("measure");
+}
+
+// Vertical rhythm between page sections.
+.ds-section {
+  padding-block: ds.space("section-sm");
+
+  @include ds.media-up("lg") {
+    padding-block: ds.space("section");
+  }
+}
+
+// Establishes a container-query context (see ds.container-up()).
+.ds-container-query {
+  container-type: inline-size;
+}

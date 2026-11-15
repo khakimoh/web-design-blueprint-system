@@ -1,0 +1,43 @@
+<div class="container-fluid px-0 vstack gap-8">
+  <header>
+    <h1>Items</h1>
+    <p class="text-body-secondary ds-measure mb-0">Reference feature showing container, presentational and form components.</p>
+  </header>
+
+  <section aria-labelledby="item-list-heading">
+    <h2 id="item-list-heading" class="visually-hidden">Item list</h2>
+
+    @switch (store.status()) {
+      @case ('loading') {
+        <app-loading-spinner label="Loading items…" />
+      }
+      @case ('error') {
+        <app-empty-state tone="danger" title="Items could not be loaded" description="Check your connection and try again.">
+          <button emptyStateActions appButton variant="primary" type="button" (click)="store.load()">Try again</button>
+        </app-empty-state>
+      }
+      @case ('success') {
+        @if (store.isEmpty()) {
+          <app-empty-state title="No items yet" description="Items you create will appear here." />
+        } @else {
+          <ul class="ds-auto-grid list-unstyled mb-0" role="list">
+            @for (item of store.items(); track item.id) {
+              <li>
+                <app-placeholder-detail
+                  [item]="item"
+                  [active]="item.id === store.selectedId()"
+                  (selectItem)="store.select($event)"
+                />
+              </li>
+            }
+          </ul>
+        }
+      }
+    }
+  </section>
+
+  <section aria-labelledby="item-form-heading" class="ds-measure">
+    <h2 id="item-form-heading" class="h4">Create an item</h2>
+    <app-placeholder-form [saving]="store.isSaving()" [serverError]="store.saveError()" (submitDraft)="create($event)" />
+  </section>
+</div>

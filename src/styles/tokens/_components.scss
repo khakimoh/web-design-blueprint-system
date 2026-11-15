@@ -1,0 +1,67 @@
+// =============================================================================
+// Level 3 — Component tokens
+// -----------------------------------------------------------------------------
+// Decisions that belong to one component family. Values must reference
+// semantic tokens (CSS custom properties) or scale tokens — never raw colors.
+// Consumers:
+//   - vendors/bootstrap/_index.scss maps them onto Bootstrap variables;
+//   - project component styles read them with component-token().
+// Add a component entry only when at least two values are shared by every
+// instance of that component; otherwise use semantic tokens directly.
+// Docs: docs/design-system/design-tokens.md, docs/design-system/components.md
+// =============================================================================
+
+@use "sass:map";
+@use "../config/project";
+@use "spacing";
+@use "sizing";
+@use "shape";
+
+$_density-padding: (
+  "compact": ("control-x": 3, "container": 4),
+  "comfortable": ("control-x": 4, "container": 5),
+  "spacious": ("control-x": 5, "container": 6),
+);
+$_d: map.get($_density-padding, project.$density);
+
+$component-tokens: (
+  "button": (
+    "height": map.get(sizing.$control-heights, "md"),
+    "padding-x": map.get(spacing.$spacing, map.get($_d, "control-x")),
+    "radius": map.get(shape.$radii, map.get(shape.$radius-roles, "control")),
+    "font-weight": 500,
+    "gap": map.get(spacing.$spacing, 2),
+  ),
+  "input": (
+    "height": map.get(sizing.$control-heights, "md"),
+    "padding-x": map.get(spacing.$spacing, 3),
+    "radius": map.get(shape.$radii, map.get(shape.$radius-roles, "control")),
+    "background": var(--ds-color-surface),
+    "border-color": var(--ds-color-border-interactive),
+    "placeholder-color": var(--ds-color-text-tertiary),
+    "disabled-background": var(--ds-color-surface-sunken),
+  ),
+  "card": (
+    "padding": map.get(spacing.$spacing, map.get($_d, "container")),
+    "radius": map.get(shape.$radii, map.get(shape.$radius-roles, "container")),
+    "background": var(--ds-color-surface),
+    "border-color": var(--ds-color-border),
+  ),
+  "overlay": (
+    "radius": map.get(shape.$radii, map.get(shape.$radius-roles, "overlay")),
+    "background": var(--ds-color-surface-raised),
+    "shadow": var(--ds-shadow-xl),
+    "backdrop-opacity": 0.5,
+  ),
+  "badge": (
+    "radius": map.get(shape.$radii, map.get(shape.$radius-roles, "badge")),
+    "padding-x": map.get(spacing.$spacing, 2),
+    "font-weight": 600,
+  ),
+  "table": (
+    "cell-padding-y": map.get(spacing.$spacing, 3),
+    "cell-padding-x": map.get(spacing.$spacing, 4),
+    "header-background": var(--ds-color-surface-subtle),
+    "row-hover-background": var(--ds-color-surface-subtle),
+  ),
+);

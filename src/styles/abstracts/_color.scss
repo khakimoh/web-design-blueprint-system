@@ -1,0 +1,118 @@
+// =============================================================================
+// Color math (pure functions, no token dependencies, no CSS output)
+// -----------------------------------------------------------------------------
+// - generate-palette(): seed color -> 50..950 ramp with fixed OKLCH lightness
+//   targets, so the same step has comparable contrast in every palette.
+// - luminance(), contrast-ratio(): WCAG 2.x relative luminance and ratio.
+// - best-on(): pick the more legible of two foreground candidates.
+// - rgb-triplet(): "r, g, b" string for rgba(var(--x-rgb), a) patterns.
+// =============================================================================
+
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+
+// Palette steps and their OKLCH lightness targets (0–100%).
+$palette-lightness: (
+  50: 97.5%,
+  100: 95%,
+  200: 90%,
+  300: 82%,
+  400: 72%,
+  500: 62%,
+  600: 53%,
+  700: 45%,
+  800: 37%,
+  900: 29%,
+  950: 21%,
+);
+
+// Chroma multiplier per step: extremes are desaturated so tints stay calm
+// and shades do not go muddy.
+$palette-chroma: (
+  50: 0.18,
+  100: 0.3,
+  200: 0.5,
+  300: 0.72,
+  400: 0.9,
+  500: 1,
+  600: 1,
+  700: 0.92,
+  800: 0.8,
+  900: 0.65,
+  950: 0.5,
+);
+
+/// Convert any color to an sRGB color with integer channels.
+@function to-srgb($c) {
+  $c: color.to-gamut($c, $space: rgb, $method: local-minde);
+  $c: color.to-space($c, rgb);
+  @return rgb(
+    math.round(color.channel($c, "red", $space: rgb)),
+    math.round(color.channel($c, "green", $space: rgb)),
+    math.round(color.channel($c, "blue", $space: rgb))
+  );
+}
+
+/// Build a 50..950 palette from a seed color.
+/// @param {Color} $seed
+/// @return {Map} step -> sRGB color
+@function generate-palette($seed) {
+  $chroma: color.channel($seed, "chroma", $space: oklch);
+  $hue: color.channel($seed, "hue", $space: oklch);
+  $palette: ();
+  @each $step, $lightness in $palette-lightness {
+    $c: oklch($lightness ($chroma * map.get($palette-chroma, $step)) $hue);
+    $palette: map.set($palette, $step, to-srgb($c));
+  }
+  @return $palette;
+}
+
+/// Shift OKLCH lightness by a signed amount (e.g. -6%), returning sRGB.
+@function shift-lightness($c, $amount) {
+  @return to-srgb(color.adjust($c, $lightness: $amount, $space: oklch));
+}
+
+@function _linear($channel) {
+  $c: math.div($channel, 255);
+  @if $c <= 0.04045 {
+    @return math.div($c, 12.92);
+  }
+  @return math.pow(math.div($c + 0.055, 1.055), 2.4);
+}
+
+/// WCAG relative luminance (0..1).
+@function luminance($c) {
+  $c: to-srgb($c);
+  $r: _linear(color.channel($c, "red", $space: rgb));
+  $g: _linear(color.channel($c, "green", $space: rgb));
+  $b: _linear(color.channel($c, "blue", $space: rgb));
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+/// WCAG contrast ratio between two opaque colors (1..21).
+@function contrast-ratio($a, $b) {
+  $la: luminance($a);
+  $lb: luminance($b);
+  $hi: math.max($la, $lb);
+  $lo: math.min($la, $lb);
+  @return math.div($hi + 0.05, $lo + 0.05);
+}
+
+/// Return whichever candidate has the higher contrast against $background.
+@function best-on($background, $candidates...) {
+  $best: list.nth($candidates, 1);
+  @each $candidate in $candidates {
+    @if contrast-ratio($background, $candidate) > contrast-ratio($background, $best) {
+      $best: $candidate;
+    }
+  }
+  @return $best;
+}
+
+/// "r, g, b" string for use with rgba(var(--name-rgb), alpha).
+@function rgb-triplet($c) {
+  $c: to-srgb($c);
+  @return #{color.channel($c, "red", $space: rgb)}, #{color.channel($c, "green", $space: rgb)}, #{color.channel($c, "blue", $space: rgb)};
+}

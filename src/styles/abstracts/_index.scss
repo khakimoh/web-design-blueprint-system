@@ -1,0 +1,15 @@
+// =============================================================================
+// Public Sass API of the design system. Emits no CSS — safe to @use from any
+// stylesheet, including Angular component styles:
+//
+//   @use "abstracts" as ds;
+//   .thing { padding: ds.space(4); @include ds.media-up("md") { ... } }
+//
+// Requires `src/styles` on the Sass load path (Angular:
+// `stylePreprocessorOptions.includePaths: ["src/styles"]`).
+// =============================================================================
+@forward "../tokens";
+@forward "color";
+@forward "functions";
+@forward "breakpoints";
+@forward "mixins";

@@ -1,0 +1,143 @@
+// =============================================================================
+// Application shell — header, optional sidebar, main content, footer
+// -----------------------------------------------------------------------------
+// Markup contract (framework-agnostic):
+//
+//   <div class="ds-shell" [data-sidebar="open"]>
+//     <a class="ds-skip-link" href="#main">Skip to content</a>
+//     <header class="ds-shell__header">…</header>
+//     <aside class="ds-shell__sidebar" id="sidebar">…</aside>   (optional)
+//     <main class="ds-shell__main" id="main" tabindex="-1">…</main>
+//     <footer class="ds-shell__footer">…</footer>
+//   </div>
+//
+// Below `lg` the sidebar is an off-canvas panel toggled with
+// data-sidebar="open"; from `lg` up it is a persistent column.
+// Logical properties make the sidebar follow the text direction.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+.ds-shell {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+
+  &:has(> .ds-shell__sidebar) {
+    @include ds.media-up("lg") {
+      grid-template-areas:
+        "header header"
+        "sidebar main"
+        "sidebar footer";
+      grid-template-columns: ds.layout-size("sidebar-width") minmax(0, 1fr);
+    }
+  }
+}
+
+.ds-shell__header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: ds.z("sticky");
+  display: flex;
+  grid-area: header;
+  gap: ds.space(4);
+  align-items: center;
+  min-block-size: ds.layout-size("header-height");
+  padding-inline: ds.space("gutter-sm");
+  border-block-end: ds.border-width() solid var(--ds-color-border);
+  background-color: var(--ds-color-surface);
+
+  @include ds.media-up("lg") {
+    padding-inline: ds.space("gutter");
+  }
+}
+
+.ds-shell__main {
+  grid-area: main;
+  min-inline-size: 0;
+  padding: ds.space(6) ds.space("gutter-sm");
+
+  @include ds.media-up("lg") {
+    padding: ds.space(8) ds.space("gutter");
+  }
+
+  &:focus {
+    outline: none; // programmatic focus target after navigation
+  }
+}
+
+.ds-shell__footer {
+  grid-area: footer;
+  padding: ds.space(6) ds.space("gutter-sm");
+  border-block-start: ds.border-width() solid var(--ds-color-border);
+  color: var(--ds-color-text-secondary);
+
+  @include ds.media-up("lg") {
+    padding-inline: ds.space("gutter");
+  }
+}
+
+.ds-shell__sidebar {
+  --ds-shell-sidebar-size: min(#{ds.layout-size("sidebar-width")}, 85vw);
+
+  position: fixed;
+  inset-block: ds.layout-size("header-height") 0;
+  // Off-canvas by default. A logical inset (not a transform) keeps the panel
+  // on the correct side in both LTR and RTL without per-direction rules.
+  inset-inline-start: calc(-1 * var(--ds-shell-sidebar-size));
+  z-index: ds.z("drawer");
+  inline-size: var(--ds-shell-sidebar-size);
+  overflow-y: auto;
+  padding: ds.space(4);
+  border-inline-end: ds.border-width() solid var(--ds-color-border);
+  background-color: var(--ds-color-surface);
+  visibility: hidden;
+  // Hide only after the panel has slid out; show immediately when opening so
+  // focus can move into the panel in the same frame.
+  transition:
+    inset-inline-start ds.duration("slow") ds.easing("exit"),
+    visibility 0s linear ds.duration("slow");
+
+  .ds-shell[data-sidebar="open"] > & {
+    inset-inline-start: 0;
+    visibility: visible;
+    box-shadow: ds.shadow("lg");
+    transition:
+      inset-inline-start ds.duration("slow") ds.easing("enter"),
+      visibility 0s;
+  }
+
+  @include ds.media-up("lg") {
+    position: sticky;
+    inset-block: ds.layout-size("header-height") auto;
+    inset-inline-start: auto;
+    grid-area: sidebar;
+    inline-size: auto;
+    block-size: calc(100dvh - #{ds.layout-size("header-height")});
+    visibility: visible;
+    transition: none;
+
+    .ds-shell[data-sidebar="open"] > & {
+      box-shadow: none;
+    }
+  }
+}
+
+// Backdrop behind the off-canvas sidebar on small screens.
+.ds-shell__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: ds.z("drawer-backdrop");
+  border: 0;
+  background-color: rgb(var(--ds-color-overlay-rgb) / 0.5);
+
+  @include ds.media-up("lg") {
+    display: none;
+  }
+}

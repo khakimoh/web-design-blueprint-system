@@ -1,0 +1,13 @@
+// =============================================================================
+// Project stylesheet extension point
+// -----------------------------------------------------------------------------
+// Project-owned. Loaded last by both entry files, so project rules can build on
+// everything above them. Typical contents (one partial each, @use'd below):
+//   _fonts.scss        @font-face declarations for self-hosted web fonts
+//   _<pattern>.scss    global styles for project-specific patterns
+// Rules: use `@use "../abstracts" as ds` and tokens only; prefix project
+// classes with the project prefix (not `ds-`); never override Bootstrap or
+// `ds-` classes here — record a deviation instead.
+// =============================================================================
+
+// @use "fonts";

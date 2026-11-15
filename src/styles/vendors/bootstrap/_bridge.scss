@@ -1,0 +1,57 @@
+// =============================================================================
+// Theme bridge: design-system themes -> Bootstrap runtime variables
+// -----------------------------------------------------------------------------
+// Bootstrap 5.3 components read colors from --bs-* custom properties at
+// runtime. This file redefines them for every enabled theme from the same
+// semantic tokens that produce --ds-color-*, so there is ONE theme system.
+// Emitted after Bootstrap, with the same selectors and specificity, so these
+// values win.
+//
+// Limitation: Bootstrap compiles button/alert variants from static Sass
+// colors, so the brand primary/secondary are compile-time values. Custom
+// runtime themes should change neutrals and surfaces, not the brand hue.
+// =============================================================================
+
+@use "sass:map";
+@use "../../abstracts/color";
+@use "../../themes";
+
+@mixin _color($name, $value) {
+  --bs-#{$name}: #{$value};
+  --bs-#{$name}-rgb: #{color.rgb-triplet($value)};
+}
+
+@each $name, $tokens in themes.$themes {
+  #{themes.theme-selector($name)} {
+    --bs-body-font-family: var(--ds-font-family-base);
+
+    @include _color("body-color", map.get($tokens, "text-primary"));
+    @include _color("body-bg", map.get($tokens, "background"));
+    @include _color("emphasis-color", map.get($tokens, "text-primary"));
+    @include _color("secondary-color", map.get($tokens, "text-secondary"));
+    @include _color("secondary-bg", map.get($tokens, "surface-sunken"));
+    @include _color("tertiary-color", map.get($tokens, "text-tertiary"));
+    @include _color("tertiary-bg", map.get($tokens, "surface-subtle"));
+    @include _color("link-color", map.get($tokens, "text-link"));
+    @include _color("link-hover-color", map.get($tokens, "text-link-hover"));
+
+    --bs-heading-color: inherit;
+    --bs-code-color: #{map.get($tokens, "primary-text")};
+    --bs-highlight-color: #{map.get($tokens, "text-primary")};
+    --bs-highlight-bg: #{map.get($tokens, "highlight-bg")};
+    --bs-border-color: #{map.get($tokens, "border")};
+    --bs-border-color-translucent: #{map.get($tokens, "border")};
+    --bs-focus-ring-color: #{map.get($tokens, "focus-ring")};
+
+    --bs-form-valid-color: #{map.get($tokens, "success-text")};
+    --bs-form-valid-border-color: #{map.get($tokens, "success")};
+    --bs-form-invalid-color: #{map.get($tokens, "danger-text")};
+    --bs-form-invalid-border-color: #{map.get($tokens, "danger")};
+
+    @each $role in ("primary", "secondary", "success", "info", "warning", "danger") {
+      --bs-#{$role}-text-emphasis: #{map.get($tokens, "#{$role}-text")};
+      --bs-#{$role}-bg-subtle: #{map.get($tokens, "#{$role}-subtle")};
+      --bs-#{$role}-border-subtle: #{map.get($tokens, "#{$role}-border")};
+    }
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:web-design-blueprint-system:schema:project-config:1",
+  "title": "Project configuration",
+  "description": "Project-specific decisions for a website built on the Web Design & Engineering Blueprint. Records decisions only; the standards themselves live in docs/.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "blueprint", "project", "frontend", "design", "architecture", "quality"],
+  "properties": {
+    "schema_version": {
+      "description": "Version of this schema the file follows.",
+      "const": 1
+    },
+    "blueprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version"],
+      "properties": {
+        "version": {
+          "description": "Pinned blueprint release (git tag without the leading v).",
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "source": {
+          "description": "Where the blueprint is obtained from (repository URL or local path).",
+          "type": "string"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "type"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$", "description": "kebab-case identifier." },
+        "display_name": { "type": "string" },
+        "description": { "type": "string", "minLength": 1 },
+        "type": {
+          "enum": ["web-application", "dashboard", "admin-application", "business-website", "landing-page", "content-platform", "documentation-site", "other"]
+        },
+        "audience": { "type": "string", "description": "Who the target users are." },
+        "locales": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/locale" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "default_locale": { "$ref": "#/$defs/locale" }
+      }
+    },
+    "frontend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework", "language", "styling", "css_framework"],
+      "properties": {
+        "framework": { "enum": ["angular", "react", "vue", "other"] },
+        "framework_version": { "type": "string", "description": "Major version, e.g. \"22\"." },
+        "language": { "enum": ["typescript", "javascript"] },
+        "styling": { "enum": ["scss", "css", "other"] },
+        "css_framework": { "enum": ["bootstrap", "none", "other"] },
+        "css_framework_version": { "type": "string", "description": "Major.minor, e.g. \"5.3\"." },
+        "package_manager": { "enum": ["npm", "pnpm", "yarn", "bun"] },
+        "rendering": { "enum": ["csr", "ssr", "ssg", "hybrid"] },
+        "test_runner": { "type": "string" }
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["colors", "themes", "direction"],
+      "properties": {
+        "visual_direction": { "type": "string", "description": "A few adjectives describing the intended look and feel." },
+        "colors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["primary", "secondary"],
+          "properties": {
+            "primary": { "$ref": "#/$defs/color" },
+            "secondary": { "$ref": "#/$defs/color" },
+            "neutral": { "$ref": "#/$defs/color" },
+            "extra": {
+              "type": "object",
+              "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" },
+              "additionalProperties": { "$ref": "#/$defs/color" }
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "font_family_base": { "type": "string" },
+            "font_family_heading": { "type": "string" },
+            "font_family_mono": { "type": "string" },
+            "fonts_by_locale": {
+              "type": "object",
+              "propertyNames": { "$ref": "#/$defs/locale" },
+              "additionalProperties": { "type": "string" }
+            },
+            "font_loading": { "enum": ["self-hosted", "system", "cdn"] }
+          }
+        },
+        "shape": {
+          "enum": ["sharp", "subtle", "default", "rounded"],
+          "description": "Maps to $radius-scale-factor 0 / 0.5 / 1 / 1.5."
+        },
+        "density": { "enum": ["compact", "comfortable", "spacious"] },
+        "themes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["default", "enabled"],
+          "properties": {
+            "default": { "type": "string" },
+            "enabled": {
+              "type": "array",
+              "items": { "enum": ["light", "dark"] },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "user_selectable": { "type": "boolean" },
+            "follow_system": { "type": "boolean", "description": "Use prefers-color-scheme until the user chooses." },
+            "custom": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "extends", "purpose"],
+                "properties": {
+                  "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+                  "extends": { "enum": ["light", "dark"] },
+                  "purpose": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "direction": {
+          "enum": ["ltr", "rtl", "both"],
+          "description": "Text direction(s) the UI must support."
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["structure", "routing"],
+      "properties": {
+        "structure": { "enum": ["feature-based"] },
+        "routing": { "type": "boolean" },
+        "lazy_loading": { "type": "boolean" },
+        "state_management": {
+          "enum": ["signals", "signals-and-rxjs", "signal-store", "ngrx-store", "other"],
+          "description": "Default is \"signals\"; anything heavier needs a recorded rationale in customizations.deviations."
+        },
+        "api": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "style": { "enum": ["rest", "graphql", "rpc", "none"] },
+            "base_url_source": { "type": "string", "description": "Where the API base URL comes from, e.g. runtime config file or build environment." }
+          }
+        },
+        "authentication": { "enum": ["none", "session-cookie", "oidc", "other"] },
+        "selector_prefix": { "type": "string", "pattern": "^[a-z][a-z0-9]*$" },
+        "file_name_style": { "enum": ["2025", "2016"], "description": "Angular CLI file naming style." }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accessibility_target", "responsive", "testing"],
+      "properties": {
+        "accessibility_target": { "enum": ["WCAG 2.2 AA", "WCAG 2.2 AAA", "WCAG 2.1 AA"] },
+        "responsive": { "type": "boolean" },
+        "supported_browsers": { "type": "string", "description": "Browserslist query." },
+        "testing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unit": { "type": "boolean" },
+            "e2e": { "type": "boolean" },
+            "accessibility_automation": { "type": "boolean" },
+            "coverage_target": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        },
+        "performance_budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "initial_warning_kb": { "type": "integer", "minimum": 1 },
+            "initial_error_kb": { "type": "integer", "minimum": 1 },
+            "component_style_warning_kb": { "type": "integer", "minimum": 1 },
+            "component_style_error_kb": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "priority": { "enum": ["must", "should", "could"] }
+            }
+          }
+        },
+        "integrations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "purpose"],
+            "properties": {
+              "name": { "type": "string" },
+              "purpose": { "type": "string" },
+              "kind": { "enum": ["api", "auth", "analytics", "payments", "storage", "messaging", "other"] }
+            }
+          }
+        },
+        "constraints": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "customizations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deviations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "standard", "decision", "rationale"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^DEV-\\d{3}$" },
+              "standard": { "type": "string", "description": "Path of the standard deviated from, e.g. docs/technologies/angular/architecture.md#state." },
+              "decision": { "type": "string" },
+              "rationale": { "type": "string" },
+              "approved_by": { "type": "string" },
+              "date": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      }
+    },
+    "extensions": {
+      "description": "Free-form project-specific settings that the schema does not cover.",
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "description": "Hex color (#rgb or #rrggbb).",
+      "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+    },
+    "locale": {
+      "type": "string",
+      "description": "BCP 47 language tag, e.g. en, fa, en-GB.",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    }
+  }
+}

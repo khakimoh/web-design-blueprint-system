@@ -1,0 +1,76 @@
+// =============================================================================
+// Minimal modern reset — standalone entry only.
+// With Bootstrap, Reboot provides the reset; do not load both.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100vh;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-normal);
+  color: var(--ds-color-text-primary);
+  background-color: var(--ds-color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+  margin-block: 0;
+}
+
+:where(ul, ol)[role="list"] {
+  padding-inline-start: 0;
+  margin-block: 0;
+  list-style: none;
+}
+
+:where(img, picture, svg, video, canvas) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+  color: inherit;
+}
+
+:where(button) {
+  cursor: pointer;
+}
+
+:where(a) {
+  color: var(--ds-color-text-link);
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: var(--ds-color-text-link-hover);
+  }
+}
+
+:where(table) {
+  border-collapse: collapse;
+}
+
+:where(code, kbd, samp, pre) {
+  font-family: var(--ds-font-family-mono);
+  font-size: 0.9em;
+}
+
+:where(hr) {
+  border: 0;
+  border-block-start: ds.border-width() solid var(--ds-color-border);
+}

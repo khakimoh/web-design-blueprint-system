@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate class="vstack gap-4">
+  @if (serverError(); as error) {
+    <div class="alert alert-danger mb-0" role="alert">
+      The item was not saved.
+      {{ error.kind === 'validation' ? 'Check the highlighted fields.' : 'Please try again.' }}
+    </div>
+  }
+
+  <div>
+    <label class="form-label" [for]="id + '-title'">
+      Title <span class="text-body-secondary">(required)</span>
+    </label>
+    <input
+      class="form-control"
+      type="text"
+      formControlName="title"
+      autocomplete="off"
+      required
+      [id]="id + '-title'"
+      [class.is-invalid]="showError('title')"
+      [attr.aria-invalid]="showError('title')"
+      [attr.aria-describedby]="id + '-title-help' + (showError('title') ? ' ' + id + '-title-error' : '')"
+    />
+    <div class="form-text" [id]="id + '-title-help'">Up to {{ limits.title }} characters.</div>
+    @if (showError('title')) {
+      <div class="invalid-feedback" [id]="id + '-title-error'">{{ errorMessage('title') }}</div>
+    }
+  </div>
+
+  <div>
+    <label class="form-label" [for]="id + '-summary'">Summary</label>
+    <textarea
+      class="form-control"
+      rows="3"
+      formControlName="summary"
+      [id]="id + '-summary'"
+      [class.is-invalid]="showError('summary')"
+      [attr.aria-invalid]="showError('summary')"
+      [attr.aria-describedby]="id + '-summary-help' + (showError('summary') ? ' ' + id + '-summary-error' : '')"
+    ></textarea>
+    <div class="form-text" [id]="id + '-summary-help'">Optional. Up to {{ limits.summary }} characters.</div>
+    @if (showError('summary')) {
+      <div class="invalid-feedback" [id]="id + '-summary-error'">{{ errorMessage('summary') }}</div>
+    }
+  </div>
+
+  <div>
+    <button appButton type="submit" [loading]="saving()" loadingLabel="Saving item">Create item</button>
+  </div>
+</form>

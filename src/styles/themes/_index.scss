@@ -1,0 +1,135 @@
+// =============================================================================
+// Theme registry
+// -----------------------------------------------------------------------------
+// Resolves the final set of themes (built-in + project overrides + custom
+// themes), validates them against the semantic contract, checks contrast,
+// and emits CSS custom properties.
+//
+//   theme("dark")                 -> map of semantic key -> color
+//   @include emit-themes;         -> :root / [data-bs-theme="..."] blocks
+//
+// Docs: docs/design-system/themes.md
+// =============================================================================
+
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "../config/project";
+@use "../abstracts/color";
+@use "../tokens/semantic";
+@use "light";
+@use "dark";
+
+$_builtin: (
+  "light": light.$tokens,
+  "dark": dark.$tokens,
+);
+
+// Built-in themes the project enabled, with project overrides applied.
+$themes: ();
+@each $name in project.$enabled-themes {
+  @if not map.has-key($_builtin, $name) {
+    @error "Unknown built-in theme `#{$name}` in $enabled-themes. Use $custom-themes for new themes.";
+  }
+  $overrides: map.get(project.$semantic-overrides, $name) or ();
+  $themes: map.set($themes, $name, map.merge(map.get($_builtin, $name), $overrides));
+}
+
+// Project themes extend an existing theme.
+@each $name, $def in project.$custom-themes {
+  $base-name: map.get($def, "extends") or "light";
+  $base: map.get($themes, $base-name) or map.get($_builtin, $base-name);
+  @if not $base {
+    @error "Custom theme `#{$name}` extends unknown theme `#{$base-name}`.";
+  }
+  $themes: map.set($themes, $name, map.merge($base, map.get($def, "tokens") or ()));
+}
+
+@if not map.has-key($themes, project.$default-theme) {
+  @error "$default-theme `#{project.$default-theme}` is not enabled.";
+}
+
+/// Which built-in color scheme a theme is based on ("light" or "dark").
+@function color-scheme($name) {
+  @if map.has-key($_builtin, $name) {
+    @return $name;
+  }
+  $def: map.get(project.$custom-themes, $name);
+  @return color-scheme(map.get($def, "extends") or "light");
+}
+
+@function theme($name) {
+  @if not map.has-key($themes, $name) {
+    @error "Unknown theme `#{$name}`. Available: #{map.keys($themes)}.";
+  }
+  @return map.get($themes, $name);
+}
+
+/// Selector for a theme. The default theme also applies to :root.
+@function theme-selector($name) {
+  $attr: "[#{project.$theme-attribute}=\"#{$name}\"]";
+  @if $name == project.$default-theme {
+    @return ":root, #{$attr}";
+  }
+  @return $attr;
+}
+
+// -- Validation ---------------------------------------------------------------
+
+@each $name, $tokens in $themes {
+  @each $key in semantic.$semantic-color-keys {
+    @if not map.has-key($tokens, $key) {
+      @error "Theme `#{$name}` is missing semantic token `#{$key}`.";
+    }
+  }
+  @each $key, $value in $tokens {
+    @if not list.index(semantic.$semantic-color-keys, $key) {
+      @error "Theme `#{$name}` defines unknown semantic token `#{$key}`. Add it to tokens/_semantic.scss first.";
+    }
+  }
+
+  @if project.$contrast-check != "off" {
+    @each $pair in semantic.$contrast-pairs {
+      $fg: map.get($tokens, list.nth($pair, 1));
+      $bg: map.get($tokens, list.nth($pair, 2));
+      $min: list.nth($pair, 3);
+      $ratio: color.contrast-ratio($fg, $bg);
+      @if $ratio < $min {
+        $msg: "Contrast #{list.nth($pair, 1)} on #{list.nth($pair, 2)} in theme `#{$name}` is #{math.div(math.round($ratio * 100), 100)}:1 (minimum #{$min}:1).";
+        @if project.$contrast-check == "error" {
+          @error $msg;
+        } @else {
+          @warn $msg;
+        }
+      }
+    }
+  }
+}
+
+// -- Output -------------------------------------------------------------------
+
+/// Custom properties for one theme.
+@mixin theme-properties($name) {
+  $tokens: theme($name);
+  color-scheme: color-scheme($name);
+  @each $key, $value in $tokens {
+    --ds-color-#{$key}: #{$value};
+  }
+  // Space-separated channels for rgb(var(--x-rgb) / alpha).
+  --ds-color-shadow-rgb: #{_space-triplet(map.get($tokens, "shadow"))};
+  --ds-color-overlay-rgb: #{_space-triplet(map.get($tokens, "overlay"))};
+}
+
+@function _space-triplet($c) {
+  $t: color.rgb-triplet($c);
+  @return list.join((), $t, $separator: space);
+}
+
+@mixin emit-themes {
+  @each $name, $_ in $themes {
+    #{theme-selector($name)} {
+      @include theme-properties($name);
+    }
+  }
+}

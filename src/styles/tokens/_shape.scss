@@ -1,0 +1,41 @@
+// =============================================================================
+// Shape tokens — border radius and border widths
+// Docs: docs/design-system/shape-elevation-motion.md
+// =============================================================================
+
+@use "sass:map";
+@use "../config/project";
+
+$_radius-base: (
+  "none": 0,
+  "xs": 0.125rem,
+  "sm": 0.25rem,
+  "md": 0.375rem,
+  "lg": 0.5rem,
+  "xl": 0.75rem,
+  "2xl": 1rem,
+);
+
+$radii: ();
+@each $name, $value in $_radius-base {
+  $radii: map.set($radii, $name, $value * project.$radius-scale-factor);
+}
+$radii: map.merge($radii, ("pill": 50rem, "circle": 50%));
+
+// Which radius each kind of element uses by default.
+$radius-roles: (
+  "control": "md",   // buttons, inputs, selects
+  "container": "lg", // cards, panels, alerts
+  "overlay": "xl",   // modals, popovers, menus
+  "badge": "pill",
+);
+
+$border-widths: (
+  "thin": 1px,
+  "medium": 2px,
+  "thick": 4px,
+);
+
+// Focus indicator geometry (color comes from the `focus-ring` semantic token).
+$focus-ring-width: 3px;
+$focus-ring-offset: 2px;

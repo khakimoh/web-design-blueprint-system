@@ -1,0 +1,40 @@
+// =============================================================================
+// Spacing tokens — 4px base unit
+// -----------------------------------------------------------------------------
+// Key = number of 4px units. space(4) = 1rem = 16px.
+// The scale is deliberately sparse above 6 so layouts stay rhythmic.
+// Used for padding, margin, gap and inset values.
+// Docs: docs/design-system/spacing-and-sizing.md
+// =============================================================================
+
+$space-unit: 0.25rem; // 4px at the default 16px root
+
+$spacing: (
+  0: 0,
+  1: $space-unit,        // 4px
+  2: $space-unit * 2,    // 8px
+  3: $space-unit * 3,    // 12px
+  4: $space-unit * 4,    // 16px
+  5: $space-unit * 5,    // 20px
+  6: $space-unit * 6,    // 24px
+  8: $space-unit * 8,    // 32px
+  10: $space-unit * 10,  // 40px
+  12: $space-unit * 12,  // 48px
+  16: $space-unit * 16,  // 64px
+  20: $space-unit * 20,  // 80px
+  24: $space-unit * 24,  // 96px
+);
+
+// Semantic spacing aliases for recurring layout decisions.
+$spacing-aliases: (
+  "inline-xs": 1,     // between icon and label
+  "inline-sm": 2,     // between related inline controls
+  "stack-xs": 1,      // label -> input
+  "stack-sm": 2,      // within a group
+  "stack-md": 4,      // between groups / form fields
+  "stack-lg": 8,      // between blocks
+  "section": 16,      // between page sections (mobile uses section-sm)
+  "section-sm": 10,
+  "gutter": 6,        // grid gutter, page side padding on large screens
+  "gutter-sm": 4,     // page side padding on small screens
+);

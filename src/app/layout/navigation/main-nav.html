@@ -1,0 +1,17 @@
+<nav [attr.aria-label]="label()">
+  <ul class="nav nav-pills flex-column gap-1">
+    @for (item of items(); track item.path) {
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+          ariaCurrentWhenActive="page"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

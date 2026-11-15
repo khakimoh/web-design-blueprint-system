@@ -1,0 +1,60 @@
+// =============================================================================
+// Responsive mixins (mobile-first)
+// -----------------------------------------------------------------------------
+//   @include media-up("md") { ... }        // >= md
+//   @include media-down("lg") { ... }      // < lg
+//   @include media-between("sm", "lg")     // >= sm and < lg
+//   @include container-up(30rem) { ... }   // container query on nearest container
+// Prefer media-up. Use container queries for components whose layout depends
+// on the space they are given rather than on the viewport.
+// =============================================================================
+
+@use "sass:map";
+@use "../tokens";
+
+@function _bp($name) {
+  @if not map.has-key(tokens.$breakpoints, $name) {
+    @error "Unknown breakpoint `#{$name}`. Available: #{map.keys(tokens.$breakpoints)}.";
+  }
+  @return map.get(tokens.$breakpoints, $name);
+}
+
+@mixin media-up($name) {
+  $min: _bp($name);
+  @if $min == 0 {
+    @content;
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+}
+
+// Uses the 0.02px offset Bootstrap uses to avoid fractional-width gaps.
+@mixin media-down($name) {
+  $max: _bp($name);
+  @if $max == 0 {
+    @error "media-down(\"#{$name}\") would never match.";
+  }
+  @media (max-width: $max - 0.02px) {
+    @content;
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  @media (min-width: _bp($lower)) and (max-width: _bp($upper) - 0.02px) {
+    @content;
+  }
+}
+
+@mixin container-up($min-width, $name: null) {
+  @if $name {
+    @container #{$name} (min-width: #{$min-width}) {
+      @content;
+    }
+  } @else {
+    @container (min-width: #{$min-width}) {
+      @content;
+    }
+  }
+}

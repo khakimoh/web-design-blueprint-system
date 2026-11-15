@@ -1,0 +1,85 @@
+// =============================================================================
+// Project design settings
+// -----------------------------------------------------------------------------
+// Projects edit this file (settings) and `project/` (project-owned CSS).
+// Everything else in `src/styles/` is the reusable foundation.
+//
+// - Keep these values in sync with `design.*` in the project's
+//   `project.config.yaml` (the decision record).
+// - Values here are compile-time inputs. Runtime switching (light/dark,
+//   custom themes) is handled by the theme layer through CSS custom properties.
+// - Every value below is a neutral placeholder, not a brand identity.
+//
+// Docs: docs/design-system/design-tokens.md, docs/design-system/themes.md
+// =============================================================================
+
+// -- Brand colors -------------------------------------------------------------
+// Any valid CSS color. Each seed generates a full 50–950 palette.
+// The seed itself is used as the light-theme `primary` / `secondary` color.
+$brand-primary: #3366cc;
+$brand-secondary: #5c6b7a;
+
+// Optional additional brand palettes, e.g. ("accent": #c2410c).
+// Generated palettes become available as `palette("accent", 500)`.
+$brand-extra: ();
+
+// Neutral (gray) seed. Low-chroma colors give a neutral ramp; a slightly
+// tinted seed gives a "warm" or "cool" gray family.
+$neutral-seed: #6b7280;
+
+// Status seeds. Change only when the brand requires it; keep them
+// recognisable (green = success, amber = warning, red = danger, blue = info).
+$status-seeds: (
+  "success": #1f9d55,
+  "warning": #d97706,
+  "danger": #dc2626,
+  "info": #0284c7,
+);
+
+// -- Typography ---------------------------------------------------------------
+// Font stacks. Load web fonts in the application (see typography.md);
+// this file only declares the stacks.
+$font-family-base: (system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif);
+$font-family-heading: null; // null = same as base
+$font-family-mono: (ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace);
+
+// Per-language font stacks, applied through `:lang()`. Keys are BCP 47
+// language subtags. Example for Persian content:
+//   ("fa": ("Vazirmatn", Tahoma, system-ui, sans-serif))
+$font-families-by-lang: ();
+
+// Optional overrides of the type scale, e.g. ("md": 1.0625rem).
+$font-size-overrides: ();
+
+// -- Shape --------------------------------------------------------------------
+// Multiplier applied to the radius scale: 0 = sharp, 0.5 = subtle,
+// 1 = default, 1.5 = rounded. Pill and circle are never scaled.
+$radius-scale-factor: 1;
+
+// -- Density ------------------------------------------------------------------
+// "compact" | "comfortable" | "spacious". Affects control heights and
+// component padding, not the spacing scale itself.
+$density: "comfortable";
+
+// -- Color modes and themes ---------------------------------------------------
+// Attribute on <html> that selects the active theme. "data-bs-theme" lets the
+// same attribute drive Bootstrap's color modes and this system's themes.
+$theme-attribute: "data-bs-theme";
+$default-theme: "light";
+
+// Built-in themes to emit. Remove "dark" if the project has no dark mode.
+$enabled-themes: ("light", "dark");
+
+// Per-theme overrides of semantic tokens (see tokens/_semantic.scss for the
+// list of keys). Example: ("light": ("background": #fafaf9)).
+$semantic-overrides: ();
+
+// Additional project themes. Each entry extends an existing theme and
+// overrides selected semantic tokens. Example:
+//   ("high-contrast": ("extends": "light", "tokens": ("text-secondary": #000)))
+$custom-themes: ();
+
+// -- Quality gates ------------------------------------------------------------
+// Compile-time WCAG contrast checks for semantic text/background pairs.
+// "warn" prints warnings, "error" fails the build, "off" disables the check.
+$contrast-check: "warn";

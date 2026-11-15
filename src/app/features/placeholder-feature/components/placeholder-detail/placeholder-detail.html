@@ -1,0 +1,27 @@
+<article class="card h-100" [class.placeholder-detail--active]="active()">
+  <div class="card-body vstack gap-2">
+    <div class="d-flex align-items-start justify-content-between gap-3">
+      <h3 class="card-title ds-type-h5 mb-0">{{ item().title }}</h3>
+      <span class="badge" [class]="statusClass()">{{ statusLabel() }}</span>
+    </div>
+
+    @if (item().summary) {
+      <p class="placeholder-detail__summary">{{ item().summary }}</p>
+    }
+
+    @if (item().updatedAt) {
+      <p class="placeholder-detail__meta">
+        Updated <time class="ds-numeric" [attr.datetime]="item().updatedAt">{{ item().updatedAt | date: 'mediumDate' }}</time>
+      </p>
+    }
+
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-sm align-self-start mt-auto"
+      [attr.aria-pressed]="active()"
+      (click)="selectItem.emit(item().id)"
+    >
+      {{ active() ? 'Selected' : 'Select' }}<span class="visually-hidden">: {{ item().title }}</span>
+    </button>
+  </div>
+</article>

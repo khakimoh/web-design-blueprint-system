@@ -1,0 +1,22 @@
+// =============================================================================
+// Motion tokens — durations and easing curves
+// -----------------------------------------------------------------------------
+// Emitted as CSS custom properties; under prefers-reduced-motion all durations
+// collapse to 0ms (see base/_root.scss), so always use the variables.
+// Docs: docs/design-system/shape-elevation-motion.md
+// =============================================================================
+
+$durations: (
+  "instant": 0ms,
+  "fast": 120ms,    // hover, color, opacity changes
+  "base": 200ms,    // small movements, toggles
+  "slow": 320ms,    // panels, drawers, larger surfaces
+  "slower": 480ms,  // page-level transitions (use sparingly)
+);
+
+$easings: (
+  "standard": cubic-bezier(0.2, 0, 0, 1),   // most UI transitions
+  "enter": cubic-bezier(0, 0, 0, 1),        // elements appearing (decelerate)
+  "exit": cubic-bezier(0.3, 0, 1, 1),       // elements leaving (accelerate)
+  "linear": linear,                         // progress, spinners
+);

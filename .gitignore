@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / blueprint tooling
+node_modules/
+dist/
+
+# OS files
+.DS_Store

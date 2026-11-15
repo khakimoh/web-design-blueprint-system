@@ -1,0 +1,87 @@
+# yaml-language-server: $schema=../schemas/project-config.schema.json
+# =============================================================================
+# Project configuration — decision record for ONE project
+# -----------------------------------------------------------------------------
+# Copy to the root of a new project as `project.config.yaml` and replace every
+# value marked TODO. Record decisions here; keep explanations in docs/.
+# Validate:  npm run validate:config -- path/to/project.config.yaml
+# Schema:    schemas/project-config.schema.json
+# Guide:     docs/configuration/README.md
+# =============================================================================
+
+schema_version: 1
+
+blueprint:
+  version: "1.0.0"            # TODO: blueprint release tag you follow
+  source: ""                  # TODO: repository URL or local path
+
+project:
+  name: example-project       # TODO: kebab-case identifier
+  display_name: Example Project
+  description: TODO — one or two sentences on what the site does and for whom.
+  type: web-application       # web-application | dashboard | admin-application | business-website | landing-page | content-platform | documentation-site | other
+  audience: TODO — primary users and their context (devices, expertise).
+  locales: [en]
+  default_locale: en
+
+frontend:
+  framework: angular
+  framework_version: "22"
+  language: typescript
+  styling: scss
+  css_framework: bootstrap    # bootstrap | none
+  css_framework_version: "5.3"
+  package_manager: npm
+  rendering: csr              # csr | ssr | ssg | hybrid
+  test_runner: vitest
+
+design:
+  visual_direction: TODO — e.g. "calm, neutral, data-dense"
+  colors:
+    primary: "#3366cc"        # TODO: brand primary (mirrors $brand-primary)
+    secondary: "#5c6b7a"      # TODO: brand secondary (mirrors $brand-secondary)
+  typography:
+    font_family_base: system-ui stack
+    font_loading: system      # self-hosted | system | cdn
+  shape: default              # sharp | subtle | default | rounded
+  density: comfortable        # compact | comfortable | spacious
+  themes:
+    default: light
+    enabled: [light, dark]
+    user_selectable: true
+    follow_system: true
+  direction: ltr              # ltr | rtl | both
+
+architecture:
+  structure: feature-based
+  routing: true
+  lazy_loading: true
+  state_management: signals   # signals | signals-and-rxjs | signal-store | ngrx-store | other
+  api:
+    style: rest
+    base_url_source: runtime config (public/config.json)
+  authentication: none        # recorded only; implementation is project work
+  selector_prefix: app
+  file_name_style: "2025"
+
+quality:
+  accessibility_target: WCAG 2.2 AA
+  responsive: true
+  supported_browsers: defaults
+  testing:
+    unit: true
+    e2e: false
+    accessibility_automation: false
+  performance_budget:         # raw sizes; full Bootstrap CSS alone is ~270 kB (see Angular profile)
+    initial_warning_kb: 700
+    initial_error_kb: 1000
+    component_style_warning_kb: 4
+    component_style_error_kb: 8
+
+requirements:
+  features: []                # - { id: feature-id, name: Name, description: …, priority: must }
+  integrations: []            # - { name: Service, purpose: …, kind: api }
+  constraints: []             # - "Must run behind an existing reverse proxy"
+
+customizations:
+  deviations: []              # - { id: DEV-001, standard: docs/…, decision: …, rationale: …, approved_by: …, date: 2026-01-31 }

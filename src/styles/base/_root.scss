@@ -1,0 +1,92 @@
+// =============================================================================
+// Root custom properties
+// -----------------------------------------------------------------------------
+// Emits every runtime token as a CSS custom property with the --ds- prefix:
+//   --ds-color-*        semantic colors (per theme)
+//   --ds-space-*        spacing scale
+//   --ds-radius-*       radius scale
+//   --ds-font-*         families, sizes, weights
+//   --ds-shadow-*       elevation
+//   --ds-duration-*     motion durations (0ms under reduced motion)
+//   --ds-easing-*       motion curves
+//   --ds-z-*            z-index layers
+// =============================================================================
+
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "../abstracts" as ds;
+@use "../themes";
+
+:root {
+  // Typography
+  --ds-font-family-base: #{meta.inspect(ds.$font-family-base)};
+  --ds-font-family-heading: #{meta.inspect(ds.$font-family-heading)};
+  --ds-font-family-mono: #{meta.inspect(ds.$font-family-mono)};
+  @each $key, $value in ds.$font-sizes {
+    --ds-font-size-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$font-weights {
+    --ds-font-weight-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$line-heights {
+    --ds-line-height-#{$key}: #{$value};
+  }
+
+  // Spacing and shape
+  @each $key, $value in ds.$spacing {
+    --ds-space-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$radii {
+    --ds-radius-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$control-heights {
+    --ds-control-height-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$layout-sizes {
+    --ds-#{$key}: #{$value};
+  }
+
+  // Elevation
+  @each $key, $value in ds.$shadows {
+    --ds-shadow-#{$key}: #{meta.inspect($value)};
+  }
+  @each $key, $value in ds.$z-layers {
+    --ds-z-#{$key}: #{$value};
+  }
+
+  // Motion
+  @each $key, $value in ds.$durations {
+    --ds-duration-#{$key}: #{$value};
+  }
+  @each $key, $value in ds.$easings {
+    --ds-easing-#{$key}: #{$value};
+  }
+}
+
+// Per-language font stacks. Custom properties inherit, so redefining them on
+// any element with a `lang` attribute switches fonts for that subtree.
+@if list.length(map.keys(ds.$font-families-by-lang)) > 0 {
+  :where([lang]) {
+    --ds-font-family-base: #{meta.inspect(ds.$font-family-base)};
+    --ds-font-family-heading: #{meta.inspect(ds.$font-family-heading)};
+    font-family: var(--ds-font-family-base);
+  }
+
+  @each $lang, $stack in ds.$font-families-by-lang {
+    :where(:lang(#{$lang})) {
+      --ds-font-family-base: #{meta.inspect($stack)};
+      --ds-font-family-heading: #{meta.inspect($stack)};
+    }
+  }
+}
+
+@include themes.emit-themes;
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    @each $key, $_ in ds.$durations {
+      --ds-duration-#{$key}: 0ms;
+    }
+  }
+}

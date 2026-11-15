@@ -1,0 +1,25 @@
+// Component styles: only what Bootstrap classes cannot express, tokens only.
+@use "abstracts" as ds;
+
+:host {
+  display: block;
+  block-size: 100%;
+}
+
+// Selected state: a border change (not only color) so it survives forced colors.
+.placeholder-detail--active {
+  border-width: ds.border-width("medium");
+  border-color: ds.color-token("primary");
+}
+
+.placeholder-detail__summary {
+  margin: 0;
+  color: ds.color-token("text-secondary");
+  @include ds.line-clamp(3);
+}
+
+.placeholder-detail__meta {
+  margin: 0;
+  color: ds.color-token("text-tertiary");
+  @include ds.type-role("caption");
+}

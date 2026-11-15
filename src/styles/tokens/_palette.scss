@@ -1,0 +1,47 @@
+// =============================================================================
+// Level 1 — Primitive color tokens
+// -----------------------------------------------------------------------------
+// Raw palettes generated from seed colors in config/_project.scss.
+// Primitives carry NO meaning: never use them directly in components.
+// Map them to semantic tokens in themes/ instead.
+//
+// Access: palette("neutral", 200), palette("primary", 600)
+// =============================================================================
+
+@use "sass:map";
+@use "../config/project";
+@use "../abstracts/color";
+
+$palette-steps: map.keys(color.$palette-lightness);
+
+$palettes: (
+  "neutral": color.generate-palette(project.$neutral-seed),
+  "primary": color.generate-palette(project.$brand-primary),
+  "secondary": color.generate-palette(project.$brand-secondary),
+);
+
+@each $name, $seed in project.$status-seeds {
+  $palettes: map.set($palettes, $name, color.generate-palette($seed));
+}
+
+@each $name, $seed in project.$brand-extra {
+  $palettes: map.set($palettes, $name, color.generate-palette($seed));
+}
+
+// Fixed absolutes, used for on-color decisions and overlays.
+$color-white: #fff;
+$color-black: #000;
+
+/// Read a primitive color.
+/// @param {String} $name - palette name
+/// @param {Number} $step - 50, 100, ... 950
+@function palette($name, $step) {
+  @if not map.has-key($palettes, $name) {
+    @error "Unknown palette `#{$name}`. Available: #{map.keys($palettes)}.";
+  }
+  $p: map.get($palettes, $name);
+  @if not map.has-key($p, $step) {
+    @error "Unknown palette step `#{$step}`. Available: #{$palette-steps}.";
+  }
+  @return map.get($p, $step);
+}

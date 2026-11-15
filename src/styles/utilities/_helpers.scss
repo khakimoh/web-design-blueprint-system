@@ -1,0 +1,21 @@
+// =============================================================================
+// Helper classes — standalone entry only
+// -----------------------------------------------------------------------------
+// With Bootstrap, use its equivalents (.visually-hidden, .text-truncate, …)
+// and add new utilities through the Utility API in
+// vendors/bootstrap/_index.scss instead of writing classes here.
+// =============================================================================
+
+@use "../abstracts" as ds;
+
+.ds-visually-hidden {
+  @include ds.visually-hidden;
+}
+
+.ds-visually-hidden-focusable {
+  @include ds.visually-hidden-focusable;
+}
+
+.ds-truncate {
+  @include ds.truncate;
+}

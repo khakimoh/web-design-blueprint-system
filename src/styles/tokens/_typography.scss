@@ -1,0 +1,82 @@
+// =============================================================================
+// Typography tokens
+// -----------------------------------------------------------------------------
+// Scale: fixed rem steps (1rem = user's browser default, usually 16px).
+// Roles: semantic text styles built from the scale. Components use roles,
+// not raw sizes. Large roles are fluid between a min and max size.
+// Docs: docs/design-system/typography.md
+// =============================================================================
+
+@use "sass:map";
+@use "../config/project";
+
+$font-family-base: project.$font-family-base;
+$font-family-heading: project.$font-family-heading;
+@if $font-family-heading == null {
+  $font-family-heading: project.$font-family-base;
+}
+$font-family-mono: project.$font-family-mono;
+$font-families-by-lang: project.$font-families-by-lang;
+
+// Languages written in cursive (joined) scripts: letter-spacing and
+// text-transform must not be applied to them.
+$cursive-script-langs: ("ar", "fa", "ur", "ps", "ckb");
+
+$font-sizes: map.merge(
+  (
+    "xs": 0.75rem,    // 12px
+    "sm": 0.875rem,   // 14px
+    "md": 1rem,       // 16px
+    "lg": 1.125rem,   // 18px
+    "xl": 1.25rem,    // 20px
+    "2xl": 1.5rem,    // 24px
+    "3xl": 1.875rem,  // 30px
+    "4xl": 2.25rem,   // 36px
+    "5xl": 3rem,      // 48px
+    "6xl": 3.75rem,   // 60px
+  ),
+  project.$font-size-overrides
+);
+
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+);
+
+$line-heights: (
+  "tight": 1.2,    // large headings
+  "snug": 1.35,    // small headings, labels
+  "normal": 1.5,   // body text, UI
+  "relaxed": 1.75, // long-form reading, Arabic-script body text
+);
+
+$letter-spacings: (
+  "tight": -0.015em,
+  "normal": 0,
+  "wide": 0.04em,
+);
+
+// Text roles. `size` is a scale key; `size-min` makes the role fluid between
+// size-min (at the smallest viewport) and size (at the largest container).
+$type-roles: (
+  "display": ("size-min": "4xl", "size": "6xl", "weight": "bold", "line-height": "tight", "letter-spacing": "tight"),
+  "h1": ("size-min": "3xl", "size": "4xl", "weight": "bold", "line-height": "tight", "letter-spacing": "tight"),
+  "h2": ("size-min": "2xl", "size": "3xl", "weight": "semibold", "line-height": "tight", "letter-spacing": "normal"),
+  "h3": ("size-min": "xl", "size": "2xl", "weight": "semibold", "line-height": "snug", "letter-spacing": "normal"),
+  "h4": ("size": "xl", "weight": "semibold", "line-height": "snug", "letter-spacing": "normal"),
+  "h5": ("size": "lg", "weight": "semibold", "line-height": "snug", "letter-spacing": "normal"),
+  "h6": ("size": "md", "weight": "semibold", "line-height": "snug", "letter-spacing": "normal"),
+  "body-lg": ("size": "lg", "weight": "regular", "line-height": "relaxed", "letter-spacing": "normal"),
+  "body": ("size": "md", "weight": "regular", "line-height": "normal", "letter-spacing": "normal"),
+  "body-sm": ("size": "sm", "weight": "regular", "line-height": "normal", "letter-spacing": "normal"),
+  "label": ("size": "sm", "weight": "medium", "line-height": "snug", "letter-spacing": "normal"),
+  "caption": ("size": "xs", "weight": "regular", "line-height": "normal", "letter-spacing": "normal"),
+  "overline": ("size": "xs", "weight": "semibold", "line-height": "snug", "letter-spacing": "wide", "transform": uppercase),
+  "code": ("size": "sm", "weight": "regular", "line-height": "normal", "letter-spacing": "normal", "family": "mono"),
+);
+
+// Viewport range over which fluid roles scale (min -> max size).
+$fluid-type-min-viewport: 20rem;  // 320px
+$fluid-type-max-viewport: 75rem;  // 1200px

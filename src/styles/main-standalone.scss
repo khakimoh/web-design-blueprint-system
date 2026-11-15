@@ -1,0 +1,25 @@
+// =============================================================================
+// Global stylesheet entry — standalone profile (no CSS framework)
+// -----------------------------------------------------------------------------
+// The same tokens, themes and layout primitives without Bootstrap. Use this
+// when a project chooses a different styling strategy (project config:
+// frontend.css_framework: none). The project is then responsible for its own
+// component styles and utilities.
+// Import order is identical to main.scss minus the vendor layer.
+// =============================================================================
+
+@use "base/reset";
+@use "base/root";
+@use "base/global";
+@use "base/headings";
+@use "base/typography";
+
+@use "layout/containers";
+@use "layout/primitives";
+@use "layout/app-shell";
+
+@use "components/empty-state";
+
+@use "utilities/helpers";
+
+@use "project";
